@@ -27,6 +27,7 @@ class OllamaProvider:
         self._base_url = base_url.rstrip("/")
         self._num_ctx = num_ctx
         self._client = client
+        self.request_metrics: list[dict[str, Any]] = []
 
     def _bounded_messages(
         self, messages: Sequence[AgentMessage], max_tokens: int,
@@ -76,6 +77,12 @@ class OllamaProvider:
             content = result["message"]["content"]
             if not isinstance(content, str) or not content.strip() or result.get("done") is not True:
                 raise LlmRequestError("Ollama не вернула завершённый непустой ответ")
+            self.request_metrics.append({
+                key: result[key] for key in (
+                    "total_duration", "load_duration", "prompt_eval_count",
+                    "prompt_eval_duration", "eval_count", "eval_duration", "done_reason",
+                ) if key in result
+            })
             return content, result.get("done_reason")
         except LlmRequestError:
             raise

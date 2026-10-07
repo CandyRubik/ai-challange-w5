@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
+import json
 import logging
 import os
 from typing import Any
@@ -178,7 +179,11 @@ class DeepSeekProvider:
         *,
         messages: Sequence[AgentMessage],
         max_tokens: int = DEFAULT_MAX_TOKENS,
+        schema: dict | None = None,
     ) -> str:
+        if schema is not None:
+            messages = [dict(message) for message in messages]
+            messages[0]["content"] += "\nOUTPUT_JSON_SCHEMA:\n" + json.dumps(schema, ensure_ascii=False)
         thinking_types = ("enabled", "disabled") if self._thinking_enabled else ("disabled",)
         finish_reason = None
         for thinking_type in thinking_types:

@@ -1,0 +1,629 @@
+[
+  {
+    "base_url": "http://127.0.0.1:8768",
+    "session": {
+      "id": "cdfb011f-6f65-447a-bd24-84caddb4bff6",
+      "title": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+      "created_at": "2026-10-07T14:53:50.728455Z",
+      "updated_at": "2026-10-07T15:02:20.529374Z",
+      "provider": "ollama",
+      "state": {
+        "goal": null,
+        "constraints": [],
+        "terms": [],
+        "clarifications": [],
+        "revision": 0
+      },
+      "turns": [
+        {
+          "id": "1eacadb7-9d7b-4086-85d4-e13ee58a3ff3",
+          "session_id": "cdfb011f-6f65-447a-bd24-84caddb4bff6",
+          "position": 1,
+          "content": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+          "answer": "Обработчик задач должен быть потокобезопасным, потому что он может вызываться одновременно для нескольких задач. [DOC:structure-0008]",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "document",
+          "search_question": "Why must the handler in ThreadPerTaskWebServer be thread-safe?",
+          "sources": [
+            {
+              "kind": "document",
+              "chunk_id": "structure-0008",
+              "source": "https://jcip.net/jcip-sample.pdf",
+              "title": "Java Concurrency in Practice — sample chapter",
+              "section": "6.1.2 Explicitly creating threads for tasks",
+              "page_start": 3,
+              "page_end": 3
+            }
+          ],
+          "citations": [
+            {
+              "chunk_id": "structure-0008",
+              "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+            }
+          ],
+          "grounding_status": "answered",
+          "error": null,
+          "created_at": "2026-10-07T14:53:51.279899Z",
+          "updated_at": "2026-10-07T14:54:03.319920Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 3.1333212919998914,
+            "retrieval_seconds": 5.450950291997287,
+            "generation_seconds": 3.4531099169980735,
+            "generation_attempts": 1,
+            "selected_chunk_ids": [
+              "structure-0008",
+              "structure-0007"
+            ],
+            "total_seconds": 12.039227208006196,
+            "ollama_requests": [
+              {
+                "total_duration": 3127886333,
+                "load_duration": 2863458,
+                "prompt_eval_count": 548,
+                "prompt_eval_duration": 1318579000,
+                "eval_count": 70,
+                "eval_duration": 1794616000,
+                "done_reason": "stop"
+              },
+              {
+                "total_duration": 3448617375,
+                "load_duration": 3594500,
+                "prompt_eval_count": 927,
+                "prompt_eval_duration": 1308880000,
+                "eval_count": 81,
+                "eval_duration": 2075043999,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "e7744d4d-a756-42da-82a6-95529824ef14",
+          "session_id": "cdfb011f-6f65-447a-bd24-84caddb4bff6",
+          "position": 2,
+          "content": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+          "answer": "Код обработки задач должен быть потокобезопасным, потому что он может вызываться одновременно для нескольких задач. [DOC:structure-0008]\nThreadPerTaskWebServer создаёт новый поток для обслуживания каждого запроса, что позволяет обрабатывать задачи параллельно. [DOC:structure-0007]",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "document",
+          "search_question": "Why must the ThreadPerTaskWebServer task handler be thread-safe?",
+          "sources": [
+            {
+              "kind": "document",
+              "chunk_id": "structure-0008",
+              "source": "https://jcip.net/jcip-sample.pdf",
+              "title": "Java Concurrency in Practice — sample chapter",
+              "section": "6.1.2 Explicitly creating threads for tasks",
+              "page_start": 3,
+              "page_end": 3
+            },
+            {
+              "kind": "document",
+              "chunk_id": "structure-0007",
+              "source": "https://jcip.net/jcip-sample.pdf",
+              "title": "Java Concurrency in Practice — sample chapter",
+              "section": "6.1.2 Explicitly creating threads for tasks",
+              "page_start": 3,
+              "page_end": 3
+            }
+          ],
+          "citations": [
+            {
+              "chunk_id": "structure-0008",
+              "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+            },
+            {
+              "chunk_id": "structure-0007",
+              "quote": "A more responsive approach is to create a new thread for ser vicing each request, as shown in ThreadPerTaskWebServer in Listing 6.2."
+            },
+            {
+              "chunk_id": "structure-0007",
+              "quote": " Tasks can be processed in parallel, enabling multiple requests to"
+            }
+          ],
+          "grounding_status": "answered",
+          "error": null,
+          "created_at": "2026-10-07T14:55:17.181191Z",
+          "updated_at": "2026-10-07T14:55:20.983601Z",
+          "provider": "deepseek",
+          "model": "deepseek-v4-flash",
+          "metrics": {
+            "interpretation_seconds": 1.775978749996284,
+            "retrieval_seconds": 0.3122828330087941,
+            "generation_seconds": 1.7117315840005176,
+            "generation_attempts": 1,
+            "selected_chunk_ids": [
+              "structure-0008",
+              "structure-0007"
+            ],
+            "total_seconds": 3.8015415420086356,
+            "ollama_requests": []
+          }
+        },
+        {
+          "id": "777c8b69-21d6-4c95-bf5a-220138ebfe07",
+          "session_id": "cdfb011f-6f65-447a-bd24-84caddb4bff6",
+          "position": 3,
+          "content": "Как в этой главе работает Java StructuredTaskScope?",
+          "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "document",
+          "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+          "sources": [],
+          "citations": [],
+          "grounding_status": "insufficient_context",
+          "error": null,
+          "created_at": "2026-10-07T15:02:13.327854Z",
+          "updated_at": "2026-10-07T15:02:20.529374Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 2.2181250419962453,
+            "retrieval_seconds": 4.980964874994243,
+            "generation_seconds": 0,
+            "generation_attempts": 0,
+            "selected_chunk_ids": [],
+            "total_seconds": 7.20048158300051,
+            "ollama_requests": [
+              {
+                "total_duration": 2213072542,
+                "load_duration": 2821833,
+                "prompt_eval_count": 961,
+                "prompt_eval_duration": 968945000,
+                "eval_count": 42,
+                "eval_duration": 1224950000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "base_url": "http://127.0.0.1:8769",
+    "session": {
+      "id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+      "title": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+      "created_at": "2026-10-07T14:58:51.716254Z",
+      "updated_at": "2026-10-07T15:05:27.888775Z",
+      "provider": "ollama",
+      "state": {
+        "goal": {
+          "key": "goal",
+          "value": "Объяснить Executor новичку",
+          "source_message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd"
+        },
+        "constraints": [
+          {
+            "key": "length",
+            "value": "Подробно",
+            "source_message_id": "79697f44-47b6-431b-832d-db815d9745d9"
+          }
+        ],
+        "terms": [],
+        "clarifications": [],
+        "revision": 2
+      },
+      "turns": [
+        {
+          "id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 1,
+          "content": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+          "answer": "Уточнение сохранено.",
+          "status": "done",
+          "kind": "statement",
+          "question_scope": "document",
+          "search_question": "",
+          "sources": [
+            {
+              "kind": "message",
+              "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+              "title": "Сообщение пользователя · уточнение"
+            }
+          ],
+          "citations": [],
+          "grounding_status": "statement",
+          "error": null,
+          "created_at": "2026-10-07T14:58:51.720222Z",
+          "updated_at": "2026-10-07T14:58:55.816892Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 4.094567249994725,
+            "retrieval_seconds": 0,
+            "generation_seconds": 0,
+            "generation_attempts": 0,
+            "total_seconds": 4.095870499993907,
+            "ollama_requests": [
+              {
+                "total_duration": 4089215042,
+                "load_duration": 2949250,
+                "prompt_eval_count": 1018,
+                "prompt_eval_duration": 1248819000,
+                "eval_count": 107,
+                "eval_duration": 2820724000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "70df792a-44d9-4b85-8d8f-fdd76a90e470",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 2,
+          "content": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+          "answer": "Обработчик задач должен быть потокобезопасным, так как код обработки задач может вызываться одновременно для нескольких задач. [DOC:structure-0008]\nПодход с одним потоком на задачу обеспечивает лучшую отзывчивость и пропускную способность, позволяя обрабатывать несколько запросов параллельно. [DOC:structure-0007] [DOC:structure-0008]",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "document",
+          "search_question": "Why must the ThreadPerTaskWebServer request handler be thread-safe?",
+          "sources": [
+            {
+              "kind": "document",
+              "chunk_id": "structure-0008",
+              "source": "https://jcip.net/jcip-sample.pdf",
+              "title": "Java Concurrency in Practice — sample chapter",
+              "section": "6.1.2 Explicitly creating threads for tasks",
+              "page_start": 3,
+              "page_end": 3
+            },
+            {
+              "kind": "document",
+              "chunk_id": "structure-0007",
+              "source": "https://jcip.net/jcip-sample.pdf",
+              "title": "Java Concurrency in Practice — sample chapter",
+              "section": "6.1.2 Explicitly creating threads for tasks",
+              "page_start": 3,
+              "page_end": 3
+            }
+          ],
+          "citations": [
+            {
+              "chunk_id": "structure-0008",
+              "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+            },
+            {
+              "chunk_id": "structure-0007",
+              "quote": "This enables new connections to be accepted before previous requests complete, improving responsiveness."
+            },
+            {
+              "chunk_id": "structure-0008",
+              "quote": "As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput."
+            }
+          ],
+          "grounding_status": "answered",
+          "error": null,
+          "created_at": "2026-10-07T14:58:55.822094Z",
+          "updated_at": "2026-10-07T14:59:10.145283Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 2.898967833010829,
+            "retrieval_seconds": 5.468726958002662,
+            "generation_seconds": 5.952924375000293,
+            "generation_attempts": 1,
+            "selected_chunk_ids": [
+              "structure-0008",
+              "structure-0007"
+            ],
+            "total_seconds": 14.32246379199205,
+            "ollama_requests": [
+              {
+                "total_duration": 2894244833,
+                "load_duration": 1691375,
+                "prompt_eval_count": 1154,
+                "prompt_eval_duration": 1556563000,
+                "eval_count": 51,
+                "eval_duration": 1330859000,
+                "done_reason": "stop"
+              },
+              {
+                "total_duration": 5947839125,
+                "load_duration": 2207959,
+                "prompt_eval_count": 1010,
+                "prompt_eval_duration": 1339026000,
+                "eval_count": 165,
+                "eval_duration": 4466423000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "79697f44-47b6-431b-832d-db815d9745d9",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 3,
+          "content": "Нет, отвечай подробно.",
+          "answer": "Уточнение сохранено.",
+          "status": "done",
+          "kind": "statement",
+          "question_scope": "document",
+          "search_question": "",
+          "sources": [
+            {
+              "kind": "message",
+              "message_id": "79697f44-47b6-431b-832d-db815d9745d9",
+              "title": "Сообщение пользователя · уточнение"
+            }
+          ],
+          "citations": [],
+          "grounding_status": "statement",
+          "error": null,
+          "created_at": "2026-10-07T14:59:10.149736Z",
+          "updated_at": "2026-10-07T14:59:13.244652Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 3.092715250008041,
+            "retrieval_seconds": 0,
+            "generation_seconds": 0,
+            "generation_attempts": 0,
+            "total_seconds": 3.0941734590014676,
+            "ollama_requests": [
+              {
+                "total_duration": 3087496500,
+                "load_duration": 985792,
+                "prompt_eval_count": 1259,
+                "prompt_eval_duration": 1647298000,
+                "eval_count": 53,
+                "eval_duration": 1424055000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "ff37521b-8bb7-49ef-b62e-d5207aeaba0c",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 4,
+          "content": "Какую цель мы зафиксировали?",
+          "answer": "Цель: Объяснить Executor новичку",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "goal",
+          "search_question": "What is the current active goal for explaining Executor?",
+          "sources": [
+            {
+              "kind": "message",
+              "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+              "title": "Сообщение пользователя · goal"
+            }
+          ],
+          "citations": [],
+          "grounding_status": "state",
+          "error": null,
+          "created_at": "2026-10-07T14:59:13.249178Z",
+          "updated_at": "2026-10-07T14:59:16.036575Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 2.4714736249879934,
+            "retrieval_seconds": 0.31399812499876134,
+            "generation_seconds": 0,
+            "generation_attempts": 0,
+            "selected_chunk_ids": [
+              "structure-0015"
+            ],
+            "total_seconds": 2.786790167010622,
+            "ollama_requests": [
+              {
+                "total_duration": 2466523250,
+                "load_duration": 911333,
+                "prompt_eval_count": 1287,
+                "prompt_eval_duration": 1438886000,
+                "eval_count": 39,
+                "eval_duration": 1020871000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "a5690a84-3172-445c-a257-9b0b6becbd36",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 5,
+          "content": "Как в этой главе работает Java StructuredTaskScope?",
+          "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "document",
+          "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+          "sources": [],
+          "citations": [],
+          "grounding_status": "insufficient_context",
+          "error": null,
+          "created_at": "2026-10-07T14:59:16.040026Z",
+          "updated_at": "2026-10-07T14:59:19.197474Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 2.8409041249979055,
+            "retrieval_seconds": 0.3147595420014113,
+            "generation_seconds": 0,
+            "generation_attempts": 0,
+            "selected_chunk_ids": [],
+            "total_seconds": 3.156649208001909,
+            "ollama_requests": [
+              {
+                "total_duration": 2836067750,
+                "load_duration": 2836833,
+                "prompt_eval_count": 1316,
+                "prompt_eval_duration": 1432351000,
+                "eval_count": 50,
+                "eval_duration": 1384522000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "39565195-1001-42c6-a2e3-382753d1e48d",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 6,
+          "content": "Какую цель мы зафиксировали?",
+          "answer": "Цель: Объяснить Executor новичку",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "goal",
+          "search_question": "What is the current active goal for explaining Executor to a beginner?",
+          "sources": [
+            {
+              "kind": "message",
+              "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+              "title": "Сообщение пользователя · goal"
+            }
+          ],
+          "citations": [],
+          "grounding_status": "state",
+          "error": null,
+          "created_at": "2026-10-07T15:01:19.304653Z",
+          "updated_at": "2026-10-07T15:01:27.415678Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 2.6640397500013933,
+            "retrieval_seconds": 5.444979374995455,
+            "generation_seconds": 0,
+            "generation_attempts": 0,
+            "selected_chunk_ids": [],
+            "total_seconds": 8.110317375001614,
+            "ollama_requests": [
+              {
+                "total_duration": 2658765708,
+                "load_duration": 2005416,
+                "prompt_eval_count": 1323,
+                "prompt_eval_duration": 1503368000,
+                "eval_count": 42,
+                "eval_duration": 1123256000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "00bc3d20-3b2e-453c-a227-a26a7e4e2316",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 7,
+          "content": "Как в этой главе работает Java StructuredTaskScope?",
+          "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "document",
+          "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+          "sources": [],
+          "citations": [],
+          "grounding_status": "insufficient_context",
+          "error": null,
+          "created_at": "2026-10-07T15:01:27.419459Z",
+          "updated_at": "2026-10-07T15:01:30.298822Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 2.564310707995901,
+            "retrieval_seconds": 0.31279616699612234,
+            "generation_seconds": 0,
+            "generation_attempts": 0,
+            "selected_chunk_ids": [],
+            "total_seconds": 2.8785294580011396,
+            "ollama_requests": [
+              {
+                "total_duration": 2558646292,
+                "load_duration": 3415875,
+                "prompt_eval_count": 1235,
+                "prompt_eval_duration": 1172654000,
+                "eval_count": 50,
+                "eval_duration": 1365804000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        },
+        {
+          "id": "05d02c6b-8082-4944-a063-b2b0d433556a",
+          "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+          "position": 8,
+          "content": "Что делает пример с рекламой, если timed Future.get не успел вернуть результат?",
+          "answer": "Если timed Future.get не успел вернуть результат, задача по загрузке рекламы отменяется. [DOC:structure-0057]\nВместо недоступной рекламы используется реклама по умолчанию. [DOC:structure-0056] [DOC:structure-0057]",
+          "status": "done",
+          "kind": "question",
+          "question_scope": "document",
+          "search_question": "What does the advertisement example do if timed Future.get did not return a result?",
+          "sources": [
+            {
+              "kind": "document",
+              "chunk_id": "structure-0057",
+              "source": "https://jcip.net/jcip-sample.pdf",
+              "title": "Java Concurrency in Practice — sample chapter",
+              "section": "6.3.7 Placing time limits on tasks",
+              "page_start": 19,
+              "page_end": 19
+            },
+            {
+              "kind": "document",
+              "chunk_id": "structure-0056",
+              "source": "https://jcip.net/jcip-sample.pdf",
+              "title": "Java Concurrency in Practice — sample chapter",
+              "section": "6.3.7 Placing time limits on tasks",
+              "page_start": 19,
+              "page_end": 19
+            }
+          ],
+          "citations": [
+            {
+              "chunk_id": "structure-0057",
+              "quote": "It submits the ad-fetching task to an executor, com- putes the rest of the page content, and then waits for the ad until its time budget runs out.8 If the get times out, it cancels9 the ad-fetching task and uses a default advertisement instead."
+            },
+            {
+              "chunk_id": "structure-0056",
+              "quote": "For example, a web application may fetch its advertisements from an external ad server, but if the ad is not available within two seconds, it instead displays a default advertisement so that ad unavailability does not under mine the site’s responsiveness requirements."
+            }
+          ],
+          "grounding_status": "answered",
+          "error": null,
+          "created_at": "2026-10-07T15:05:16.926204Z",
+          "updated_at": "2026-10-07T15:05:27.888775Z",
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M",
+          "metrics": {
+            "interpretation_seconds": 3.0150764160061954,
+            "retrieval_seconds": 0.44857862500066403,
+            "generation_seconds": 7.496457457993529,
+            "generation_attempts": 1,
+            "selected_chunk_ids": [
+              "structure-0056",
+              "structure-0060",
+              "structure-0057"
+            ],
+            "total_seconds": 10.961706208006945,
+            "ollama_requests": [
+              {
+                "total_duration": 3009454667,
+                "load_duration": 3008167,
+                "prompt_eval_count": 1258,
+                "prompt_eval_duration": 1628424000,
+                "eval_count": 53,
+                "eval_duration": 1364451000,
+                "done_reason": "stop"
+              },
+              {
+                "total_duration": 7490715333,
+                "load_duration": 3151208,
+                "prompt_eval_count": 1507,
+                "prompt_eval_duration": 3698658000,
+                "eval_count": 137,
+                "eval_duration": 3703038000,
+                "done_reason": "stop"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

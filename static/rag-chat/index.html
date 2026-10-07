@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="RAG-чат с источниками и памятью задачи" />
+    <title>RAG-чат · AI Challenge W5</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/rag-chat/styles.css" />
+    <script src="/rag-chat/app.js" defer></script>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sessions-panel">
+        <a class="back-link" href="/">← Основной чат</a>
+        <div class="brand"><span class="brand-mark">✦</span><div><strong>RAG-чат</strong><small>День 28 · AI Challenge W5</small></div></div>
+        <button id="new-chat" class="new-chat" type="button">＋ Новый RAG-чат</button>
+        <p class="panel-label">ДИАЛОГИ</p>
+        <nav id="sessions" aria-label="Список RAG-чатов"></nav>
+        <div class="corpus-card">
+          <span class="corpus-dot" aria-hidden="true"></span>
+          <div><strong>База знаний</strong><p>Java Concurrency in Practice · глава 6</p><small id="index-status">Проверяю индекс…</small></div>
+        </div>
+      </aside>
+
+      <main class="conversation">
+        <header class="conversation-header">
+          <div><span class="eyebrow">ДИАЛОГ С ИСТОЧНИКАМИ</span><h1 id="chat-title">Новый RAG-чат</h1></div>
+          <div class="header-controls">
+            <label class="model-label" for="model-select">Модель ответа</label>
+            <select id="model-select" aria-label="Модель для следующих сообщений"></select>
+            <span id="model-status" role="status">Проверяю модели…</span>
+            <span id="status" role="status">Готово</span>
+          </div>
+        </header>
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <form id="composer">
+          <label for="message-input">Ваш вопрос или уточнение</label>
+          <textarea id="message-input" rows="3" maxlength="12000" placeholder="Например: моя цель — разобраться в Executor. Чем он полезен?" required></textarea>
+          <div class="composer-footer"><span>Каждый вопрос ищет контекст в книге. Ответ показывает источники.</span><button id="send-button" type="submit">Отправить →</button></div>
+        </form>
+      </main>
+
+      <aside class="state-panel" aria-label="Память задачи">
+        <div class="state-heading"><span class="eyebrow">ПАМЯТЬ ЗАДАЧИ</span><span id="state-revision">v0</span></div>
+        <p class="state-intro">Здесь остаются ваши цель и уточнения, даже когда старые сообщения выходят из окна ответа.</p>
+        <section><h2>Цель</h2><div id="state-goal"></div></section>
+        <section><h2>Ограничения</h2><div id="state-constraints"></div></section>
+        <section><h2>Термины</h2><div id="state-terms"></div></section>
+        <section><h2>Уточнения</h2><div id="state-clarifications"></div></section>
+        <p class="state-hint">Чтобы исправить запись, напишите об этом в чате.</p>
+      </aside>
+    </div>
+  </body>
+</html>

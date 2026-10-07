@@ -27,10 +27,12 @@ calling, доступа к файлам, репозиторию, shell или о
 - input/output policy для ограничения пользовательского ввода и ответа;
 - выбор локальной Qwen через Ollama или облачного DeepSeek в каждом чате;
 - выбранная модель обслуживает ответы, интервью, память и этапы задач;
+- отдельный RAG-чат по локальному PDF: E5, FAISS, reranker и Qwen через Ollama;
+- проверенные дословные цитаты, локальные ссылки на PDF и время каждого ответа;
 - сохранение провайдера и модели хода для восстановления после ошибки;
 - тесты backend, provider и frontend syntax check в CI.
 
-Benchmark, runtime debug-настройки, multi-agent логика, workflow-интеграции и
+Runtime debug-настройки, multi-agent логика, workflow-интеграции и
 инструменты работы с кодом в проект не входят.
 
 ## Запуск
@@ -129,10 +131,86 @@ python scripts/smoke_local_llm.py
 Для видео с выключенным интернетом заранее загрузите веса, выберите локальную
 модель и отправьте новый вопрос; подключения к облачным моделям не требуются.
 
+### День 28: локальная LLM и RAG
+
+Откройте [RAG-чат](http://127.0.0.1:8000/rag-chat/) по ссылке из основного
+чата. По умолчанию весь ход выполняется локально: Qwen формирует самостоятельный
+поисковый вопрос, E5 и FAISS находят фрагменты, локальный cross-encoder отбирает
+источники, а Qwen формирует ответ. DeepSeek включается только явным выбором.
+Модель хода сохраняется до первого вызова и используется при повторе после
+ошибки или перезапуска. Выбор для следующих сообщений можно менять во время ответа.
+
+Подготовьте зависимости и скопируйте уже построенный индекс с весами из W4:
+
+```bash
+pip install -r requirements-indexing.txt
+python scripts/prepare_local_rag.py --source ../ai-challange-w4
+```
+
+Скрипт копирует PDF, обе стратегии индекса и реальные файлы snapshot моделей
+в `data/`, проверяет SHA-256 и не обращается к сети. Соседний проект нужен только
+для этой подготовки; приложение после неё использует собственную копию.
+Веса, локальные базы и PDF не входят в Git. Модели embeddings и reranker
+загружаются с `local_files_only=True`; автоматического скачивания нет.
+
+Если индекса W4 и кэша на новом компьютере нет, первоначальную подготовку можно
+выполнить с интернетом. Установите зависимости, скачайте официальный sample PDF
+и те же веса. Команда `hf download --local-dir` описана в
+[документации Hugging Face](https://huggingface.co/docs/huggingface_hub/guides/cli).
+Зафиксированные revisions соответствуют использованному индексу W4:
+
+```bash
+mkdir -p data/documents
+curl --fail --location https://jcip.net/jcip-sample.pdf -o data/documents/jcip-sample.pdf
+HF_HUB_OFFLINE=0 hf download intfloat/multilingual-e5-small \
+  --revision 614241f622f53c4eeff9890bdc4f31cfecc418b3 --local-dir data/models/e5
+HF_HUB_OFFLINE=0 hf download cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 \
+  --revision 1427fd652930e4ba29e8149678df786c240d8825 --local-dir data/models/reranker
+HF_HUB_OFFLINE=1 python -c 'from app.indexing.store import DocumentIndex; DocumentIndex().ensure_built()'
+```
+
+Это строит новый индекс локально; его версия отличается от зафиксированного
+прогона. Сохранённый индекс W4 нельзя использовать с другой моделью embeddings.
+Ollama и Qwen подготовьте по инструкции выше. Запустите обычный сервер и
+задайте, например: `Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?`
+
+Для проверки с запретом внешних соединений backend и без облачного ключа:
+
+```bash
+python scripts/run_rag_offline.py --port 8769 --db /tmp/day28-offline.sqlite3
+```
+
+Откройте <http://127.0.0.1:8769/rag-chat/>. Скрипт оставляет только loopback
+соединения, отключает облачный ключ и записывает сетевой отчёт в
+`docs/day28-artifacts/offline-network.json`. Он не меняет сеть компьютера.
+Копия PDF открывается локально через `/api/document-index/source#page=N`.
+
+Сравнение десяти вопросов, по три повтора на модель, использует одинаковые
+локальные фрагменты, общие инструкции и пустую историю. Ключ DeepSeek скрипт
+читает из `.env`; для варианта без облака задайте `--providers ollama`:
+
+```bash
+python scripts/run_day28_evaluation.py
+python scripts/measure_rag_cold_start.py  # выгружает и снова загружает локальную Qwen
+python scripts/smoke_local_rag.py --base-url http://127.0.0.1:8769
+python scripts/build_day28_video.py  # нужны ffmpeg и rsvg-convert
+```
+
+[Результаты и ограничения](docs/day28-local-rag.md),
+[полный отчёт](docs/day28-artifacts/evaluation.json),
+[видео настоящего интерфейса](docs/day28-artifacts/day28-demo.mp4).
+
 ## API
 
 - `GET /api/health` — состояние backend и наличие ключа DeepSeek;
 - `GET /api/models` — настроенные модели и доступность локальных весов/ключа;
+- `GET /api/document-index/status` — состояние локального индекса;
+- `GET /api/document-index/source` — локальная копия PDF;
+- `/api/rag-chat/sessions` — создание и список RAG-чатов;
+- `/api/rag-chat/sessions/{id}` — чтение и удаление RAG-чата;
+- `PUT /api/rag-chat/sessions/{id}/model` — модель следующих сообщений;
+- `POST /api/rag-chat/sessions/{id}/turns` — новый ход с необязательным `provider`;
+- `POST /api/rag-chat/sessions/{id}/turns/{turn_id}/retry` — повтор исходной моделью;
 - `GET /api/invariants` — общие правила ответов;
 - `PUT /api/invariants` — сохранить правила с актуальной `revision`;
 - `GET /api/profiles` — список профилей;
@@ -351,4 +429,5 @@ SQLite автоматически получает новую таблицу `ch
 python -m pytest -q
 python -m compileall -q app tests
 node --check static/app.js
+node --check static/rag-chat/app.js
 ```

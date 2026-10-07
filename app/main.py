@@ -6,10 +6,19 @@ from pathlib import Path
 from typing import Literal
 
 from fastapi import Depends, FastAPI, HTTPException, Response
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from .agents.agent import AgentInputError, AgentOutputError
+from .agents.agent import Agent, AgentInputError, AgentOutputError
+from .indexing.corpus import DEFAULT_PDF
+from .indexing.rag import DocumentRag, RetrievalSettings
+from .indexing.rerank import LocalCrossEncoderReranker
+from .indexing.store import DEFAULT_INDEX_DIR, DocumentIndex, DocumentIndexError
+from .rag_chat.models import RagCreateRequest, RagSendRequest, RagSession, RagSessionSummary, RagTurn
+from .rag_chat.service import GROUNDING_SYSTEM_PROMPT, RagChatService
+from .rag_chat.state import TurnInterpreter
+from .rag_chat.store import RagChatNotFound, RagTurnConflict, SQLiteRagChatRepository
 from .invariants import (
     InvariantSnapshot, InvariantUpdateRequest, InvariantSettingsConflict,
     SQLiteInvariantRepository,
@@ -151,6 +160,7 @@ def health() -> dict[str, bool | str]:
     return {
         "status": "ok",
         "deepseek_configured": bool(os.getenv("DEEPSEEK_API_KEY")),
+        "network_mode": os.getenv("RAG_NETWORK_MODE", "normal"),
     }
 
 
@@ -398,6 +408,110 @@ def task_action(
         raise HTTPException(status_code=502, detail=str(error)) from None
     except LlmConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from None
+
+
+@lru_cache(maxsize=1)
+def get_document_index() -> DocumentIndex:
+    return DocumentIndex(
+        root=Path(os.getenv("DOCUMENT_INDEX_DIR", str(DEFAULT_INDEX_DIR))),
+        pdf_path=Path(os.getenv("DOCUMENT_PDF_PATH", str(DEFAULT_PDF))),
+    )
+
+
+@lru_cache(maxsize=1)
+def get_document_reranker() -> LocalCrossEncoderReranker:
+    return LocalCrossEncoderReranker()
+
+
+@lru_cache(maxsize=1)
+def get_rag_chat_service() -> RagChatService:
+    registry = get_model_registry()
+    model = registry.build(registry.resolve("ollama"))
+    return RagChatService(
+        SQLiteRagChatRepository(os.getenv("CHAT_DB_PATH") or str(DEFAULT_CHAT_DB_PATH)),
+        TurnInterpreter(model),
+        DocumentRag(get_document_index(), model, reranker=get_document_reranker(),
+                    settings=RetrievalSettings(rewrite=False)),
+        Agent(model, system_prompt=GROUNDING_SYSTEM_PROMPT, max_tokens=3_000),
+        model_registry=registry,
+    )
+
+
+@app.get("/api/document-index/status")
+def document_index_status() -> dict:
+    try:
+        return get_document_index().status()
+    except DocumentIndexError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from None
+
+
+@app.get("/api/document-index/source")
+def document_source() -> FileResponse:
+    path = get_document_index().pdf_path
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="Локальная копия PDF не найдена")
+    return FileResponse(path, media_type="application/pdf")
+
+
+@app.post("/api/rag-chat/sessions", response_model=RagSession, status_code=201)
+def create_rag_chat(request: RagCreateRequest | None = None,
+                    service: RagChatService = Depends(get_rag_chat_service)) -> RagSession:
+    return service.create(request.provider if request else None)
+
+
+@app.get("/api/rag-chat/sessions", response_model=list[RagSessionSummary])
+def list_rag_chats(service: RagChatService = Depends(get_rag_chat_service)) -> list[RagSessionSummary]:
+    return service.list()
+
+
+@app.get("/api/rag-chat/sessions/{session_id}", response_model=RagSession)
+def get_rag_chat(session_id: str, service: RagChatService = Depends(get_rag_chat_service)) -> RagSession:
+    try:
+        return service.get(session_id)
+    except RagChatNotFound:
+        raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+
+
+@app.put("/api/rag-chat/sessions/{session_id}/model", response_model=RagSession)
+def set_rag_model(session_id: str, request: ChatModelUpdateRequest,
+                  service: RagChatService = Depends(get_rag_chat_service)) -> RagSession:
+    try:
+        return service.set_provider(session_id, request.provider)
+    except RagChatNotFound:
+        raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+
+
+@app.delete("/api/rag-chat/sessions/{session_id}", status_code=204)
+def delete_rag_chat(session_id: str, service: RagChatService = Depends(get_rag_chat_service)) -> Response:
+    try:
+        service.delete(session_id)
+    except RagChatNotFound:
+        raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+    return Response(status_code=204)
+
+
+@app.post("/api/rag-chat/sessions/{session_id}/turns", response_model=RagTurn)
+def send_rag_chat_turn(session_id: str, request: RagSendRequest,
+                       service: RagChatService = Depends(get_rag_chat_service)) -> RagTurn:
+    try:
+        return service.send(session_id, request.content, request.provider)
+    except RagChatNotFound:
+        raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+    except RagTurnConflict as error:
+        raise HTTPException(status_code=409, detail=str(error)) from None
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
+
+
+@app.post("/api/rag-chat/sessions/{session_id}/turns/{turn_id}/retry", response_model=RagTurn)
+def retry_rag_chat_turn(session_id: str, turn_id: str,
+                        service: RagChatService = Depends(get_rag_chat_service)) -> RagTurn:
+    try:
+        return service.retry(session_id, turn_id)
+    except RagChatNotFound:
+        raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+    except RagTurnConflict as error:
+        raise HTTPException(status_code=409, detail=str(error)) from None
 
 
 STATIC_ROOT = Path(__file__).resolve().parents[1] / "static"

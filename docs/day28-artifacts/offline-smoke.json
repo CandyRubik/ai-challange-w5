@@ -1,0 +1,1181 @@
+{
+  "base_url": "http://127.0.0.1:8769",
+  "real_llm": true,
+  "records": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "elapsed_seconds": 0.01086045899137389,
+      "response": {
+        "status": "ok",
+        "deepseek_configured": false
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/models",
+      "elapsed_seconds": 0.018642333001480438,
+      "response": {
+        "default_provider": "ollama",
+        "providers": [
+          {
+            "id": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "label": "Локальная",
+            "available": true,
+            "detail": "Локальная модель готова"
+          },
+          {
+            "id": "deepseek",
+            "model": "deepseek-v4-flash",
+            "label": "DeepSeek",
+            "available": false,
+            "detail": "DEEPSEEK_API_KEY не задан"
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/rag-chat/sessions",
+      "elapsed_seconds": 0.004465624995646067,
+      "response": {
+        "id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "title": "Новый RAG-чат",
+        "created_at": "2026-10-07T14:58:51.716254Z",
+        "updated_at": "2026-10-07T14:58:51.716254Z",
+        "provider": "ollama",
+        "state": {
+          "goal": null,
+          "constraints": [],
+          "terms": [],
+          "clarifications": [],
+          "revision": 0
+        },
+        "turns": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc/turns",
+      "elapsed_seconds": 4.099555584005429,
+      "response": {
+        "id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 1,
+        "content": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+        "answer": "Уточнение сохранено.",
+        "status": "done",
+        "kind": "statement",
+        "question_scope": "document",
+        "search_question": "",
+        "sources": [
+          {
+            "kind": "message",
+            "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+            "title": "Сообщение пользователя · уточнение"
+          }
+        ],
+        "citations": [],
+        "grounding_status": "statement",
+        "error": null,
+        "created_at": "2026-10-07T14:58:51.720222Z",
+        "updated_at": "2026-10-07T14:58:55.816892Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.094567249994725,
+          "retrieval_seconds": 0,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "total_seconds": 4.095870499993907,
+          "ollama_requests": [
+            {
+              "total_duration": 4089215042,
+              "load_duration": 2949250,
+              "prompt_eval_count": 1018,
+              "prompt_eval_duration": 1248819000,
+              "eval_count": 107,
+              "eval_duration": 2820724000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc",
+      "elapsed_seconds": 0.0016439579922007397,
+      "response": {
+        "id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "title": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+        "created_at": "2026-10-07T14:58:51.716254Z",
+        "updated_at": "2026-10-07T14:58:55.816892Z",
+        "provider": "ollama",
+        "state": {
+          "goal": {
+            "key": "goal",
+            "value": "Объяснить Executor новичку",
+            "source_message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd"
+          },
+          "constraints": [
+            {
+              "key": "length",
+              "value": "Кратко",
+              "source_message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd"
+            }
+          ],
+          "terms": [],
+          "clarifications": [],
+          "revision": 1
+        },
+        "turns": [
+          {
+            "id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 1,
+            "content": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+            "answer": "Уточнение сохранено.",
+            "status": "done",
+            "kind": "statement",
+            "question_scope": "document",
+            "search_question": "",
+            "sources": [
+              {
+                "kind": "message",
+                "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+                "title": "Сообщение пользователя · уточнение"
+              }
+            ],
+            "citations": [],
+            "grounding_status": "statement",
+            "error": null,
+            "created_at": "2026-10-07T14:58:51.720222Z",
+            "updated_at": "2026-10-07T14:58:55.816892Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 4.094567249994725,
+              "retrieval_seconds": 0,
+              "generation_seconds": 0,
+              "generation_attempts": 0,
+              "total_seconds": 4.095870499993907,
+              "ollama_requests": [
+                {
+                  "total_duration": 4089215042,
+                  "load_duration": 2949250,
+                  "prompt_eval_count": 1018,
+                  "prompt_eval_duration": 1248819000,
+                  "eval_count": 107,
+                  "eval_duration": 2820724000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc/turns",
+      "elapsed_seconds": 14.327082708012313,
+      "response": {
+        "id": "70df792a-44d9-4b85-8d8f-fdd76a90e470",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 2,
+        "content": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+        "answer": "Обработчик задач должен быть потокобезопасным, так как код обработки задач может вызываться одновременно для нескольких задач. [DOC:structure-0008]\nПодход с одним потоком на задачу обеспечивает лучшую отзывчивость и пропускную способность, позволяя обрабатывать несколько запросов параллельно. [DOC:structure-0007] [DOC:structure-0008]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why must the ThreadPerTaskWebServer request handler be thread-safe?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0008",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.1.2 Explicitly creating threads for tasks",
+            "page_start": 3,
+            "page_end": 3
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0007",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.1.2 Explicitly creating threads for tasks",
+            "page_start": 3,
+            "page_end": 3
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0008",
+            "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+          },
+          {
+            "chunk_id": "structure-0007",
+            "quote": "This enables new connections to be accepted before previous requests complete, improving responsiveness."
+          },
+          {
+            "chunk_id": "structure-0008",
+            "quote": "As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-07T14:58:55.822094Z",
+        "updated_at": "2026-10-07T14:59:10.145283Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 2.898967833010829,
+          "retrieval_seconds": 5.468726958002662,
+          "generation_seconds": 5.952924375000293,
+          "generation_attempts": 1,
+          "selected_chunk_ids": [
+            "structure-0008",
+            "structure-0007"
+          ],
+          "total_seconds": 14.32246379199205,
+          "ollama_requests": [
+            {
+              "total_duration": 2894244833,
+              "load_duration": 1691375,
+              "prompt_eval_count": 1154,
+              "prompt_eval_duration": 1556563000,
+              "eval_count": 51,
+              "eval_duration": 1330859000,
+              "done_reason": "stop"
+            },
+            {
+              "total_duration": 5947839125,
+              "load_duration": 2207959,
+              "prompt_eval_count": 1010,
+              "prompt_eval_duration": 1339026000,
+              "eval_count": 165,
+              "eval_duration": 4466423000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc/turns",
+      "elapsed_seconds": 3.0978447919915197,
+      "response": {
+        "id": "79697f44-47b6-431b-832d-db815d9745d9",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 3,
+        "content": "Нет, отвечай подробно.",
+        "answer": "Уточнение сохранено.",
+        "status": "done",
+        "kind": "statement",
+        "question_scope": "document",
+        "search_question": "",
+        "sources": [
+          {
+            "kind": "message",
+            "message_id": "79697f44-47b6-431b-832d-db815d9745d9",
+            "title": "Сообщение пользователя · уточнение"
+          }
+        ],
+        "citations": [],
+        "grounding_status": "statement",
+        "error": null,
+        "created_at": "2026-10-07T14:59:10.149736Z",
+        "updated_at": "2026-10-07T14:59:13.244652Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.092715250008041,
+          "retrieval_seconds": 0,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "total_seconds": 3.0941734590014676,
+          "ollama_requests": [
+            {
+              "total_duration": 3087496500,
+              "load_duration": 985792,
+              "prompt_eval_count": 1259,
+              "prompt_eval_duration": 1647298000,
+              "eval_count": 53,
+              "eval_duration": 1424055000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc",
+      "elapsed_seconds": 0.001506290995166637,
+      "response": {
+        "id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "title": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+        "created_at": "2026-10-07T14:58:51.716254Z",
+        "updated_at": "2026-10-07T14:59:13.244652Z",
+        "provider": "ollama",
+        "state": {
+          "goal": {
+            "key": "goal",
+            "value": "Объяснить Executor новичку",
+            "source_message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd"
+          },
+          "constraints": [
+            {
+              "key": "length",
+              "value": "Подробно",
+              "source_message_id": "79697f44-47b6-431b-832d-db815d9745d9"
+            }
+          ],
+          "terms": [],
+          "clarifications": [],
+          "revision": 2
+        },
+        "turns": [
+          {
+            "id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 1,
+            "content": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+            "answer": "Уточнение сохранено.",
+            "status": "done",
+            "kind": "statement",
+            "question_scope": "document",
+            "search_question": "",
+            "sources": [
+              {
+                "kind": "message",
+                "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+                "title": "Сообщение пользователя · уточнение"
+              }
+            ],
+            "citations": [],
+            "grounding_status": "statement",
+            "error": null,
+            "created_at": "2026-10-07T14:58:51.720222Z",
+            "updated_at": "2026-10-07T14:58:55.816892Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 4.094567249994725,
+              "retrieval_seconds": 0,
+              "generation_seconds": 0,
+              "generation_attempts": 0,
+              "total_seconds": 4.095870499993907,
+              "ollama_requests": [
+                {
+                  "total_duration": 4089215042,
+                  "load_duration": 2949250,
+                  "prompt_eval_count": 1018,
+                  "prompt_eval_duration": 1248819000,
+                  "eval_count": 107,
+                  "eval_duration": 2820724000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          },
+          {
+            "id": "70df792a-44d9-4b85-8d8f-fdd76a90e470",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 2,
+            "content": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+            "answer": "Обработчик задач должен быть потокобезопасным, так как код обработки задач может вызываться одновременно для нескольких задач. [DOC:structure-0008]\nПодход с одним потоком на задачу обеспечивает лучшую отзывчивость и пропускную способность, позволяя обрабатывать несколько запросов параллельно. [DOC:structure-0007] [DOC:structure-0008]",
+            "status": "done",
+            "kind": "question",
+            "question_scope": "document",
+            "search_question": "Why must the ThreadPerTaskWebServer request handler be thread-safe?",
+            "sources": [
+              {
+                "kind": "document",
+                "chunk_id": "structure-0008",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.1.2 Explicitly creating threads for tasks",
+                "page_start": 3,
+                "page_end": 3
+              },
+              {
+                "kind": "document",
+                "chunk_id": "structure-0007",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.1.2 Explicitly creating threads for tasks",
+                "page_start": 3,
+                "page_end": 3
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0008",
+                "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+              },
+              {
+                "chunk_id": "structure-0007",
+                "quote": "This enables new connections to be accepted before previous requests complete, improving responsiveness."
+              },
+              {
+                "chunk_id": "structure-0008",
+                "quote": "As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput."
+              }
+            ],
+            "grounding_status": "answered",
+            "error": null,
+            "created_at": "2026-10-07T14:58:55.822094Z",
+            "updated_at": "2026-10-07T14:59:10.145283Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 2.898967833010829,
+              "retrieval_seconds": 5.468726958002662,
+              "generation_seconds": 5.952924375000293,
+              "generation_attempts": 1,
+              "selected_chunk_ids": [
+                "structure-0008",
+                "structure-0007"
+              ],
+              "total_seconds": 14.32246379199205,
+              "ollama_requests": [
+                {
+                  "total_duration": 2894244833,
+                  "load_duration": 1691375,
+                  "prompt_eval_count": 1154,
+                  "prompt_eval_duration": 1556563000,
+                  "eval_count": 51,
+                  "eval_duration": 1330859000,
+                  "done_reason": "stop"
+                },
+                {
+                  "total_duration": 5947839125,
+                  "load_duration": 2207959,
+                  "prompt_eval_count": 1010,
+                  "prompt_eval_duration": 1339026000,
+                  "eval_count": 165,
+                  "eval_duration": 4466423000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          },
+          {
+            "id": "79697f44-47b6-431b-832d-db815d9745d9",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 3,
+            "content": "Нет, отвечай подробно.",
+            "answer": "Уточнение сохранено.",
+            "status": "done",
+            "kind": "statement",
+            "question_scope": "document",
+            "search_question": "",
+            "sources": [
+              {
+                "kind": "message",
+                "message_id": "79697f44-47b6-431b-832d-db815d9745d9",
+                "title": "Сообщение пользователя · уточнение"
+              }
+            ],
+            "citations": [],
+            "grounding_status": "statement",
+            "error": null,
+            "created_at": "2026-10-07T14:59:10.149736Z",
+            "updated_at": "2026-10-07T14:59:13.244652Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 3.092715250008041,
+              "retrieval_seconds": 0,
+              "generation_seconds": 0,
+              "generation_attempts": 0,
+              "total_seconds": 3.0941734590014676,
+              "ollama_requests": [
+                {
+                  "total_duration": 3087496500,
+                  "load_duration": 985792,
+                  "prompt_eval_count": 1259,
+                  "prompt_eval_duration": 1647298000,
+                  "eval_count": 53,
+                  "eval_duration": 1424055000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc/turns",
+      "elapsed_seconds": 2.7899523750093067,
+      "response": {
+        "id": "ff37521b-8bb7-49ef-b62e-d5207aeaba0c",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 4,
+        "content": "Какую цель мы зафиксировали?",
+        "answer": "Цель: Объяснить Executor новичку",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "goal",
+        "search_question": "What is the current active goal for explaining Executor?",
+        "sources": [
+          {
+            "kind": "message",
+            "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+            "title": "Сообщение пользователя · goal"
+          }
+        ],
+        "citations": [],
+        "grounding_status": "state",
+        "error": null,
+        "created_at": "2026-10-07T14:59:13.249178Z",
+        "updated_at": "2026-10-07T14:59:16.036575Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 2.4714736249879934,
+          "retrieval_seconds": 0.31399812499876134,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "selected_chunk_ids": [
+            "structure-0015"
+          ],
+          "total_seconds": 2.786790167010622,
+          "ollama_requests": [
+            {
+              "total_duration": 2466523250,
+              "load_duration": 911333,
+              "prompt_eval_count": 1287,
+              "prompt_eval_duration": 1438886000,
+              "eval_count": 39,
+              "eval_duration": 1020871000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc/turns",
+      "elapsed_seconds": 3.160405417002039,
+      "response": {
+        "id": "a5690a84-3172-445c-a257-9b0b6becbd36",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 5,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-07T14:59:16.040026Z",
+        "updated_at": "2026-10-07T14:59:19.197474Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 2.8409041249979055,
+          "retrieval_seconds": 0.3147595420014113,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "selected_chunk_ids": [],
+          "total_seconds": 3.156649208001909,
+          "ollama_requests": [
+            {
+              "total_duration": 2836067750,
+              "load_duration": 2836833,
+              "prompt_eval_count": 1316,
+              "prompt_eval_duration": 1432351000,
+              "eval_count": 50,
+              "eval_duration": 1384522000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/document-index/source",
+      "elapsed_seconds": 0.004906000001938082,
+      "response": {
+        "bytes": 310501,
+        "sha256": "306bdc78d0cf1dc9839e11958448aa29993e92ac74556b1233399934cfca5b1d"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/rag-chat/sessions/5096da06-04f7-4b7d-894b-30084fc499fc",
+      "elapsed_seconds": 0.0017444999975850806,
+      "response": {
+        "id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "title": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+        "created_at": "2026-10-07T14:58:51.716254Z",
+        "updated_at": "2026-10-07T14:59:19.197474Z",
+        "provider": "ollama",
+        "state": {
+          "goal": {
+            "key": "goal",
+            "value": "Объяснить Executor новичку",
+            "source_message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd"
+          },
+          "constraints": [
+            {
+              "key": "length",
+              "value": "Подробно",
+              "source_message_id": "79697f44-47b6-431b-832d-db815d9745d9"
+            }
+          ],
+          "terms": [],
+          "clarifications": [],
+          "revision": 2
+        },
+        "turns": [
+          {
+            "id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 1,
+            "content": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+            "answer": "Уточнение сохранено.",
+            "status": "done",
+            "kind": "statement",
+            "question_scope": "document",
+            "search_question": "",
+            "sources": [
+              {
+                "kind": "message",
+                "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+                "title": "Сообщение пользователя · уточнение"
+              }
+            ],
+            "citations": [],
+            "grounding_status": "statement",
+            "error": null,
+            "created_at": "2026-10-07T14:58:51.720222Z",
+            "updated_at": "2026-10-07T14:58:55.816892Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 4.094567249994725,
+              "retrieval_seconds": 0,
+              "generation_seconds": 0,
+              "generation_attempts": 0,
+              "total_seconds": 4.095870499993907,
+              "ollama_requests": [
+                {
+                  "total_duration": 4089215042,
+                  "load_duration": 2949250,
+                  "prompt_eval_count": 1018,
+                  "prompt_eval_duration": 1248819000,
+                  "eval_count": 107,
+                  "eval_duration": 2820724000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          },
+          {
+            "id": "70df792a-44d9-4b85-8d8f-fdd76a90e470",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 2,
+            "content": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+            "answer": "Обработчик задач должен быть потокобезопасным, так как код обработки задач может вызываться одновременно для нескольких задач. [DOC:structure-0008]\nПодход с одним потоком на задачу обеспечивает лучшую отзывчивость и пропускную способность, позволяя обрабатывать несколько запросов параллельно. [DOC:structure-0007] [DOC:structure-0008]",
+            "status": "done",
+            "kind": "question",
+            "question_scope": "document",
+            "search_question": "Why must the ThreadPerTaskWebServer request handler be thread-safe?",
+            "sources": [
+              {
+                "kind": "document",
+                "chunk_id": "structure-0008",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.1.2 Explicitly creating threads for tasks",
+                "page_start": 3,
+                "page_end": 3
+              },
+              {
+                "kind": "document",
+                "chunk_id": "structure-0007",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.1.2 Explicitly creating threads for tasks",
+                "page_start": 3,
+                "page_end": 3
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0008",
+                "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+              },
+              {
+                "chunk_id": "structure-0007",
+                "quote": "This enables new connections to be accepted before previous requests complete, improving responsiveness."
+              },
+              {
+                "chunk_id": "structure-0008",
+                "quote": "As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput."
+              }
+            ],
+            "grounding_status": "answered",
+            "error": null,
+            "created_at": "2026-10-07T14:58:55.822094Z",
+            "updated_at": "2026-10-07T14:59:10.145283Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 2.898967833010829,
+              "retrieval_seconds": 5.468726958002662,
+              "generation_seconds": 5.952924375000293,
+              "generation_attempts": 1,
+              "selected_chunk_ids": [
+                "structure-0008",
+                "structure-0007"
+              ],
+              "total_seconds": 14.32246379199205,
+              "ollama_requests": [
+                {
+                  "total_duration": 2894244833,
+                  "load_duration": 1691375,
+                  "prompt_eval_count": 1154,
+                  "prompt_eval_duration": 1556563000,
+                  "eval_count": 51,
+                  "eval_duration": 1330859000,
+                  "done_reason": "stop"
+                },
+                {
+                  "total_duration": 5947839125,
+                  "load_duration": 2207959,
+                  "prompt_eval_count": 1010,
+                  "prompt_eval_duration": 1339026000,
+                  "eval_count": 165,
+                  "eval_duration": 4466423000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          },
+          {
+            "id": "79697f44-47b6-431b-832d-db815d9745d9",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 3,
+            "content": "Нет, отвечай подробно.",
+            "answer": "Уточнение сохранено.",
+            "status": "done",
+            "kind": "statement",
+            "question_scope": "document",
+            "search_question": "",
+            "sources": [
+              {
+                "kind": "message",
+                "message_id": "79697f44-47b6-431b-832d-db815d9745d9",
+                "title": "Сообщение пользователя · уточнение"
+              }
+            ],
+            "citations": [],
+            "grounding_status": "statement",
+            "error": null,
+            "created_at": "2026-10-07T14:59:10.149736Z",
+            "updated_at": "2026-10-07T14:59:13.244652Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 3.092715250008041,
+              "retrieval_seconds": 0,
+              "generation_seconds": 0,
+              "generation_attempts": 0,
+              "total_seconds": 3.0941734590014676,
+              "ollama_requests": [
+                {
+                  "total_duration": 3087496500,
+                  "load_duration": 985792,
+                  "prompt_eval_count": 1259,
+                  "prompt_eval_duration": 1647298000,
+                  "eval_count": 53,
+                  "eval_duration": 1424055000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          },
+          {
+            "id": "ff37521b-8bb7-49ef-b62e-d5207aeaba0c",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 4,
+            "content": "Какую цель мы зафиксировали?",
+            "answer": "Цель: Объяснить Executor новичку",
+            "status": "done",
+            "kind": "question",
+            "question_scope": "goal",
+            "search_question": "What is the current active goal for explaining Executor?",
+            "sources": [
+              {
+                "kind": "message",
+                "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+                "title": "Сообщение пользователя · goal"
+              }
+            ],
+            "citations": [],
+            "grounding_status": "state",
+            "error": null,
+            "created_at": "2026-10-07T14:59:13.249178Z",
+            "updated_at": "2026-10-07T14:59:16.036575Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 2.4714736249879934,
+              "retrieval_seconds": 0.31399812499876134,
+              "generation_seconds": 0,
+              "generation_attempts": 0,
+              "selected_chunk_ids": [
+                "structure-0015"
+              ],
+              "total_seconds": 2.786790167010622,
+              "ollama_requests": [
+                {
+                  "total_duration": 2466523250,
+                  "load_duration": 911333,
+                  "prompt_eval_count": 1287,
+                  "prompt_eval_duration": 1438886000,
+                  "eval_count": 39,
+                  "eval_duration": 1020871000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          },
+          {
+            "id": "a5690a84-3172-445c-a257-9b0b6becbd36",
+            "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+            "position": 5,
+            "content": "Как в этой главе работает Java StructuredTaskScope?",
+            "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+            "status": "done",
+            "kind": "question",
+            "question_scope": "document",
+            "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+            "sources": [],
+            "citations": [],
+            "grounding_status": "insufficient_context",
+            "error": null,
+            "created_at": "2026-10-07T14:59:16.040026Z",
+            "updated_at": "2026-10-07T14:59:19.197474Z",
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M",
+            "metrics": {
+              "interpretation_seconds": 2.8409041249979055,
+              "retrieval_seconds": 0.3147595420014113,
+              "generation_seconds": 0,
+              "generation_attempts": 0,
+              "selected_chunk_ids": [],
+              "total_seconds": 3.156649208001909,
+              "ollama_requests": [
+                {
+                  "total_duration": 2836067750,
+                  "load_duration": 2836833,
+                  "prompt_eval_count": 1316,
+                  "prompt_eval_duration": 1432351000,
+                  "eval_count": 50,
+                  "eval_duration": 1384522000,
+                  "done_reason": "stop"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+  "final_session": {
+    "id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+    "title": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+    "created_at": "2026-10-07T14:58:51.716254Z",
+    "updated_at": "2026-10-07T14:59:19.197474Z",
+    "provider": "ollama",
+    "state": {
+      "goal": {
+        "key": "goal",
+        "value": "Объяснить Executor новичку",
+        "source_message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd"
+      },
+      "constraints": [
+        {
+          "key": "length",
+          "value": "Подробно",
+          "source_message_id": "79697f44-47b6-431b-832d-db815d9745d9"
+        }
+      ],
+      "terms": [],
+      "clarifications": [],
+      "revision": 2
+    },
+    "turns": [
+      {
+        "id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 1,
+        "content": "Моя цель — объяснить Executor новичку. Отвечай кратко.",
+        "answer": "Уточнение сохранено.",
+        "status": "done",
+        "kind": "statement",
+        "question_scope": "document",
+        "search_question": "",
+        "sources": [
+          {
+            "kind": "message",
+            "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+            "title": "Сообщение пользователя · уточнение"
+          }
+        ],
+        "citations": [],
+        "grounding_status": "statement",
+        "error": null,
+        "created_at": "2026-10-07T14:58:51.720222Z",
+        "updated_at": "2026-10-07T14:58:55.816892Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.094567249994725,
+          "retrieval_seconds": 0,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "total_seconds": 4.095870499993907,
+          "ollama_requests": [
+            {
+              "total_duration": 4089215042,
+              "load_duration": 2949250,
+              "prompt_eval_count": 1018,
+              "prompt_eval_duration": 1248819000,
+              "eval_count": 107,
+              "eval_duration": 2820724000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      },
+      {
+        "id": "70df792a-44d9-4b85-8d8f-fdd76a90e470",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 2,
+        "content": "Почему обработчик ThreadPerTaskWebServer должен быть потокобезопасным?",
+        "answer": "Обработчик задач должен быть потокобезопасным, так как код обработки задач может вызываться одновременно для нескольких задач. [DOC:structure-0008]\nПодход с одним потоком на задачу обеспечивает лучшую отзывчивость и пропускную способность, позволяя обрабатывать несколько запросов параллельно. [DOC:structure-0007] [DOC:structure-0008]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why must the ThreadPerTaskWebServer request handler be thread-safe?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0008",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.1.2 Explicitly creating threads for tasks",
+            "page_start": 3,
+            "page_end": 3
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0007",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.1.2 Explicitly creating threads for tasks",
+            "page_start": 3,
+            "page_end": 3
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0008",
+            "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+          },
+          {
+            "chunk_id": "structure-0007",
+            "quote": "This enables new connections to be accepted before previous requests complete, improving responsiveness."
+          },
+          {
+            "chunk_id": "structure-0008",
+            "quote": "As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-07T14:58:55.822094Z",
+        "updated_at": "2026-10-07T14:59:10.145283Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 2.898967833010829,
+          "retrieval_seconds": 5.468726958002662,
+          "generation_seconds": 5.952924375000293,
+          "generation_attempts": 1,
+          "selected_chunk_ids": [
+            "structure-0008",
+            "structure-0007"
+          ],
+          "total_seconds": 14.32246379199205,
+          "ollama_requests": [
+            {
+              "total_duration": 2894244833,
+              "load_duration": 1691375,
+              "prompt_eval_count": 1154,
+              "prompt_eval_duration": 1556563000,
+              "eval_count": 51,
+              "eval_duration": 1330859000,
+              "done_reason": "stop"
+            },
+            {
+              "total_duration": 5947839125,
+              "load_duration": 2207959,
+              "prompt_eval_count": 1010,
+              "prompt_eval_duration": 1339026000,
+              "eval_count": 165,
+              "eval_duration": 4466423000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      },
+      {
+        "id": "79697f44-47b6-431b-832d-db815d9745d9",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 3,
+        "content": "Нет, отвечай подробно.",
+        "answer": "Уточнение сохранено.",
+        "status": "done",
+        "kind": "statement",
+        "question_scope": "document",
+        "search_question": "",
+        "sources": [
+          {
+            "kind": "message",
+            "message_id": "79697f44-47b6-431b-832d-db815d9745d9",
+            "title": "Сообщение пользователя · уточнение"
+          }
+        ],
+        "citations": [],
+        "grounding_status": "statement",
+        "error": null,
+        "created_at": "2026-10-07T14:59:10.149736Z",
+        "updated_at": "2026-10-07T14:59:13.244652Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.092715250008041,
+          "retrieval_seconds": 0,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "total_seconds": 3.0941734590014676,
+          "ollama_requests": [
+            {
+              "total_duration": 3087496500,
+              "load_duration": 985792,
+              "prompt_eval_count": 1259,
+              "prompt_eval_duration": 1647298000,
+              "eval_count": 53,
+              "eval_duration": 1424055000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ff37521b-8bb7-49ef-b62e-d5207aeaba0c",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 4,
+        "content": "Какую цель мы зафиксировали?",
+        "answer": "Цель: Объяснить Executor новичку",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "goal",
+        "search_question": "What is the current active goal for explaining Executor?",
+        "sources": [
+          {
+            "kind": "message",
+            "message_id": "8bc26942-4965-48a8-9bcd-a3d5d6fa88bd",
+            "title": "Сообщение пользователя · goal"
+          }
+        ],
+        "citations": [],
+        "grounding_status": "state",
+        "error": null,
+        "created_at": "2026-10-07T14:59:13.249178Z",
+        "updated_at": "2026-10-07T14:59:16.036575Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 2.4714736249879934,
+          "retrieval_seconds": 0.31399812499876134,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "selected_chunk_ids": [
+            "structure-0015"
+          ],
+          "total_seconds": 2.786790167010622,
+          "ollama_requests": [
+            {
+              "total_duration": 2466523250,
+              "load_duration": 911333,
+              "prompt_eval_count": 1287,
+              "prompt_eval_duration": 1438886000,
+              "eval_count": 39,
+              "eval_duration": 1020871000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      },
+      {
+        "id": "a5690a84-3172-445c-a257-9b0b6becbd36",
+        "session_id": "5096da06-04f7-4b7d-894b-30084fc499fc",
+        "position": 5,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-07T14:59:16.040026Z",
+        "updated_at": "2026-10-07T14:59:19.197474Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 2.8409041249979055,
+          "retrieval_seconds": 0.3147595420014113,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "selected_chunk_ids": [],
+          "total_seconds": 3.156649208001909,
+          "ollama_requests": [
+            {
+              "total_duration": 2836067750,
+              "load_duration": 2836833,
+              "prompt_eval_count": 1316,
+              "prompt_eval_duration": 1432351000,
+              "eval_count": 50,
+              "eval_duration": 1384522000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "complete": true
+}
