@@ -9,17 +9,10 @@ from typing import Any
 from openai import OpenAI
 
 from ..agents.agent import AgentMessage
+from .errors import LlmConfigurationError, LlmRequestError, LlmTruncatedResponseError
 
 
 logger = logging.getLogger(__name__)
-
-
-class LlmConfigurationError(RuntimeError):
-    """The provider cannot be called because local configuration is missing."""
-
-
-class LlmRequestError(RuntimeError):
-    """The provider rejected or failed to complete a request."""
 
 
 class LlmEmptyStreamError(LlmRequestError):
@@ -29,13 +22,6 @@ class LlmEmptyStreamError(LlmRequestError):
         reason = f" (finish_reason={finish_reason})" if finish_reason else ""
         super().__init__(f"DeepSeek вернул пустой потоковый ответ{reason}")
         self.finish_reason = finish_reason
-
-
-class LlmTruncatedResponseError(LlmRequestError):
-    """A structured response did not fit into a single complete answer."""
-
-    def __init__(self) -> None:
-        super().__init__("DeepSeek обрезал JSON по лимиту ответа. Полная проверка не получена")
 
 
 DEFAULT_MAX_TOKENS = 2_000
@@ -120,7 +106,11 @@ class DeepSeekProvider:
         if thinking_type == "enabled":
             request["reasoning_effort"] = DEFAULT_REASONING_EFFORT
         if response_format is not None:
-            request["response_format"] = response_format
+            # DeepSeek uses JSON-object mode; the application still validates
+            # the requested schema after generation.
+            request["response_format"] = (
+                {"type": "json_object"} if response_format.get("type") == "json_schema" else response_format
+            )
         return request
 
     def generate(

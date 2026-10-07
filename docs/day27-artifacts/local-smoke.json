@@ -1,0 +1,3323 @@
+{
+  "cloud_key_present": false,
+  "records": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "elapsed_seconds": 0.01,
+      "status": 200,
+      "response": {
+        "status": "ok",
+        "deepseek_configured": false
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/invariants",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "emoji_enabled": false,
+        "min_emojis": 3,
+        "uppercase_enabled": false,
+        "sentence_limit_enabled": false,
+        "max_sentences": 3,
+        "revision": 2
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/invariants",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "emoji_enabled": false,
+        "min_emojis": 3,
+        "uppercase_enabled": false,
+        "sentence_limit_enabled": false,
+        "max_sentences": 3,
+        "revision": 3
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/profiles/auto",
+      "elapsed_seconds": 0.0,
+      "status": 201,
+      "response": {
+        "name": "Пользователь 3",
+        "description": "",
+        "language": "ru",
+        "tone": "neutral",
+        "detail_level": "balanced",
+        "response_format": "plain",
+        "constraints": [],
+        "id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "onboarding_step": 0,
+        "onboarding_complete": false,
+        "created_at": "2026-10-07T13:40:30.139438Z",
+        "updated_at": "2026-10-07T13:40:30.139438Z"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions",
+      "elapsed_seconds": 0.0,
+      "status": 201,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Новый чат",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:40:30.143084Z",
+        "provider": "ollama",
+        "task": null,
+        "messages": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/messages",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "session": {
+          "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+          "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+          "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+          "created_at": "2026-10-07T13:40:30.143084Z",
+          "updated_at": "2026-10-07T13:40:30.147808Z",
+          "provider": "ollama",
+          "task": null
+        },
+        "user_message": {
+          "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+          "role": "user",
+          "kind": "message",
+          "refusal": false,
+          "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+          "created_at": "2026-10-07T13:40:30.147808Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        },
+        "assistant_message": {
+          "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+          "role": "assistant",
+          "kind": "message",
+          "refusal": false,
+          "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+          "created_at": "2026-10-07T13:40:30.147808Z",
+          "status": "done",
+          "error": null,
+          "provider": null,
+          "model": null
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/messages",
+      "elapsed_seconds": 3.71,
+      "status": 200,
+      "response": {
+        "session": {
+          "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+          "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+          "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+          "created_at": "2026-10-07T13:40:30.143084Z",
+          "updated_at": "2026-10-07T13:40:33.858815Z",
+          "provider": "ollama",
+          "task": null
+        },
+        "user_message": {
+          "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+          "role": "user",
+          "kind": "message",
+          "refusal": false,
+          "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+          "created_at": "2026-10-07T13:40:33.858815Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        },
+        "assistant_message": {
+          "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+          "role": "assistant",
+          "kind": "message",
+          "refusal": false,
+          "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+          "created_at": "2026-10-07T13:40:33.858815Z",
+          "status": "done",
+          "error": null,
+          "provider": null,
+          "model": null
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/messages",
+      "elapsed_seconds": 4.33,
+      "status": 200,
+      "response": {
+        "session": {
+          "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+          "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+          "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+          "created_at": "2026-10-07T13:40:30.143084Z",
+          "updated_at": "2026-10-07T13:40:38.186953Z",
+          "provider": "ollama",
+          "task": null
+        },
+        "user_message": {
+          "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+          "role": "user",
+          "kind": "message",
+          "refusal": false,
+          "content": "Хочу краткие ответы обычным текстом.",
+          "created_at": "2026-10-07T13:40:38.186953Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        },
+        "assistant_message": {
+          "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+          "role": "assistant",
+          "kind": "message",
+          "refusal": false,
+          "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+          "created_at": "2026-10-07T13:40:38.186953Z",
+          "status": "done",
+          "error": null,
+          "provider": null,
+          "model": null
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/messages",
+      "elapsed_seconds": 10.26,
+      "status": 200,
+      "response": {
+        "session": {
+          "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+          "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+          "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+          "created_at": "2026-10-07T13:40:30.143084Z",
+          "updated_at": "2026-10-07T13:40:46.338903Z",
+          "provider": "ollama",
+          "task": null
+        },
+        "user_message": {
+          "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+          "role": "user",
+          "kind": "message",
+          "refusal": false,
+          "content": "Дружелюбный тон. Без сложного жаргона.",
+          "created_at": "2026-10-07T13:40:46.338903Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        },
+        "assistant_message": {
+          "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+          "role": "assistant",
+          "kind": "message",
+          "refusal": false,
+          "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+          "created_at": "2026-10-07T13:40:46.338903Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles",
+      "elapsed_seconds": 0.01,
+      "status": 200,
+      "response": [
+        {
+          "name": "Основной",
+          "description": "",
+          "language": "ru",
+          "tone": "neutral",
+          "detail_level": "balanced",
+          "response_format": "plain",
+          "constraints": [],
+          "id": "default",
+          "onboarding_step": 0,
+          "onboarding_complete": false,
+          "created_at": "2026-10-07T13:37:33.955421Z",
+          "updated_at": "2026-10-07T13:37:33.955421Z"
+        },
+        {
+          "name": "Пользователь 2",
+          "description": "",
+          "language": "ru",
+          "tone": "neutral",
+          "detail_level": "balanced",
+          "response_format": "plain",
+          "constraints": [],
+          "id": "f1b8041e-c163-449d-b995-917267fa1dd4",
+          "onboarding_step": 1,
+          "onboarding_complete": false,
+          "created_at": "2026-10-07T13:38:30.590494Z",
+          "updated_at": "2026-10-07T13:38:30.596717Z"
+        },
+        {
+          "name": "Демо",
+          "description": "изучаю Python и пока новичок",
+          "language": "ru",
+          "tone": "friendly",
+          "detail_level": "brief",
+          "response_format": "plain",
+          "constraints": [
+            "без сложного жаргона"
+          ],
+          "id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+          "onboarding_step": 3,
+          "onboarding_complete": true,
+          "created_at": "2026-10-07T13:40:30.139438Z",
+          "updated_at": "2026-10-07T13:40:42.847820Z"
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/messages",
+      "elapsed_seconds": 15.1,
+      "status": 200,
+      "response": {
+        "session": {
+          "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+          "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+          "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+          "created_at": "2026-10-07T13:40:30.143084Z",
+          "updated_at": "2026-10-07T13:41:01.182200Z",
+          "provider": "ollama",
+          "task": null
+        },
+        "user_message": {
+          "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+          "role": "user",
+          "kind": "message",
+          "refusal": false,
+          "content": "Запомни: мой учебный проект называется Маяк.",
+          "created_at": "2026-10-07T13:40:48.458436Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        },
+        "assistant_message": {
+          "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+          "role": "assistant",
+          "kind": "message",
+          "refusal": false,
+          "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+          "created_at": "2026-10-07T13:41:01.182200Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/memory?session_id=25580b05-1b2b-409b-aa6c-3ece44c819c5",
+      "elapsed_seconds": 0.01,
+      "status": 200,
+      "response": {
+        "working": [
+          {
+            "id": "ddf5eaab-1832-48b0-8f4e-fb44bd06e2f2",
+            "layer": "working",
+            "category": "goal",
+            "content": "Мой учебный проект называется Маяк",
+            "session_id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+            "profile_id": null,
+            "created_at": "2026-10-07T13:41:01.181373Z",
+            "updated_at": "2026-10-07T13:41:01.181373Z",
+            "source_session_id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+            "source_message_id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c"
+          },
+          {
+            "id": "ceceb2a4-1678-42ba-b1fd-da49c2eb659b",
+            "layer": "working",
+            "category": "term",
+            "content": "project_name: Маяк",
+            "session_id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+            "profile_id": null,
+            "created_at": "2026-10-07T13:41:01.181542Z",
+            "updated_at": "2026-10-07T13:41:01.181542Z",
+            "source_session_id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+            "source_message_id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c"
+          }
+        ],
+        "long_term": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/messages",
+      "elapsed_seconds": 8.33,
+      "status": 200,
+      "response": {
+        "session": {
+          "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+          "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+          "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+          "created_at": "2026-10-07T13:40:30.143084Z",
+          "updated_at": "2026-10-07T13:41:09.143998Z",
+          "provider": "ollama",
+          "task": null
+        },
+        "user_message": {
+          "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+          "role": "user",
+          "kind": "message",
+          "refusal": false,
+          "content": "Как называется мой учебный проект?",
+          "created_at": "2026-10-07T13:41:03.565953Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        },
+        "assistant_message": {
+          "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+          "role": "assistant",
+          "kind": "message",
+          "refusal": false,
+          "content": "Ваш учебный проект называется **Маяк**.",
+          "created_at": "2026-10-07T13:41:09.143998Z",
+          "status": "done",
+          "error": null,
+          "provider": "ollama",
+          "model": "qwen3.5:9b-q4_K_M"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/task",
+      "elapsed_seconds": 0.01,
+      "status": 201,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:11.902971Z",
+        "provider": "ollama",
+        "task": {
+          "state": "planning",
+          "step": 0,
+          "total": 0,
+          "current": "Сформировать план",
+          "paused": false,
+          "revision": 0,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "generate_plan",
+          "plan": [],
+          "done": [],
+          "criteria": [],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": false,
+          "validation_passed": null,
+          "allowed_actions": [
+            "generate_plan",
+            "pause",
+            "replan"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:11.902971Z",
+        "provider": "ollama",
+        "task": {
+          "state": "planning",
+          "step": 0,
+          "total": 0,
+          "current": "Сформировать план",
+          "paused": false,
+          "revision": 0,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "generate_plan",
+          "plan": [],
+          "done": [],
+          "criteria": [],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": false,
+          "validation_passed": null,
+          "allowed_actions": [
+            "generate_plan",
+            "pause",
+            "replan"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/task/actions",
+      "elapsed_seconds": 6.74,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:18.646009Z",
+        "provider": "ollama",
+        "task": {
+          "state": "awaiting_approval",
+          "step": 0,
+          "total": 1,
+          "current": "Утвердить план",
+          "paused": false,
+          "revision": 1,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "approve_plan",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": false,
+          "validation_passed": null,
+          "allowed_actions": [
+            "approve",
+            "pause",
+            "replan"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5",
+      "elapsed_seconds": 0.01,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:18.646009Z",
+        "provider": "ollama",
+        "task": {
+          "state": "awaiting_approval",
+          "step": 0,
+          "total": 1,
+          "current": "Утвердить план",
+          "paused": false,
+          "revision": 1,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "approve_plan",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": false,
+          "validation_passed": null,
+          "allowed_actions": [
+            "approve",
+            "pause",
+            "replan"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/task/actions",
+      "elapsed_seconds": 0.01,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:18.662160Z",
+        "provider": "ollama",
+        "task": {
+          "state": "execution",
+          "step": 0,
+          "total": 1,
+          "current": "Написать короткую строку с приветствием.",
+          "paused": false,
+          "revision": 2,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "execute_step",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": true,
+          "validation_passed": null,
+          "allowed_actions": [
+            "execute_step",
+            "pause",
+            "replan"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b6b36d94-4a1b-4736-9371-edc0dd28a21e",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Утвердить план",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "ec82206f-cb20-4630-b2aa-aade49d08d86",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "План утверждён — можно выполнить следующий шаг",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:18.662160Z",
+        "provider": "ollama",
+        "task": {
+          "state": "execution",
+          "step": 0,
+          "total": 1,
+          "current": "Написать короткую строку с приветствием.",
+          "paused": false,
+          "revision": 2,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "execute_step",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": true,
+          "validation_passed": null,
+          "allowed_actions": [
+            "execute_step",
+            "pause",
+            "replan"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b6b36d94-4a1b-4736-9371-edc0dd28a21e",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Утвердить план",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "ec82206f-cb20-4630-b2aa-aade49d08d86",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "План утверждён — можно выполнить следующий шаг",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/task/actions",
+      "elapsed_seconds": 3.51,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:22.172040Z",
+        "provider": "ollama",
+        "task": {
+          "state": "validation",
+          "step": 1,
+          "total": 1,
+          "current": "Проверить результат по критериям",
+          "paused": false,
+          "revision": 3,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "validate",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [
+            {
+              "title": "Написать короткую строку с приветствием.",
+              "output": "Привет! Добро пожаловать в курс."
+            }
+          ],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": true,
+          "validation_passed": null,
+          "allowed_actions": [
+            "validate",
+            "pause"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b6b36d94-4a1b-4736-9371-edc0dd28a21e",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Утвердить план",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "ec82206f-cb20-4630-b2aa-aade49d08d86",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "План утверждён — можно выполнить следующий шаг",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "bde66681-fdb5-4577-8fef-e174af4559fd",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Написать короткую строку с приветствием.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "741245f1-0334-4b80-a545-825846096751",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Привет! Добро пожаловать в курс.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:22.172040Z",
+        "provider": "ollama",
+        "task": {
+          "state": "validation",
+          "step": 1,
+          "total": 1,
+          "current": "Проверить результат по критериям",
+          "paused": false,
+          "revision": 3,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "validate",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [
+            {
+              "title": "Написать короткую строку с приветствием.",
+              "output": "Привет! Добро пожаловать в курс."
+            }
+          ],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "",
+          "result": "",
+          "plan_approved": true,
+          "validation_passed": null,
+          "allowed_actions": [
+            "validate",
+            "pause"
+          ]
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b6b36d94-4a1b-4736-9371-edc0dd28a21e",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Утвердить план",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "ec82206f-cb20-4630-b2aa-aade49d08d86",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "План утверждён — можно выполнить следующий шаг",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "bde66681-fdb5-4577-8fef-e174af4559fd",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Написать короткую строку с приветствием.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "741245f1-0334-4b80-a545-825846096751",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Привет! Добро пожаловать в курс.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5/task/actions",
+      "elapsed_seconds": 7.38,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:29.557539Z",
+        "provider": "ollama",
+        "task": {
+          "state": "done",
+          "step": 1,
+          "total": 1,
+          "current": "Задача завершена",
+          "paused": false,
+          "revision": 4,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "none",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [
+            {
+              "title": "Написать короткую строку с приветствием.",
+              "output": "Привет! Добро пожаловать в курс."
+            }
+          ],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+          "result": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+          "plan_approved": true,
+          "validation_passed": true,
+          "allowed_actions": []
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b6b36d94-4a1b-4736-9371-edc0dd28a21e",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Утвердить план",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "ec82206f-cb20-4630-b2aa-aade49d08d86",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "План утверждён — можно выполнить следующий шаг",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "bde66681-fdb5-4577-8fef-e174af4559fd",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Написать короткую строку с приветствием.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "741245f1-0334-4b80-a545-825846096751",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Привет! Добро пожаловать в курс.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b1f32492-3095-436f-9e75-8d3629a77ad0",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Проверить результат по критериям",
+            "created_at": "2026-10-07T13:41:29.557539Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9851ba04-ad56-49fa-9d7a-0241752ce9fc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+            "created_at": "2026-10-07T13:41:29.557539Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:29.557539Z",
+        "provider": "ollama",
+        "task": {
+          "state": "done",
+          "step": 1,
+          "total": 1,
+          "current": "Задача завершена",
+          "paused": false,
+          "revision": 4,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "none",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [
+            {
+              "title": "Написать короткую строку с приветствием.",
+              "output": "Привет! Добро пожаловать в курс."
+            }
+          ],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+          "result": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+          "plan_approved": true,
+          "validation_passed": true,
+          "allowed_actions": []
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b6b36d94-4a1b-4736-9371-edc0dd28a21e",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Утвердить план",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "ec82206f-cb20-4630-b2aa-aade49d08d86",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "План утверждён — можно выполнить следующий шаг",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "bde66681-fdb5-4577-8fef-e174af4559fd",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Написать короткую строку с приветствием.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "741245f1-0334-4b80-a545-825846096751",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Привет! Добро пожаловать в курс.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b1f32492-3095-436f-9e75-8d3629a77ad0",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Проверить результат по критериям",
+            "created_at": "2026-10-07T13:41:29.557539Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9851ba04-ad56-49fa-9d7a-0241752ce9fc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+            "created_at": "2026-10-07T13:41:29.557539Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/chat/sessions/25580b05-1b2b-409b-aa6c-3ece44c819c5",
+      "elapsed_seconds": 0.0,
+      "status": 200,
+      "response": {
+        "id": "25580b05-1b2b-409b-aa6c-3ece44c819c5",
+        "profile_id": "b69b1ede-7bb5-4e19-8f7b-91f9b168bcfb",
+        "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+        "created_at": "2026-10-07T13:40:30.143084Z",
+        "updated_at": "2026-10-07T13:41:29.557539Z",
+        "provider": "ollama",
+        "task": {
+          "state": "done",
+          "step": 1,
+          "total": 1,
+          "current": "Задача завершена",
+          "paused": false,
+          "revision": 4,
+          "task": "Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+          "expected_action": "none",
+          "plan": [
+            "Написать короткую строку с приветствием."
+          ],
+          "done": [
+            {
+              "title": "Написать короткую строку с приветствием.",
+              "output": "Привет! Добро пожаловать в курс."
+            }
+          ],
+          "criteria": [
+            "Строка содержит слово 'привет'."
+          ],
+          "notes": [],
+          "previous_results": [],
+          "validation_report": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+          "result": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+          "plan_approved": true,
+          "validation_passed": true,
+          "allowed_actions": []
+        },
+        "messages": [
+          {
+            "id": "ef2dd7d0-44ff-4cc1-9f84-de3bc0d768ba",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "f0361e42-ae06-45c7-b55f-29b413943078",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "1/3 — Как вас называть, чем вы занимаетесь и насколько глубоко знакомы с темой?",
+            "created_at": "2026-10-07T13:40:30.147808Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "467f486c-28c4-491c-b1d2-c2303a72b2d3",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Меня зовут Демо, я изучаю Python и пока новичок.",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "d56d1bfc-7e4a-4168-8dc4-6c8a57bde969",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "2/3 — Как вам удобнее получать ответы: кратко, сбалансированно или подробно, обычным текстом, списком или пошагово?",
+            "created_at": "2026-10-07T13:40:33.858815Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "fa053869-1f5a-4cd6-a136-99d187323478",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хочу краткие ответы обычным текстом.",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "16a46560-2f1d-4855-b805-cdca066f7dad",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "3/3 — Какой тон предпочитаете — нейтральный, дружелюбный, формальный или технический — и есть ли ограничения, например без сложного жаргона?",
+            "created_at": "2026-10-07T13:40:38.186953Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "cdd09a21-a251-49ef-9316-b6028268dea7",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Дружелюбный тон. Без сложного жаргона.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "fd32f3e5-d068-4b83-9dab-933aa576bb6d",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Локальная LLM — это искусственный интеллект, который работает на вашем собственном компьютере без необходимости подключаться к интернету. Такие модели сохраняют вашу конфиденциальность и независят от серверов внешних компаний.",
+            "created_at": "2026-10-07T13:40:46.338903Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "3ac5b3e4-57ae-4a22-bd5d-85b52613f35c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Запомни: мой учебный проект называется Маяк.",
+            "created_at": "2026-10-07T13:40:48.458436Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9e775af8-a8d2-46bb-84ee-b34580c99a54",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Хорошо, запомнил! Ваш учебный проект — **Маяк**. Рад, что вы работаете над ним на Python! Если будут вопросы по коду или идеи для улучшений — спрашивайте. Удачи с проектом! 🚀",
+            "created_at": "2026-10-07T13:41:01.182200Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "eca9495d-1aa1-4c84-b418-2cd4024faf75",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Как называется мой учебный проект?",
+            "created_at": "2026-10-07T13:41:03.565953Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "6d708981-1b3d-43ca-9ed5-41f1efa54572",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Ваш учебный проект называется **Маяк**.",
+            "created_at": "2026-10-07T13:41:09.143998Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "423b9db5-fa44-4e1b-abab-0a62c933d59c",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача: Напиши одну короткую строку приветствия для участника курса. Один шаг плана. Критерий: строка содержит слово привет.",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "94852c65-b25c-451a-aedb-6a1b5e96f7ef",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Задача создана — нажмите «Сформировать план», затем утвердите его",
+            "created_at": "2026-10-07T13:41:11.902971Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "3314e109-7211-4066-9bea-8ca5f33f2235",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Сформировать план",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "34e30844-0eea-41a7-ba33-871d483305cc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Создание приветственного сообщения для участников курса.\n\nПлан:\n1. Написать короткую строку с приветствием.\n\nКритерии готовности:\n• Строка содержит слово 'привет'.\n\nУтвердите план или укажите изменения.",
+            "created_at": "2026-10-07T13:41:18.646009Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b6b36d94-4a1b-4736-9371-edc0dd28a21e",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Утвердить план",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "ec82206f-cb20-4630-b2aa-aade49d08d86",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "План утверждён — можно выполнить следующий шаг",
+            "created_at": "2026-10-07T13:41:18.662160Z",
+            "status": "done",
+            "error": null,
+            "provider": null,
+            "model": null
+          },
+          {
+            "id": "bde66681-fdb5-4577-8fef-e174af4559fd",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Написать короткую строку с приветствием.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "741245f1-0334-4b80-a545-825846096751",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Привет! Добро пожаловать в курс.",
+            "created_at": "2026-10-07T13:41:22.172040Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "b1f32492-3095-436f-9e75-8d3629a77ad0",
+            "role": "user",
+            "kind": "message",
+            "refusal": false,
+            "content": "Проверить результат по критериям",
+            "created_at": "2026-10-07T13:41:29.557539Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          },
+          {
+            "id": "9851ba04-ad56-49fa-9d7a-0241752ce9fc",
+            "role": "assistant",
+            "kind": "message",
+            "refusal": false,
+            "content": "Результат выполнения шага: 'Привет! Добро пожаловать в курс.' Критерий проверки: строка содержит слово 'привет'. Проверка пройдена. Итоговый материал готов.",
+            "created_at": "2026-10-07T13:41:29.557539Z",
+            "status": "done",
+            "error": null,
+            "provider": "ollama",
+            "model": "qwen3.5:9b-q4_K_M"
+          }
+        ]
+      }
+    }
+  ]
+}

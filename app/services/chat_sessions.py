@@ -13,6 +13,7 @@ from ..orchestration.context import OrchestrationContext, ProfileContext, profil
 from ..orchestration.onboarding import ProfileOnboarding
 from ..orchestration.profiles import DEFAULT_PROFILE_ID, ProfileRepository, StoredProfile
 from ..orchestration.tasks import TaskOrchestrator
+from ..providers.registry import ModelRegistry, ModelSelection
 from ..schemas import (
     ChatMessage, ChatSendResponse, ChatSession, ChatSessionSummary,
     TaskActionRequest, TaskSummary, TaskView,
@@ -34,27 +35,57 @@ class ChatSessionService:
     def __init__(
         self,
         repository: ChatSessionRepository,
-        agent: Agent,
+        agent: Agent | None = None,
         memory_repository: MemoryRepository | None = None,
         memory_extractor: MemoryExtractor | None = None,
         profile_repository: ProfileRepository | None = None,
         profile_interviewer: ProfileInterviewer | None = None,
         *, invariant_repository: SQLiteInvariantRepository | None = None,
         memory_interpreter: WorkingMemoryInterpreter | None = None,
+        model_registry: ModelRegistry | None = None,
+        model_selection: ModelSelection | None = None,
     ) -> None:
+        if agent is None and model_registry is None:
+            raise ValueError("Укажите агента или реестр моделей")
         self._repository = repository
         self._invariants = invariant_repository
         self._agent = agent
+        self._models = model_registry
+        self._selection = model_selection
         self._memory = MemoryRuntime(memory_repository, memory_extractor)
         self._memory_repository = memory_repository
         self._memory_interpreter = memory_interpreter
-        self._tasks = TaskOrchestrator(agent)
+        self._tasks = TaskOrchestrator(agent) if agent is not None else None
         self._profile_repository = profile_repository
         self._onboarding = (
             ProfileOnboarding(profile_repository, profile_interviewer)
             if profile_repository is not None and profile_interviewer is not None
             else None
         )
+
+    def _runtime(self, provider: str, model: str | None = None) -> "ChatSessionService":
+        if self._models is None:
+            return self
+        selection = self._models.resolve(provider, model)
+        selected = self._models.build(selection)
+        return ChatSessionService(
+            self._repository, Agent(selected), self._memory_repository,
+            MemoryExtractor(selected), self._profile_repository, ProfileInterviewer(selected),
+            invariant_repository=self._invariants,
+            memory_interpreter=WorkingMemoryInterpreter(self._models.build(selection, thinking_enabled=False)),
+            model_selection=selection,
+        )
+
+    def _model_metadata(self) -> dict:
+        return {} if self._selection is None else {
+            "provider": self._selection.provider, "model": self._selection.model,
+        }
+
+    def set_provider(self, session_id: str, provider: str) -> ChatSession:
+        if self._models is not None:
+            self._models.resolve(provider)
+        self._repository.set_provider(session_id, provider)
+        return self.get(session_id)
 
     def _policy(self) -> InvariantPolicy:
         return InvariantPolicy(self._invariants.get() if self._invariants is not None else None)
@@ -72,6 +103,7 @@ class ChatSessionService:
             title=session.title,
             created_at=session.created_at,
             updated_at=session.updated_at,
+            provider=session.provider,
             task=None if session.task is None else TaskSummary(
                 state=session.task.context.state,
                 step=session.task.context.step,
@@ -92,6 +124,7 @@ class ChatSessionService:
             content=message.content,
             created_at=message.created_at,
             status=message.status, error=message.error,
+            provider=message.provider, model=message.model,
         )
 
     @classmethod
@@ -143,7 +176,7 @@ class ChatSessionService:
             orchestration=OrchestrationContext(profile=active_profile, invariants=policy.settings),
             memory=memory,
         )
-        updated = self._repository.append_exchange(session.id, content.strip(), policy.apply(answer))
+        updated = self._repository.append_exchange(session.id, content.strip(), policy.apply(answer), **self._model_metadata())
         self._memory.remember(
             session_id=session.id,
             profile_id=session.profile_id,
@@ -166,13 +199,17 @@ class ChatSessionService:
                 session=session, content=content, profile=result.profile, policy=policy,
             )
         return self._response(
-            self._repository.append_exchange(session.id, content.strip(), policy.apply(result.answer)),
+            self._repository.append_exchange(session.id, content.strip(), policy.apply(result.answer),
+                                             generated=False, **self._model_metadata()),
         )
 
-    def create(self, profile_id: str = DEFAULT_PROFILE_ID) -> ChatSession:
+    def create(self, profile_id: str = DEFAULT_PROFILE_ID, provider: str | None = None) -> ChatSession:
         if self._profile_repository is not None:
             self._profile_repository.get(profile_id)
-        session = self._repository.create(profile_id)
+        selected_provider = provider or (self._models.default_provider if self._models else "deepseek")
+        if self._models is not None:
+            self._models.resolve(selected_provider)
+        session = self._repository.create(profile_id, provider=selected_provider)
         return ChatSession(**self._summary(session).model_dump(), messages=[])
 
     def list(self, profile_id: str | None = None) -> list[ChatSessionSummary]:
@@ -198,13 +235,14 @@ class ChatSessionService:
             self._profile_repository.get(profile_id)
         self._repository.clear(profile_id)
 
-    def send(self, session_id: str, content: str) -> ChatSendResponse:
+    def send(self, session_id: str, content: str, provider: str | None = None) -> ChatSendResponse:
         if not content.strip():
             raise AgentInputError("Сообщение не должно быть пустым")
         policy = self._policy()
         with self._repository.task_operation(session_id):
             try:
-                return self._send(session_id, content, policy)
+                session = self._repository.get(session_id)
+                return self._runtime(provider or session.provider)._send(session_id, content, policy)
             except InvariantViolation as error:
                 return self._refuse(session_id, content, error)
 
@@ -233,7 +271,7 @@ class ChatSessionService:
                     policy=policy,
                 )
             profile = profile_context(stored_profile)
-        turn = self._repository.start_turn(session_id, content)
+        turn = self._repository.start_turn(session_id, content, **self._model_metadata())
         return self._respond_turn(session, turn, profile, policy)
 
     def retry(self, session_id: str, message_id: str) -> ChatSendResponse:
@@ -245,7 +283,9 @@ class ChatSessionService:
             profile = None
             if self._profile_repository is not None:
                 profile = profile_context(self._profile_repository.get(session.profile_id))
-            return self._respond_turn(session, turn, profile, self._policy())
+            return self._runtime(turn.provider or session.provider, turn.model)._respond_turn(
+                session, turn, profile, self._policy(),
+            )
 
     def _respond_turn(
         self, session: StoredSession, turn: StoredMessage, profile: ProfileContext | None, policy: InvariantPolicy,
@@ -321,7 +361,7 @@ class ChatSessionService:
 
     def _start_task(self, session_id: str, task: str, policy: InvariantPolicy) -> ChatSession:
         session = self._repository.get(session_id)
-        if self._profile_repository is not None and self._onboarding is not None:
+        if self._profile_repository is not None and (self._onboarding is not None or self._models is not None):
             profile = self._profile_repository.get(session.profile_id)
             if not profile.onboarding_complete:
                 raise TaskConflict("Сначала завершите интервью профиля или отправьте /skip в обычном чате")
@@ -377,7 +417,9 @@ class ChatSessionService:
                 self._profile_repository.get(session.profile_id),
             )
             memory = self._memory.snapshot(session_id, session.profile_id)
-            updated, answer = self._tasks.advance(
+            runtime = self._runtime(session.provider)
+            assert runtime._tasks is not None
+            updated, answer = runtime._tasks.advance(
                 ctx, orchestration=OrchestrationContext(profile=profile, invariants=policy.settings), memory=memory,
             )
         is_generation = action in {"generate_plan", "execute_step", "validate"}
@@ -390,5 +432,6 @@ class ChatSessionService:
             expected_revision=None if is_generation else request.revision,
             expected_progress_revision=stored.progress_revision if is_generation else None,
             pause_only=action in {"pause", "resume"},
+            **(runtime._model_metadata() if is_generation else {}),
         )
         return self.get(session_id)

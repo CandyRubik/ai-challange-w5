@@ -13,3 +13,5 @@ class StoredMessage:
     status: str = "done"
     error: str | None = None
     memory_update: str | None = None
+    provider: str | None = None
+    model: str | None = None

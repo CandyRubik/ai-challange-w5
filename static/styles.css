@@ -449,3 +449,14 @@ dialog { border-color: #30323b; background: #131419; box-shadow: 0 28px 90px #00
 @media (prefers-reduced-motion: reduce) { .context-panel, .sidebar { transition: none; } }
 .memory-source { margin-top: .4rem; font-size: .75rem; }
 .message-retry-note { opacity: .75; font-size: .8rem; }
+.model-switcher { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 6px; }
+#model-select { width: min(300px, 100%); border: 1px solid #30323b; border-radius: 8px; padding: 5px 8px; color: #d8d2ff; background: #1b1927; font-size: 11px; }
+#model-status { color: #858994; font-size: 10px; }
+#model-status[data-available="false"] { color: #d4ad79; }
+.followup-queue small { color: #a7a0d7; font-size: 10px; }
+@media (max-width: 820px) {
+  .conversation > header > div:first-of-type { min-width: 0; }
+  .model-switcher { gap: 4px; }
+  #model-select { max-width: 210px; }
+  #model-status { width: 100%; }
+}

@@ -9,26 +9,25 @@ from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from .agents.agent import Agent, AgentInputError, AgentOutputError
+from .agents.agent import AgentInputError, AgentOutputError
 from .invariants import (
     InvariantSnapshot, InvariantUpdateRequest, InvariantSettingsConflict,
     SQLiteInvariantRepository,
 )
-from .memory.extractor import MemoryExtractor
-from .memory.updates import MemoryUpdateConflict, WorkingMemoryInterpreter
-from .orchestration.profile_interviewer import ProfileInterviewer
+from .memory.updates import MemoryUpdateConflict
 from .state.task import TaskConflict
-from .providers.deepseek import (
-    DeepSeekProvider,
+from .providers.errors import (
     LlmConfigurationError,
     LlmRequestError,
 )
+from .providers.registry import ModelRegistry
 from .schemas import (
     ChatSendRequest,
     ChatSendResponse,
     ChatSession,
     ChatSessionCreateRequest,
     ChatSessionSummary,
+    ChatModelUpdateRequest,
     MemoryCreateRequest,
     MemoryEntry,
     MemorySnapshot,
@@ -98,19 +97,17 @@ def get_memory_repository() -> SQLiteMemoryRepository:
 
 
 def get_chat_session_service() -> ChatSessionService:
-    provider = DeepSeekProvider()
-    agent = Agent(provider)
-    memory_extractor = MemoryExtractor(provider)
     return ChatSessionService(
         get_chat_repository(),
-        agent,
-        get_memory_repository(),
-        memory_extractor,
-        get_profile_repository(),
-        ProfileInterviewer(provider),
+        memory_repository=get_memory_repository(),
+        profile_repository=get_profile_repository(),
         invariant_repository=get_invariant_repository(),
-        memory_interpreter=WorkingMemoryInterpreter(DeepSeekProvider(thinking_enabled=False)),
+        model_registry=get_model_registry(),
     )
+
+
+def get_model_registry() -> ModelRegistry:
+    return ModelRegistry()
 
 
 @lru_cache(maxsize=1)
@@ -157,13 +154,19 @@ def health() -> dict[str, bool | str]:
     }
 
 
+@app.get("/api/models")
+def model_catalog(registry: ModelRegistry = Depends(get_model_registry)) -> dict:
+    return registry.catalog()
+
+
 @app.post("/api/chat/sessions", response_model=ChatSession, status_code=201)
 def create_chat_session(
     request: ChatSessionCreateRequest | None = None,
     service: ChatSessionService = Depends(get_chat_session_service),
 ) -> ChatSession:
     try:
-        return service.create(request.profile_id if request else DEFAULT_PROFILE_ID)
+        return service.create(request.profile_id if request else DEFAULT_PROFILE_ID,
+                              request.provider if request else None)
     except ProfileNotFound:
         raise HTTPException(status_code=404, detail="Профиль не найден") from None
 
@@ -298,6 +301,19 @@ def get_chat_session(
         raise HTTPException(status_code=404, detail="Профиль не найден") from None
 
 
+@app.put("/api/chat/sessions/{session_id}/model", response_model=ChatSession)
+def update_chat_model(
+    session_id: str, request: ChatModelUpdateRequest,
+    service: ChatSessionService = Depends(get_chat_session_service),
+) -> ChatSession:
+    try:
+        return service.set_provider(session_id, request.provider)
+    except ChatSessionNotFound:
+        raise HTTPException(status_code=404, detail="Чат не найден") from None
+    except LlmConfigurationError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from None
+
+
 @app.post(
     "/api/chat/sessions/{session_id}/messages",
     response_model=ChatSendResponse,
@@ -308,7 +324,7 @@ def send_chat_message(
     service: ChatSessionService = Depends(get_chat_session_service),
 ) -> ChatSendResponse:
     try:
-        return service.send(session_id, request.content)
+        return service.send(session_id, request.content, request.provider)
     except ChatSessionNotFound:
         raise HTTPException(status_code=404, detail="Чат не найден") from None
     except ProfileNotFound:
@@ -321,8 +337,8 @@ def send_chat_message(
         raise HTTPException(status_code=422, detail=str(error)) from None
     except (AgentOutputError, LlmRequestError) as error:
         raise HTTPException(status_code=502, detail=str(error)) from None
-    except LlmConfigurationError:
-        raise HTTPException(status_code=503, detail="DEEPSEEK_API_KEY не задан") from None
+    except LlmConfigurationError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from None
 
 
 @app.post("/api/chat/sessions/{session_id}/messages/{message_id}/retry", response_model=ChatSendResponse)
@@ -340,8 +356,8 @@ def retry_chat_message(
         raise HTTPException(status_code=409, detail=error.detail) from None
     except (AgentOutputError, LlmRequestError) as error:
         raise HTTPException(status_code=502, detail=str(error)) from None
-    except LlmConfigurationError:
-        raise HTTPException(status_code=503, detail="DEEPSEEK_API_KEY не задан") from None
+    except LlmConfigurationError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from None
     except AgentInputError as error:
         raise HTTPException(status_code=422, detail=str(error)) from None
 
@@ -380,8 +396,8 @@ def task_action(
         raise HTTPException(status_code=409, detail=error.detail) from None
     except (AgentOutputError, LlmRequestError) as error:
         raise HTTPException(status_code=502, detail=str(error)) from None
-    except LlmConfigurationError:
-        raise HTTPException(status_code=503, detail="DEEPSEEK_API_KEY не задан") from None
+    except LlmConfigurationError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from None
 
 
 STATIC_ROOT = Path(__file__).resolve().parents[1] / "static"

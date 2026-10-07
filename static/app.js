@@ -10,6 +10,11 @@ const sessionList = document.querySelector("#sessions");
 const messages = document.querySelector("#messages");
 const title = document.querySelector("#chat-title");
 const status = document.querySelector("#status");
+const modelSelect = document.querySelector("#model-select");
+const modelStatus = document.querySelector("#model-status");
+let modelProviders = [];
+let modelSaving = false;
+const modelPreferences = new Map();
 const form = document.querySelector("#message-form");
 const input = document.querySelector("#message-input");
 const submitButton = form.querySelector("button[type='submit']");
@@ -132,6 +137,62 @@ async function api(path, options = {}) {
   }
   return response.status === 204 ? null : response.json();
 }
+
+function selectedProvider() {
+  return modelSelect.value || currentSession?.provider || "ollama";
+}
+
+function renderModelSelection() {
+  const choice = modelPreferences.get(currentSessionId) || currentSession?.provider;
+  modelSelect.replaceChildren(...modelProviders.map((provider) => {
+    const option = document.createElement("option");
+    option.value = provider.id;
+    option.textContent = `${provider.id === "ollama" ? "Локальная" : "DeepSeek"} · ${provider.model}`;
+    option.disabled = provider.id === "deepseek" && !provider.available;
+    return option;
+  }));
+  if (choice) modelSelect.value = choice;
+  const provider = modelProviders.find((item) => item.id === selectedProvider());
+  modelStatus.textContent = provider?.available ? (provider.id === "ollama" ? "На этом компьютере" : "Облачная модель") : provider?.detail || "Проверка моделей…";
+  modelStatus.dataset.available = String(Boolean(provider?.available));
+  modelSelect.title = provider ? `${provider.model}. ${provider.detail}. Выбор применяется к следующим сообщениям.` : "Выбор модели";
+  modelSelect.disabled = modelSaving || !currentSessionId || !modelProviders.length;
+}
+
+async function loadModels() {
+  try {
+    const catalog = await api("/api/models");
+    modelProviders = catalog.providers;
+    renderModelSelection();
+  } catch (error) {
+    modelStatus.textContent = error.message;
+  }
+}
+
+modelSelect.addEventListener("change", async () => {
+  if (!currentSessionId || modelSaving) return;
+  const sessionId = currentSessionId;
+  const provider = modelSelect.value;
+  modelSaving = true;
+  modelSelect.disabled = true;
+  syncControls();
+  try {
+    const session = await api(`/api/chat/sessions/${sessionId}/model`, {
+      method: "PUT", body: JSON.stringify({ provider }),
+    });
+    modelPreferences.set(sessionId, provider);
+    if (currentSessionId === sessionId) currentSession = { ...currentSession, provider: session.provider };
+    sessions = sessions.map((item) => item.id === sessionId ? { ...item, provider } : item);
+    status.textContent = "Модель выбрана для следующих запросов";
+  } catch (error) {
+    status.textContent = error.message;
+  } finally {
+    modelSaving = false;
+    renderModelSelection();
+    syncControls();
+    void drainQueue();
+  }
+});
 
 function invariantPayload() {
   const minimum = Number(document.querySelector("#min-emojis").value);
@@ -262,10 +323,11 @@ function setBusy(value) {
 function syncControls() {
   const task = currentSession?.task;
   const active = task && task.state !== "done";
-  const blocked = busy || controlBusy;
+  const blocked = busy || controlBusy || modelSaving;
+  modelSelect.disabled = modelSaving || !currentSessionId || !modelProviders.length;
   const unresolved = unresolvedMessage();
   input.disabled = Boolean(controlBusy || taskRunning || active || unresolved);
-  form.querySelector('button[type="submit"]').disabled = Boolean(controlBusy || taskRunning || active || unresolved);
+  form.querySelector('button[type="submit"]').disabled = Boolean(controlBusy || taskRunning || active || unresolved || modelSaving);
   startTaskButton.disabled = Boolean(blocked || task || unresolved || !activeProfile()?.onboarding_complete);
   newButton.disabled = blocked || activeProfile()?.onboarding_complete === false;
   profileSelect.disabled = blocked;
@@ -547,6 +609,7 @@ function applySession(session) {
       && session.task.revision < currentSession.task.revision) return;
   currentSession = session;
   currentSessionId = session.id;
+  renderModelSelection();
   const { messages: ignoredMessages, ...summary } = session;
   sessions = [summary, ...sessions.filter((item) => item.id !== session.id)];
   title.textContent = session.title;
@@ -662,6 +725,12 @@ function renderQueue() {
     position.textContent = String(index + 1);
     const content = document.createElement("p");
     content.textContent = queued.content;
+    if (queued.provider) {
+      const source = document.createElement("small");
+      const provider = modelProviders.find((candidate) => candidate.id === queued.provider);
+      source.textContent = `${queued.provider === "ollama" ? "Локальная" : "DeepSeek"} · ${provider?.model || queued.provider}`;
+      content.append(document.createElement("br"), source);
+    }
     const remove = document.createElement("button");
     remove.type = "button";
     remove.title = "Убрать из очереди";
@@ -685,6 +754,7 @@ function enqueueMessage(content) {
     id: globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`,
     content,
     sessionId: currentSessionId,
+    provider: selectedProvider(),
   });
   renderQueue();
   status.textContent = `Агент отвечает · в очереди: ${queuedMessages.filter((item) => item.sessionId === currentSessionId).length}`;
@@ -831,6 +901,9 @@ function renderMessages(items, updateState = true) {
     label.textContent = kind === "command"
       ? "Команда памяти"
       : (message.role === "user" ? "Вы" : (message.refusal ? "Отказ · Инварианты" : "Агент"));
+    if (message.role === "assistant" && message.model && !message.refusal) {
+      label.textContent = `${message.provider === "ollama" ? "Локальная" : "DeepSeek"} · ${message.model}`;
+    }
     let content;
     if (kind === "pending") {
       content = document.createElement("div");
@@ -853,6 +926,7 @@ function renderMessages(items, updateState = true) {
       const retry = document.createElement("button");
       retry.type = "button";
       retry.textContent = "Повторить ответ";
+      if (message.model) retry.title = `Повтор использует исходную модель: ${message.model}`;
       retry.addEventListener("click", () => retryChatMessage(message));
       article.append(error, retry);
     }
@@ -962,6 +1036,7 @@ async function openSession(sessionId) {
       api(`/api/chat/sessions/${sessionId}`),
       api(`/api/memory?session_id=${encodeURIComponent(sessionId)}`),
     ]);
+    modelPreferences.delete(sessionId);
     memorySnapshot = memory;
     applySession(session);
     renderQueue();
@@ -971,18 +1046,18 @@ async function openSession(sessionId) {
   }
 }
 
-async function sendChatMessage(content) {
+async function sendChatMessage(content, provider = selectedProvider()) {
   setBusy(true);
   const optimisticMessages = [
     ...currentMessages,
     { role: "user", kind: "message", content },
-    { role: "assistant", kind: "pending", content: "" },
+    { role: "assistant", kind: "pending", content: "", provider, model: modelProviders.find((item) => item.id === provider)?.model },
   ];
   renderMessages(optimisticMessages, false);
   try {
     const result = await api(`/api/chat/sessions/${currentSessionId}/messages`, {
       method: "POST",
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content, provider }),
     });
     const [session, memory, loadedProfiles] = await Promise.all([
       api(`/api/chat/sessions/${currentSessionId}`),
@@ -1037,22 +1112,22 @@ async function retryChatMessage(message) {
   }
 }
 
-async function dispatchContent(content) {
+async function dispatchContent(content, provider = selectedProvider()) {
   const memoryCommand = parsedMemoryCommand(content);
   if (memoryCommand) {
     await executeMemoryCommand(memoryCommand);
   } else {
-    await sendChatMessage(content);
+    await sendChatMessage(content, provider);
   }
 }
 
 async function drainQueue() {
-  if (busy || unresolvedMessage() || !queuedMessages.length || !currentSessionId) return;
+  if (busy || modelSaving || unresolvedMessage() || !queuedMessages.length || !currentSessionId) return;
   const index = queuedMessages.findIndex((item) => item.sessionId === currentSessionId);
   if (index < 0) return;
   const [next] = queuedMessages.splice(index, 1);
   renderQueue();
-  await dispatchContent(next.content);
+  await dispatchContent(next.content, next.provider);
 }
 
 async function createSession() {
@@ -1117,7 +1192,7 @@ async function loadProfiles() {
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const content = input.value.trim();
-  if (!content || !currentSessionId || unresolvedMessage()) return;
+  if (!content || !currentSessionId || unresolvedMessage() || modelSaving) return;
   const memoryCommand = parsedMemoryCommand(content);
   if (memoryCommand && !memoryCommand.content) {
     await executeMemoryCommand(memoryCommand);
@@ -1297,7 +1372,7 @@ startTaskButton.addEventListener("click", async () => {
 
 async function runTaskAction(action, content = "") {
   const task = currentSession?.task;
-  if (!task || controlBusy || (busy && !(action === "pause" && taskRunning))) return;
+  if (!task || modelSaving || controlBusy || (busy && !(action === "pause" && taskRunning))) return;
   const isPause = action === "pause";
   if (isPause) controlBusy = true;
   else {
@@ -1337,7 +1412,10 @@ replanButton.addEventListener("click", () => {
   const content = window.prompt("Что изменить в плане? Завершённые результаты сохранятся.");
   if (content?.trim()) runTaskAction("replan", content.trim());
 });
-refreshButton.addEventListener("click", () => openSession(currentSessionId));
+refreshButton.addEventListener("click", async () => {
+  await loadModels();
+  await openSession(currentSessionId);
+});
 processTab.addEventListener("click", () => setInspector("process"));
 memoryTab.addEventListener("click", () => setInspector("memory"));
 inspectorTabs.addEventListener("keydown", (event) => {
@@ -1365,4 +1443,4 @@ document.addEventListener("keydown", (event) => {
 renderMemory();
 renderQueue();
 loadInvariants().catch(() => { renderActiveInvariants(); });
-loadProfiles();
+loadModels().then(loadProfiles);

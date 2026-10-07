@@ -16,10 +16,16 @@ class StrictModel(BaseModel):
 
 class ChatSendRequest(StrictModel):
     content: Annotated[str, Field(min_length=1, max_length=12_000)]
+    provider: Literal["ollama", "deepseek"] | None = None
 
 
 class ChatSessionCreateRequest(StrictModel):
     profile_id: str = "default"
+    provider: Literal["ollama", "deepseek"] | None = None
+
+
+class ChatModelUpdateRequest(StrictModel):
+    provider: Literal["ollama", "deepseek"]
 
 
 class ChatMessage(StrictModel):
@@ -32,6 +38,8 @@ class ChatMessage(StrictModel):
 
     status: Literal["pending", "done", "failed"] = "done"
     error: str | None = None
+    provider: Literal["ollama", "deepseek"] | None = None
+    model: str | None = None
 
 
 class TaskStartRequest(StrictModel):
@@ -90,6 +98,7 @@ class ChatSessionSummary(StrictModel):
     title: str
     created_at: datetime
     updated_at: datetime
+    provider: Literal["ollama", "deepseek"] = "deepseek"
     task: TaskSummary | None = None
 
 
