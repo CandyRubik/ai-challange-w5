@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "question": "Чем ThreadPerTaskWebServer отличается от последовательного сервера при обработке соединения?",
+    "expected": "Для каждого соединения основной цикл создаёт отдельный поток вместо обработки запроса в основном потоке.",
+    "sections": ["6.1.2 Explicitly creating threads for tasks"]
+  },
+  {
+    "id": 2,
+    "question": "Почему обработчик запроса в ThreadPerTaskWebServer должен быть потокобезопасным?",
+    "expected": "Обработчик может одновременно выполняться для нескольких запросов.",
+    "sections": ["6.1.2 Explicitly creating threads for tasks"]
+  },
+  {
+    "id": 3,
+    "question": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+    "expected": "Он отображает текст страницы параллельно загрузке изображений, а затем ждёт Future.get для их отрисовки.",
+    "sections": ["6.3.3 Example: page renderer with Future"]
+  },
+  {
+    "id": 4,
+    "question": "Почему распараллеливание двух разнородных задач плохо масштабируется?",
+    "expected": "Размеры задач могут различаться, а без более мелких однотипных независимых задач добавление работников даёт убывающую отдачу.",
+    "sections": ["6.3.4 Limitations of parallelizing heterogeneous tasks"]
+  },
+  {
+    "id": 5,
+    "question": "Как Renderer с CompletionService повышает отзывчивость страницы с изображениями?",
+    "expected": "Каждое изображение загружается отдельной задачей, и готовые изображения отображаются по мере завершения.",
+    "sections": ["6.3.6 Example: page renderer with CompletionService"]
+  },
+  {
+    "id": 6,
+    "question": "Как узнать, что все результаты пакета получены из CompletionService при общем Executor?",
+    "expected": "Запомнить число отправленных задач и посчитать полученные завершённые результаты.",
+    "sections": ["6.3.6 Example: page renderer with CompletionService"]
+  },
+  {
+    "id": 7,
+    "question": "Что делает пример с рекламой, если timed Future.get не успел вернуть результат?",
+    "expected": "Отменяет задачу загрузки рекламы и показывает объявление по умолчанию.",
+    "sections": ["6.3.7 Placing time limits on tasks"]
+  },
+  {
+    "id": 8,
+    "question": "Какой точный размер thread pool книга предписывает для сервера с 64 ядрами?",
+    "expected": "В доступных фрагментах нет численной рекомендации именно для 64-ядерного сервера.",
+    "sections": []
+  },
+  {
+    "id": 9,
+    "question": "Как в этой главе работает Java StructuredTaskScope?",
+    "expected": "В главе нет описания StructuredTaskScope.",
+    "sections": []
+  },
+  {
+    "id": 10,
+    "question": "Как книга настраивает cooperative scheduling в Rust Tokio?",
+    "expected": "В главе нет описания Rust Tokio.",
+    "sections": []
+  }
+]

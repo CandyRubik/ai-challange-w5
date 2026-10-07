@@ -460,3 +460,5 @@ dialog { border-color: #30323b; background: #131419; box-shadow: 0 28px 90px #00
   #model-select { max-width: 210px; }
   #model-status { width: 100%; }
 }
+
+.rag-link { display: block; padding: 11px 8px; color: #82d9bd; text-decoration: none; font-size: 12px; }

@@ -171,6 +171,25 @@ class Agent:
         )
         return self._output_policy.apply(raw_answer)
 
+    def respond_json(
+        self, context: AgentContext, current_message: str, *,
+        orchestration: OrchestrationContext | None = None,
+        memory: MemoryContext | None = None, document_context: str = "",
+        schema: dict | None = None,
+    ) -> str:
+        conversation = self._input_policy.apply(
+            context if self._context_enabled else [], current_message,
+        )
+        raw_answer = self._model.generate_json(
+            messages=[{
+                "role": "system",
+                "content": self._prompt(orchestration, memory, None, (), ())
+                + ("\n\n" + document_context if document_context else ""),
+            }, *conversation], max_tokens=self._max_tokens,
+            **({"schema": schema} if schema is not None else {}),
+        )
+        return self._output_policy.apply(raw_answer)
+
     def _task_response(
         self, task: TaskContext, instruction: str, *,
         structured: bool = False,

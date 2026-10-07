@@ -214,11 +214,13 @@ def test_invalid_memory_interpretation_does_not_break_answer_or_mutate_memory(tm
     assert memories.list_working(chat.id) == []
 
 
-def test_project_has_no_document_search_modules_or_endpoints():
-    root = Path(__file__).resolve().parents[1]
-    assert not (root / "app/indexing").exists()
-    assert not (root / "app/rag_chat").exists()
-    assert not any("rag" in route.path or "document-index" in route.path for route in app.routes)
+def test_regular_chat_does_not_invoke_document_retrieval(tmp_path, monkeypatch):
+    def unexpected():
+        raise AssertionError("Regular chat attempted document retrieval")
+    monkeypatch.setattr("app.main.get_document_index", unexpected)
+    service, _, _ = create_services(tmp_path)
+    session = service.create()
+    assert service.send(session.id, "Обычный вопрос").assistant_message.content == "Готово."
 
 
 def test_memory_edit_during_generation_requires_retry_from_new_snapshot(tmp_path):

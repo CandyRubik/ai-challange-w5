@@ -1,0 +1,83 @@
+{
+  "model": "qwen3.5:9b-q4_K_M",
+  "question": "Почему обработчик запроса в ThreadPerTaskWebServer должен быть потокобезопасным?",
+  "context_sha256": "46f1d3d0ee9c5c9964bb4e56d3fccd3ac42fc817dad39f65a0fc2c522cc284f9",
+  "method": "Unload only the selected local model via keep_alive=0; generate twice on identical saved context.",
+  "limitations": "One cold/warm observation; excludes interpretation and retrieval.",
+  "runs": [
+    {
+      "label": "cold",
+      "elapsed_seconds": 6.041581041994505,
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 6.040735667003901,
+        "ollama_requests": [
+          {
+            "total_duration": 6033209208,
+            "load_duration": 1739385416,
+            "prompt_eval_count": 931,
+            "prompt_eval_duration": 2229129000,
+            "eval_count": 81,
+            "eval_duration": 2057951000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Обработчик задач должен быть потокобезопасным, потому что он может вызываться одновременно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "label": "warm",
+      "elapsed_seconds": 2.1512422499945387,
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 2.1500175000110175,
+        "ollama_requests": [
+          {
+            "total_duration": 2141063833,
+            "load_duration": 900333,
+            "prompt_eval_count": 931,
+            "prompt_eval_duration": 82104000,
+            "eval_count": 81,
+            "eval_duration": 2054539000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Обработчик задач должен быть потокобезопасным, потому что он может вызываться одновременно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered"
+    }
+  ]
+}

@@ -43,4 +43,6 @@ jobs:
           node-version: "20"
 
       - name: Check JavaScript syntax
-        run: node --check static/app.js
+        run: |
+          node --check static/app.js
+          node --check static/rag-chat/app.js
