@@ -1,0 +1,107 @@
+{
+  "id": "8495c257-59ab-48eb-9a1c-f873de9cf5a1",
+  "profile_id": "a268c455-69b1-49ba-b4d1-4e7b657e1705",
+  "title": "Объясни, что такое локальная LLM, в двух предложениях.",
+  "created_at": "2026-10-07T13:41:10.496875Z",
+  "updated_at": "2026-10-07T13:42:42.621286Z",
+  "provider": "ollama",
+  "task": null,
+  "messages": [
+    {
+      "id": "226b8a1d-4552-44ae-b34c-104d997d0f57",
+      "role": "user",
+      "kind": "message",
+      "refusal": false,
+      "content": "Объясни, что такое локальная LLM, в двух предложениях.",
+      "created_at": "2026-10-07T13:41:30.563449Z",
+      "status": "done",
+      "error": null,
+      "provider": "ollama",
+      "model": "qwen3.5:9b-q4_K_M"
+    },
+    {
+      "id": "1e03acda-b270-44b8-b0a4-95699046360c",
+      "role": "assistant",
+      "kind": "message",
+      "refusal": false,
+      "content": "ЛОКАЛЬНАЯ LLM — ЭТО БОЛЬШАЯ ЯЗЫКОВАЯ МОДЕЛЬ, КОТОРАЯ РАБОТАЕТ НА ВАШЕМ УСТРОЙСТВЕ БЕЗ НЕОБХОДИМОСТИ ВО ВНЕШНИХ СЕРВЕРАХ. 🖥️✨🚀 ОНА ОБЕСПЕЧИВАЕТ ПРИВАТНОСТЬ И СКОРОСТЬ ЗА СЧЕТ ПРЯМОГО ДОСТУПА К ЛОКАЛЬНЫМ РЕСУРСАМ! 💻⚡🔒",
+      "created_at": "2026-10-07T13:41:39.562825Z",
+      "status": "done",
+      "error": null,
+      "provider": "ollama",
+      "model": "qwen3.5:9b-q4_K_M"
+    },
+    {
+      "id": "82547f0c-8144-4191-8df1-5f56662c3599",
+      "role": "user",
+      "kind": "message",
+      "refusal": false,
+      "content": "Сколько будет 2 + 2?",
+      "created_at": "2026-10-07T13:41:57.650607Z",
+      "status": "done",
+      "error": null,
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "id": "91353d30-85bf-4a72-9be5-ff8298c4b44f",
+      "role": "assistant",
+      "kind": "message",
+      "refusal": false,
+      "content": "2 + 2 РАВНО 4! 🧮✨🎉 ЭТО ПРОСТОЙ ПРИМЕР АРИФМЕТИКИ, КОТОРЫЙ ЛЕГКО ПРОВЕРИТЬ! ✅😊",
+      "created_at": "2026-10-07T13:42:01.549452Z",
+      "status": "done",
+      "error": null,
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "id": "3ffc6ac3-66da-48c4-ac00-33be9af41ab0",
+      "role": "user",
+      "kind": "message",
+      "refusal": false,
+      "content": "Какую тему мы обсуждали в первом сообщении?",
+      "created_at": "2026-10-07T13:42:23.312449Z",
+      "status": "done",
+      "error": null,
+      "provider": "ollama",
+      "model": "qwen3.5:9b-q4_K_M"
+    },
+    {
+      "id": "6878a020-6cb2-4f65-a98f-c518f78334d9",
+      "role": "assistant",
+      "kind": "message",
+      "refusal": false,
+      "content": "ВЫ СПРОСИЛИ О ТОМ, ЧТО ТАКОЕ ЛОКАЛЬНАЯ LLM, И Я ОТВЕТИЛ НА ЭТОТ ВОПРОС! 🧠💬🤖",
+      "created_at": "2026-10-07T13:42:30.689183Z",
+      "status": "done",
+      "error": null,
+      "provider": "ollama",
+      "model": "qwen3.5:9b-q4_K_M"
+    },
+    {
+      "id": "03f8166e-4e0f-4fab-8392-7a9722e951a6",
+      "role": "user",
+      "kind": "message",
+      "refusal": false,
+      "content": "Назови одно преимущество локальной модели.",
+      "created_at": "2026-10-07T13:42:33.868387Z",
+      "status": "done",
+      "error": null,
+      "provider": "ollama",
+      "model": "qwen3.5:9b-q4_K_M"
+    },
+    {
+      "id": "71873434-7415-45ab-9e71-e04ff1be7742",
+      "role": "assistant",
+      "kind": "message",
+      "refusal": false,
+      "content": "ПРИВАТНОСТЬ ДАННЫХ — КЛЮЧЕВОЕ ПРЕИМУЩЕСТВО ЛОКАЛЬНЫХ МОДЕЛЕЙ, ПОСКОЛЬКУ ВАШИ ЗАПРОСЫ НЕ УХОДЯТ НАВНУТРИ! 🛡️🔒📱",
+      "created_at": "2026-10-07T13:42:42.621286Z",
+      "status": "done",
+      "error": null,
+      "provider": "ollama",
+      "model": "qwen3.5:9b-q4_K_M"
+    }
+  ]
+}

@@ -4,6 +4,10 @@ from dataclasses import dataclass
 import json
 from typing import Any, Protocol
 
+from pydantic import Field
+
+from ..schemas import StrictModel, ProfileTone, ProfileDetailLevel, ProfileResponseFormat, ProfileConstraint
+
 from .context import ProfileContext
 
 
@@ -20,6 +24,16 @@ class ProfileInterviewModel(Protocol):
 
 class ProfileInterviewError(RuntimeError):
     """The model returned a malformed profile update."""
+
+
+class ProfileInterviewOutput(StrictModel):
+    name: str | None = Field(min_length=1, max_length=80)
+    description: str | None = Field(min_length=1, max_length=1000)
+    language: str | None = Field(min_length=1, max_length=40)
+    tone: ProfileTone | None
+    detail_level: ProfileDetailLevel | None
+    response_format: ProfileResponseFormat | None
+    constraints: list[ProfileConstraint] | None = Field(max_length=10)
 
 
 @dataclass(frozen=True, slots=True)
@@ -107,7 +121,9 @@ explicit answer that there are no constraints maps to an empty list.
         raw_result = self._model.complete(
             system_prompt=self.system_prompt,
             user_prompt=json.dumps(payload, ensure_ascii=False),
-            response_format={"type": "json_object"},
+            response_format={"type": "json_schema", "json_schema": {
+                "name": "profile_update", "schema": ProfileInterviewOutput.model_json_schema(),
+            }},
             max_tokens=self.max_tokens,
         )
         try:

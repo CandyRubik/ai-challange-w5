@@ -6,7 +6,7 @@
     <meta name="description" content="Чат с агентом и автоматической трёхслойной памятью" />
     <title>AI Challenge W5</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="/styles.css?v=minimal-shell-1" />
+    <link rel="stylesheet" href="/styles.css?v=local-models-1" />
   </head>
   <body>
     <main class="chat-shell">
@@ -35,6 +35,10 @@
           <button id="open-navigation" class="icon-button mobile-only" type="button" aria-label="Открыть список чатов">☰</button>
           <div>
             <h1 id="chat-title">Новый чат</h1>
+            <div class="model-switcher">
+              <select id="model-select" aria-label="Модель для следующих сообщений" disabled></select>
+              <span id="model-status" role="status">Проверка моделей…</span>
+            </div>
             <div id="active-invariants" class="active-invariants" aria-label="Активные инварианты"></div>
           </div>
           <div class="header-actions">
@@ -295,6 +299,6 @@
         </footer>
       </form>
     </dialog>
-    <script src="/app.js?v=minimal-shell-1" defer></script>
+    <script src="/app.js?v=local-models-1" defer></script>
   </body>
 </html>
