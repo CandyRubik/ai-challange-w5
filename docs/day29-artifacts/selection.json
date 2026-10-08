@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-10-08T14:50:06.694221+00:00",
+  "selected_profile": {
+    "name": "optimized",
+    "num_ctx": 8192,
+    "max_tokens": 1000,
+    "temperature": 0,
+    "prompt_version": "complete-v3",
+    "max_num_ctx": 32768
+  },
+  "calibration_sha256": {
+    "calibration.json": "c68fec44d3f577122d0427ef7e4fc62afe90ff588373401be9c0024dbf1a9590",
+    "calibration-prompt-v2.json": "e161bf8fc6b64f9d8c8b7521d28b3a6ce8cd232628deadb525e55b927e0e7946",
+    "calibration-prompt-v3.json": "253b2d71aa50fa67ac3e868cb8a875a84dd1e2dd4a6c5daacefcd4a1bb00d0df"
+  },
+  "reason": "8192 uses less model allocation and fits all seven calibration prompts; 1000 has no truncations; higher temperature did not recover missing facts. complete-v3 explicitly includes blocking calls and avoids unrelated API claims observed in v1/v2. Speed improvement is not assumed. Validation cases have not been generated during selection.",
+  "validation_status_at_selection": "not started",
+  "validation_report": "evaluation.json"
+}

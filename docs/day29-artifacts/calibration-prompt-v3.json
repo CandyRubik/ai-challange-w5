@@ -1,0 +1,938 @@
+{
+  "created_at": "2026-10-08T14:48:40.901244+00:00",
+  "config": {
+    "cases_sha256": "ce05e1d119cce3410977bc934b959e222186ee11dc1e1add9b4a0571cf333a04",
+    "split": "calibration",
+    "repeats": 1,
+    "profiles": {
+      "optimized": {
+        "name": "optimized",
+        "num_ctx": 8192,
+        "max_tokens": 1000,
+        "temperature": 0,
+        "prompt_version": "complete-v3",
+        "max_num_ctx": 32768,
+        "model": "qwen3.5:9b-q4_K_M"
+      }
+    },
+    "seed_policy": "1000 + repeat; same seed for paired profiles"
+  },
+  "platform": "macOS-26.2-arm64-arm-64bit-Mach-O",
+  "models": {
+    "qwen3.5:9b-q4_K_M": {
+      "name": "qwen3.5:9b-q4_K_M",
+      "model": "qwen3.5:9b-q4_K_M",
+      "modified_at": "2026-10-07T15:28:32.128338012+03:00",
+      "size": 6550825550,
+      "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+      "details": {
+        "parent_model": "model.gguf",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "9.0B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ]
+    }
+  },
+  "ollama_version": {
+    "version": "0.35.1"
+  },
+  "method": "Frozen source excerpts: calibration uses day28 retrieval; validation uses documented manually selected chapter excerpts. Retrieval is excluded to isolate generation. Every refusal case supplies nonempty evidence to the LLM. Validation cases are excluded from tuning.",
+  "cases": [
+    {
+      "id": 1,
+      "split": "calibration",
+      "question": "Чем ThreadPerTaskWebServer отличается от последовательного сервера при обработке соединения?",
+      "search_question": "What is the difference between ThreadPerTaskWebServer and a sequential server in chapter 6?",
+      "expected": "Для каждого соединения основной цикл создаёт отдельный поток вместо обработки запроса в основном потоке.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.8831170797348022,
+          "chunk_id": "structure-0007",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3,
+          "text": "A more responsive approach is to create a new thread for ser vicing each request, as shown in ThreadPerTaskWebServer in Listing 6.2. class ThreadPerTaskWebServer { public static void main(String [] args) throws IOException { ServerSocket socket = new ServerSocket (80); while (true ) { final Socket connection = socket.accept (); Runnable task = new Runnable () { public void run() { handleRequest(connection); } }; new Thread(task).start(); } } } Listing 6.2. Web server that starts a new thread for each request. ThreadPerTaskWebServer is similar in structure to the single-threaded version—the main thread still alternat es between accepting an incoming con- nection and dispatching the request. The difference is that for each connection, the main loop creates a new thread to process the request instead of processing it within the main thread. This has three main consequences:  Task processing is offloaded from the main thread, enabling the main loop to resume waiting for the next incoming connection more quickly. This enables new connections to be accepted before previous requests complete, improving responsiveness.  Tasks can be processed in parallel, enabling multiple requests to",
+          "token_count": 300
+        },
+        {
+          "score": 0.8606281876564026,
+          "chunk_id": "structure-0008",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3,
+          "text": "be ser viced simultaneously. This may improve throughput if there are multiple process- ors, or if tasks need to block for any reason such as I/O completion, lock acquisition, or resource availability.  Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks. Under light to moderate load, the thread-per-task approach is an improvement over sequential execution. As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput.",
+          "token_count": 136
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "split": "calibration",
+      "question": "Почему обработчик запроса в ThreadPerTaskWebServer должен быть потокобезопасным?",
+      "search_question": "Why must the request handler in ThreadPerTaskWebServer be thread-safe?",
+      "expected": "Обработчик может одновременно выполняться для нескольких запросов.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.8931137919425964,
+          "chunk_id": "structure-0008",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3,
+          "text": "be ser viced simultaneously. This may improve throughput if there are multiple process- ors, or if tasks need to block for any reason such as I/O completion, lock acquisition, or resource availability.  Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks. Under light to moderate load, the thread-per-task approach is an improvement over sequential execution. As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput.",
+          "token_count": 136
+        },
+        {
+          "score": 0.8868464231491089,
+          "chunk_id": "structure-0007",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3,
+          "text": "A more responsive approach is to create a new thread for ser vicing each request, as shown in ThreadPerTaskWebServer in Listing 6.2. class ThreadPerTaskWebServer { public static void main(String [] args) throws IOException { ServerSocket socket = new ServerSocket (80); while (true ) { final Socket connection = socket.accept (); Runnable task = new Runnable () { public void run() { handleRequest(connection); } }; new Thread(task).start(); } } } Listing 6.2. Web server that starts a new thread for each request. ThreadPerTaskWebServer is similar in structure to the single-threaded version—the main thread still alternat es between accepting an incoming con- nection and dispatching the request. The difference is that for each connection, the main loop creates a new thread to process the request instead of processing it within the main thread. This has three main consequences:  Task processing is offloaded from the main thread, enabling the main loop to resume waiting for the next incoming connection more quickly. This enables new connections to be accepted before previous requests complete, improving responsiveness.  Tasks can be processed in parallel, enabling multiple requests to",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "split": "calibration",
+      "question": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+      "search_question": "What does FutureRenderer do while images are loading in chapter 6?",
+      "expected": "Он отображает текст страницы параллельно загрузке изображений, а затем ждёт Future.get для их отрисовки.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.9013963937759399,
+          "chunk_id": "structure-0045",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15,
+          "text": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data. When all the images are downloaded, they are rendered onto the page. This is an improvement in that the user sees a result quickly and it exploits some parallelism, but we can do considerably better. There is no need for users to wait for all theimagestobedownloaded;theywouldprobablypreferto see individual images drawn as they become available.",
+          "token_count": 112
+        },
+        {
+          "score": 0.8797121047973633,
+          "chunk_id": "structure-0048",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16,
+          "text": "128 Chapter 6. Task Execution public class FutureRenderer { private final ExecutorService executor =...; void renderPage (CharSequence source ) { final List<ImageInfo > imageInfos = scanForImageInfo (source ); Callable <List<ImageData >> task = new Callable <List<ImageData >>() { public List <ImageData > call() { List <ImageData > result = new ArrayList <ImageData >(); for (ImageInfo imageInfo : imageInfos ) result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too future.cancel (true); } catch (ExecutionException e) { throw launderThrowable (e.getCause ()); } } } Listing 6.13. Waiting for image download with Future.",
+          "token_count": 290
+        },
+        {
+          "score": 0.8719169497489929,
+          "chunk_id": "structure-0044",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15,
+          "text": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images. (Because one task is largely CPU-bound and the other is largely I/O-bound, this approach may yield improvements even on single-CPU systems.) Callable and Future can help us express the interaction between these coop- erating tasks. In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService. This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images. The state-dependent nature of get means that the caller need not be aware of the state of the task, and the safe publication properties of task submission and result retrieval make this approach thread-safe. The exception handling code surrounding Future.get deals with two possible problems: that the task encoun- tered an Exception, or the thread calling get was interrupted before the results were available. (S ee S",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "split": "calibration",
+      "question": "Почему распараллеливание двух разнородных задач плохо масштабируется?",
+      "search_question": "Why does parallelizing two heterogeneous tasks scale poorly?",
+      "expected": "Размеры задач могут различаться, а без более мелких однотипных независимых задач добавление работников даёт убывающую отдачу.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.8902769684791565,
+          "chunk_id": "structure-0046",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 15,
+          "page_end": 15,
+          "text": "In the last example, we tried to execute two different types of tasks in parallel— downloading the images and rendering the page. But obtaining significant per- for mance improvements by tr ying to parallelize sequential heterogeneous tasks can be tricky. Two people can divide the work of cleaning the dinner dishes fairly effectively: one person washes while the other dries. However, assigning a different type of task to each worker does not scale well; if several more people show up, it is not obvious how they can help without getting in the way or significantly restructur- ing the division of labor. Without finding fi ner-grained parallelism among similar tasks, this approach will yield diminishing retur ns. A further problem with dividing heterogeneous tasks among multiple workers is that the tasks may have disparate sizes. If you divide tasks A and B between two workers but A takes ten times as long as B, you’ve only speeded up the total process by 9%. Finally, dividing a task among multiple workers always involves some amount of coordination overhead; for the division to be worthwhile, this overhead must be more than compensated by productivity improvements due to parallelism. FutureRenderer uses two tasks: one for rendering text and one for download- ing the images. If rendering the text is",
+          "token_count": 300
+        },
+        {
+          "score": 0.8709081411361694,
+          "chunk_id": "structure-0049",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 17,
+          "page_end": 17,
+          "text": "6.3. Finding exploitable parallelism 129 as is entirely possible, the resulting perfor mance is not much different from the sequential version, but the code is a lot more complicated. And the best we can do with two threads is speed things up by a factor of two. Thus, tr ying to increase concurrency by parallelizing heterogeneous activities can be a lot of work, and there is a limit to how much additional concurrency you can get out of it. (S ee Sections 11.4.2 and 11.4.3 for another example of the same phenomenon.) The real performance payoff of dividing a program’s workload into tasks comes when there are a large number of independent, homogeneous tasks that can be processed concurrently.",
+          "token_count": 166
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "split": "calibration",
+      "question": "Как Renderer с CompletionService повышает отзывчивость страницы с изображениями?",
+      "search_question": "How does Renderer with CompletionService improve responsiveness for a page with images?",
+      "expected": "Каждое изображение загружается отдельной задачей, и готовые изображения отображаются по мере завершения.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.9048242568969727,
+          "chunk_id": "structure-0053",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 18,
+          "page_end": 18,
+          "text": "We c a n u s e a CompletionService to improve the perfor mance of the page ren- derer in two ways: shorter total runtime and improved responsiveness. We can create a separate task for downloading each image and execute them in a thread pool, tur ning the sequential download into a parallel one: this reduces the amount of time to download all the images. And by fetching results from the CompletionService and rendering each image as soon as it is available, we can give the user a more dynamic and responsive user interface. This implementation is shown in Renderer in Listing 6.15. public class Renderer { private final ExecutorService executor ; Renderer (ExecutorService executor ) { this.executor = executor ; } void renderPage (CharSequence source ) { final List<ImageInfo > info = scanForImageInfo (source ); CompletionService <ImageData > completionService = new ExecutorCompletionService <ImageData >(executor ); for (final ImageInfo imageInfo : info) completionService.submit( new Callable <ImageData >() { public ImageData call() { return imageInfo.downloadImage (); } }); renderText (source ); try { for(intt=0,n=info.size();t<n;t++) {",
+          "token_count": 300
+        },
+        {
+          "score": 0.8813639879226685,
+          "chunk_id": "structure-0054",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 18,
+          "page_end": 18,
+          "text": "Future <ImageData > f = completionService.take(); ImageData imageData = f.get(); renderImage (imageData ); } } catch (InterruptedException e) { Thread.currentThread ().interrupt (); } catch (ExecutionException e) { throw launderThrowable (e.getCause ()); } } } Listing 6.15.UsingCompletionService to render page elements as they become available. Multiple ExecutorCompletionServices can share a single Executor,soitis",
+          "token_count": 124
+        },
+        {
+          "score": 0.8330740928649902,
+          "chunk_id": "structure-0055",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19,
+          "text": "6.3. Finding exploitable parallelism 131 perfectly sensible to create an ExecutorCompletionService that is private to a particular computation while sharing a common Executor. When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation. By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor.",
+          "token_count": 137
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "split": "calibration",
+      "question": "Как узнать, что все результаты пакета получены из CompletionService при общем Executor?",
+      "search_question": "How to determine when all results from a batch are received from CompletionService with a shared Executor?",
+      "expected": "Запомнить число отправленных задач и посчитать полученные завершённые результаты.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.8924267292022705,
+          "chunk_id": "structure-0055",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19,
+          "text": "6.3. Finding exploitable parallelism 131 perfectly sensible to create an ExecutorCompletionService that is private to a particular computation while sharing a common Executor. When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation. By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor.",
+          "token_count": 137
+        },
+        {
+          "score": 0.8883477449417114,
+          "chunk_id": "structure-0050",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.5 CompletionService: Executor meets BlockingQueue",
+          "page_start": 17,
+          "page_end": 17,
+          "text": "If you have a batch of computations to submit to an Executor and you want to retrieve their results as they become available, you could retain the Future associated with each task and repeatedly poll for completion by calling get with a timeout of zero. This is possible, but tedious. Fortunately there is a better way: a completion service. CompletionService combines the functionality of an Executor and a Block- ingQueue.YoucansubmitCallable tasks to it for execution and use the queue- like methods take and poll to retrieve completed results, packaged as Futures, as they become available. ExecutorCompletionService implements Completion- Service, delegating the computation to an Executor. The implementation of ExecutorCompletionService is quite straightfor ward. The constructor creates a BlockingQueue to hold the completed results. Future- Task has a done method that is called when the computation completes. When a task is submitted, it is wrapped with a QueueingFuture, a subclass of FutureTask that overrides done to place the result on the BlockingQueue, as shown in Listing 6.14.Thetake and poll methods delegate to the BlockingQueue, blocking if results are not yet available. private class Que",
+          "token_count": 300
+        },
+        {
+          "score": 0.8706310987472534,
+          "chunk_id": "structure-0053",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 18,
+          "page_end": 18,
+          "text": "We c a n u s e a CompletionService to improve the perfor mance of the page ren- derer in two ways: shorter total runtime and improved responsiveness. We can create a separate task for downloading each image and execute them in a thread pool, tur ning the sequential download into a parallel one: this reduces the amount of time to download all the images. And by fetching results from the CompletionService and rendering each image as soon as it is available, we can give the user a more dynamic and responsive user interface. This implementation is shown in Renderer in Listing 6.15. public class Renderer { private final ExecutorService executor ; Renderer (ExecutorService executor ) { this.executor = executor ; } void renderPage (CharSequence source ) { final List<ImageInfo > info = scanForImageInfo (source ); CompletionService <ImageData > completionService = new ExecutorCompletionService <ImageData >(executor ); for (final ImageInfo imageInfo : info) completionService.submit( new Callable <ImageData >() { public ImageData call() { return imageInfo.downloadImage (); } }); renderText (source ); try { for(intt=0,n=info.size();t<n;t++) {",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "split": "calibration",
+      "question": "Что делает пример с рекламой, если timed Future.get не успел вернуть результат?",
+      "search_question": "What happens in the advertisement example if timed Future.get does not return a result?",
+      "expected": "Отменяет задачу загрузки рекламы и показывает объявление по умолчанию.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.8696286082267761,
+          "chunk_id": "structure-0056",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.7 Placing time limits on tasks",
+          "page_start": 19,
+          "page_end": 19,
+          "text": "S ometimes, if an activity does not complete within a certain amount of time, the result is no longer needed and the activity can be abandoned. For example, a web application may fetch its advertisements from an external ad server, but if the ad is not available within two seconds, it instead displays a default advertisement so that ad unavailability does not under mine the site’s responsiveness requirements. Similarly, a portal site may fetch data in parallel from multiple data sources, but may be willing to wait only a certain amount of time for data to be available before rendering the page without it. The primar y challenge in executing tasks within a time budget is making sure that you don’t wait longer than the time budget to get an answer or find out that one is not forthcoming. The timed version of Future.get supports this requirement: it retur ns as soon as the result is ready, but throws TimeoutExcep- tion if the result is not ready within the timeout period. A secondar y problem when using timed tasks is to stop them when they run out of time, so they do not waste computing resources by continuing to compute a result that will not be used. This can be accomplished by having the task strictly manage its own time budget and abort if it runs out of time, or by cancelling the task if the timeout exp",
+          "token_count": 300
+        },
+        {
+          "score": 0.8544691205024719,
+          "chunk_id": "structure-0060",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.8 Example: a travel reservations portal",
+          "page_start": 20,
+          "page_end": 20,
+          "text": "for mation available within a given time budget. For provi- ders that do not respond in time, the page could either omit them completely or display a placeholder such as “Did not hear from Air Java in time.” Fetching a bid from one company is independent of fetching bids from an- other, so fetching a single bid is a sensible task boundar y that allows bid retrieval to proceed concurrently. It would be easy enough to create n tasks, submit them to a thread pool, retain the Futures, and use a timed get to fetch each result sequentially via its Future,butthereisaneveneasierway— invokeAll. Listing 6.17 uses the timed version of invokeAll to submit multiple tasks to an ExecutorService and retrieve the results. The invokeAll method takes a collection of tasks and retur ns a collection of Futures. The two collections have identical structures; invokeAll adds the Futures to the retur ned collection in the order imposed by the task collection’s iterator, thus allowing the caller to associate a Future with the Callable it represents. The timed version of invokeAll will retur n when all the tasks have completed, the calling thread is interrupted, or the timeout expires. Any tasks that are not",
+          "token_count": 300
+        },
+        {
+          "score": 0.894058108329773,
+          "chunk_id": "structure-0057",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.7 Placing time limits on tasks",
+          "page_start": 19,
+          "page_end": 19,
+          "text": "ires. Again, Future can help; if a timed get completes with a TimeoutException, you can cancel the task through the Future.Ifthetaskis writtentobecancellable(seeChapter7), it can be ter minated early so as not to consume excessive resources. This technique is used in Listings 6.13 and 6.16. Listing 6.16 shows a typical application of a timed Future.get. It generates a composite web page that contains the requested content plus an advertisement fetched from an ad ser ver. It submits the ad-fetching task to an executor, com- putes the rest of the page content, and then waits for the ad until its time budget runs out.8 If the get times out, it cancels9 the ad-fetching task and uses a default advertisement instead.",
+          "token_count": 186
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "profile": "optimized",
+      "question_id": 1,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.046179166000002,
+      "status_pass": true,
+      "tokens_per_second": 37.10796718969671,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 31,
+        "peak_ollama_rss_bytes": 7451525120,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 10.49,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.045115375000023,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 9038449708,
+            "load_duration": 901791,
+            "prompt_eval_count": 1051,
+            "prompt_eval_duration": 2614003000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 238,
+            "eval_duration": 6413717000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "ThreadPerTaskWebServer создаёт новый поток для обработки каждого запроса, в то время как основной цикл продолжает ждать следующего входящего соединения. [DOC:structure-0007]\nЭто позволяет обрабатывать задачи параллельно и принимать новые соединения до завершения предыдущих запросов, что повышает отзывчивость. [DOC:structure-0007] [DOC:structure-0008]\nВ отличие от последовательного выполнения, код обработки задач в ThreadPerTaskWebServer должен быть потокобезопасным, так как он может вызываться конкурентно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0007",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        },
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0007",
+          "quote": "The difference is that for each connection, the main loop creates a new thread to process the request instead of processing it within the main thread."
+        },
+        {
+          "chunk_id": "structure-0007",
+          "quote": "This enables new connections to be accepted before previous requests complete, improving responsiveness."
+        },
+        {
+          "chunk_id": "structure-0008",
+          "quote": "This may improve throughput if there are multiple process- ors, or if tasks need to block for any reason such as I/O completion, lock acquisition, or resource availability."
+        },
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "question_id": 2,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 4.773328084000241,
+      "status_pass": true,
+      "tokens_per_second": 37.23165174858676,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 17,
+        "peak_ollama_rss_bytes": 7651950592,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 3.87,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 4.772758332999729,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 4764445667,
+            "load_duration": 1036792,
+            "prompt_eval_count": 1050,
+            "prompt_eval_duration": 2517319000,
+            "prompt_eval_cached_count": 27,
+            "eval_count": 83,
+            "eval_duration": 2229286000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Код обработки задач должен быть потокобезопасным, потому что он может вызываться конкурентно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.463018041999021,
+      "status_pass": true,
+      "tokens_per_second": 37.07243327563835,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 33,
+        "peak_ollama_rss_bytes": 7901315072,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 10.55,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.46248716700029,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 9454686625,
+            "load_duration": 999042,
+            "prompt_eval_count": 1339,
+            "prompt_eval_duration": 3206766000,
+            "prompt_eval_cached_count": 27,
+            "eval_count": 231,
+            "eval_duration": 6231045000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0045] [DOC:structure-0048]\nМетод renderPage сначала создает задачу для загрузки изображений, а затем сразу же отрисовывает текст. [DOC:structure-0044]\nПосле отрисовки текста программа ожидает завершения загрузки изображений, вызывая future.get(), чтобы получить результат. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0045",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        },
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0045",
+          "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Waiting for image download with Future."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "question_id": 4,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 10.431477874999473,
+      "status_pass": true,
+      "tokens_per_second": 37.059948747642174,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 36,
+        "peak_ollama_rss_bytes": 8163835904,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 14.04,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 10.43099545899895,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 10422954500,
+            "load_duration": 1052541,
+            "prompt_eval_count": 1117,
+            "prompt_eval_duration": 1983857000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 312,
+            "eval_duration": 8418791999,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Распараллеливание разнородных задач плохо масштабируется, потому что при увеличении числа рабочих неясно, как они могут помочь без взаимных помех или значительной перестройки распределения труда. [DOC:structure-0046]\nБез поиска более тонкой параллелизации среди похожих задач такой подход дает убывающую отдачу. [DOC:structure-0046]\nДополнительной проблемой является то, что задачи могут иметь разный размер, поэтому ускорение общего процесса оказывается незначительным. [DOC:structure-0046]\nРазделение задачи между несколькими рабочими всегда требует накладных расходов на координацию, которые должны быть компенсированы улучшениями производительности от параллелизма. [DOC:structure-0046]",
+      "sources": [
+        {
+          "chunk_id": "structure-0046",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 15,
+          "page_end": 15
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0046",
+          "quote": "However, assigning a different type of task to each worker does not scale well; if several more people show up, it is not obvious how they can help without getting in the way or significantly restructur- ing the division of labor."
+        },
+        {
+          "chunk_id": "structure-0046",
+          "quote": "Without finding fi ner-grained parallelism among similar tasks, this approach will yield diminishing retur ns."
+        },
+        {
+          "chunk_id": "structure-0046",
+          "quote": "A further problem with dividing heterogeneous tasks among multiple workers is that the tasks may have disparate sizes."
+        },
+        {
+          "chunk_id": "structure-0046",
+          "quote": "If you divide tasks A and B between two workers but A takes ten times as long as B, you’ve only speeded up the total process by 9%."
+        },
+        {
+          "chunk_id": "structure-0046",
+          "quote": "Finally, dividing a task among multiple workers always involves some amount of coordination overhead; for the division to be worthwhile, this overhead must be more than compensated by productivity improvements due to parallelism."
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "question_id": 5,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 6.838684874999672,
+      "status_pass": true,
+      "tokens_per_second": 37.05313082113106,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 24,
+        "peak_ollama_rss_bytes": 8421769216,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 8.15,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 6.83811254200009,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 6830364875,
+            "load_duration": 1119542,
+            "prompt_eval_count": 1133,
+            "prompt_eval_duration": 2058675000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 176,
+            "eval_duration": 4749936000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Renderer повышает отзывчивость, отдавая пользователю текст страницы сразу после его отрисовки и отображая каждое изображение как только оно становится доступным. [DOC:structure-0053] [DOC:structure-0054]\nЭто достигается за счет использования CompletionService для получения результатов асинхронных задач загрузки изображений по мере их завершения. [DOC:structure-0053] [DOC:structure-0054]",
+      "sources": [
+        {
+          "chunk_id": "structure-0053",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 18,
+          "page_end": 18
+        },
+        {
+          "chunk_id": "structure-0054",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 18,
+          "page_end": 18
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0053",
+          "quote": "And by fetching results from the CompletionService and rendering each image as soon as it is available, we can give the user a more dynamic and responsive user interface."
+        },
+        {
+          "chunk_id": "structure-0054",
+          "quote": "Multiple ExecutorCompletionServices can share a single Executor,soitis"
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 5.285171334000552,
+      "status_pass": true,
+      "tokens_per_second": 37.228772877598,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 19,
+        "peak_ollama_rss_bytes": 8728281088,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 4.13,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 5.284660375000385,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 5277085750,
+            "load_duration": 926792,
+            "prompt_eval_count": 1438,
+            "prompt_eval_duration": 2838981000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 90,
+            "eval_duration": 2417485000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, что все результаты пакета получены, нужно запомнить количество поданных задач и подсчитать количество извлеченных завершившихся результатов. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "question_id": 7,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 7.153828083999542,
+      "status_pass": true,
+      "tokens_per_second": 37.150825870339126,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 25,
+        "peak_ollama_rss_bytes": 9043083264,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.66,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 7.153332666999631,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 7145645041,
+            "load_duration": 986625,
+            "prompt_eval_count": 1544,
+            "prompt_eval_duration": 3109558000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 149,
+            "eval_duration": 4010678000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Если вызов timed Future.get завершается с исключением TimeoutException, задача по загрузке рекламы отменяется через объект Future. [DOC:structure-0057]\nПосле отмены задачи используется реклама по умолчанию вместо ожидаемого рекламного объявления. [DOC:structure-0056] [DOC:structure-0057]",
+      "sources": [
+        {
+          "chunk_id": "structure-0057",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.7 Placing time limits on tasks",
+          "page_start": 19,
+          "page_end": 19
+        },
+        {
+          "chunk_id": "structure-0056",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.7 Placing time limits on tasks",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0057",
+          "quote": "Again, Future can help; if a timed get completes with a TimeoutException, you can cancel the task through the Future.Ifthetaskis writtentobecancellable(seeChapter7), it can be ter minated early so as not to consume excessive resources."
+        },
+        {
+          "chunk_id": "structure-0056",
+          "quote": "For example, a web application may fetch its advertisements from an external ad server, but if the ad is not available within two seconds, it instead displays a default advertisement so that ad unavailability does not under mine the site’s responsiveness requirements."
+        },
+        {
+          "chunk_id": "structure-0057",
+          "quote": "It submits the ad-fetching task to an executor, com- putes the rest of the page content, and then waits for the ad until its time budget runs out.8 If the get times out, it cancels9 the ad-fetching task and uses a default advertisement instead."
+        }
+      ],
+      "status": "answered"
+    }
+  ],
+  "warmups": [
+    {
+      "profile": "optimized",
+      "repeat": 1,
+      "elapsed_seconds": 1.5735378749996016,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1001
+          },
+          "total_duration": 1569872125,
+          "load_duration": 1343911542,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 193466000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 30851000,
+          "done_reason": "stop"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "No retrieval or interpretation is included in generator timing.",
+    "0.25s sampling can miss transient peaks. RSS and Metal unified-memory allocation overlap and must not be added.",
+    "Warm blocks include prompt-prefix caching; unrelated warmup is excluded from timing. Profile block order rotates across repeats.",
+    "Status correctness and exact citations do not establish semantic completeness; review stored answers against expected facts."
+  ],
+  "summary": {
+    "optimized": {
+      "runs": 7,
+      "status_passes": 7,
+      "first_attempt_valid": 7,
+      "provider_errors": 0,
+      "median_seconds": 7.154,
+      "p95_seconds": 10.431,
+      "median_tokens_per_second": 37.11,
+      "median_answer_seconds": 7.154,
+      "median_refusal_seconds": null,
+      "peak_model_vram_bytes": 6446372616,
+      "peak_ollama_rss_bytes": 9043083264,
+      "quality_review": "pending; status/format validation is not semantic grading"
+    }
+  },
+  "complete": true
+}

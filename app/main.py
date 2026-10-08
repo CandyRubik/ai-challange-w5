@@ -18,6 +18,7 @@ from .indexing.store import DEFAULT_INDEX_DIR, DocumentIndex, DocumentIndexError
 from .rag_chat.models import RagCreateRequest, RagSendRequest, RagSession, RagSessionSummary, RagTurn
 from .rag_chat.service import GROUNDING_SYSTEM_PROMPT, RagChatService
 from .rag_chat.state import TurnInterpreter
+from .rag_chat.profiles import generation_profile
 from .rag_chat.store import RagChatNotFound, RagTurnConflict, SQLiteRagChatRepository
 from .invariants import (
     InvariantSnapshot, InvariantUpdateRequest, InvariantSettingsConflict,
@@ -434,6 +435,7 @@ def get_rag_chat_service() -> RagChatService:
                     settings=RetrievalSettings(rewrite=False)),
         Agent(model, system_prompt=GROUNDING_SYSTEM_PROMPT, max_tokens=3_000),
         model_registry=registry,
+        generation_profile=generation_profile(),
     )
 
 

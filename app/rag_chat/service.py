@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from dataclasses import asdict
 import re
 from threading import Lock
 from time import monotonic
@@ -16,6 +17,7 @@ from ..providers.errors import LlmConfigurationError, LlmRequestError
 from ..providers.registry import ModelRegistry
 from .generation import GROUNDING_SYSTEM_PROMPT, generate_grounded_answer
 from .models import RagSession, RagSessionSummary, RagTaskState, RagTurn, StateFact
+from .profiles import RagGenerationProfile, PROFILES
 from .state import InterpretationError, TurnDecision, TurnInterpreter, apply_decision
 from .store import RagTurnConflict, SQLiteRagChatRepository
 
@@ -30,6 +32,7 @@ class RagChatService:
         self, repository: SQLiteRagChatRepository, interpreter: TurnInterpreter,
         rag: DocumentRag, agent: Agent, *, history_turns: int = 4,
         model_registry: ModelRegistry | None = None,
+        generation_profile: RagGenerationProfile | None = None,
     ) -> None:
         self._repository = repository
         self._interpreter = interpreter
@@ -38,6 +41,7 @@ class RagChatService:
         self._history_turns = history_turns
         self._models = model_registry
         self._provider = None
+        self._generation_profile = generation_profile
         self._locks: dict[str, Lock] = {}
         self._locks_guard = Lock()
 
@@ -61,12 +65,22 @@ class RagChatService:
         if self._models is None:
             return self
         selection = self._models.resolve(turn.provider, turn.model)
-        model = self._models.build(selection, thinking_enabled=False)
+        # Legacy pending turns retain the original baseline configuration.
+        saved_profile = turn.metrics.get("generation_profile")
+        profile = RagGenerationProfile(**saved_profile) if saved_profile else PROFILES["baseline"]
+        if selection.provider == "ollama" and saved_profile:
+            model = self._models.build(
+                selection, thinking_enabled=False, num_ctx=profile.num_ctx,
+                max_num_ctx=profile.max_num_ctx, temperature=profile.temperature,
+            )
+        else:
+            model = self._models.build(selection, thinking_enabled=False)
         runtime = RagChatService(
             self._repository, TurnInterpreter(model),
             DocumentRag(self._rag.index, model, reranker=self._rag.reranker, settings=self._rag.settings),
-            Agent(model, system_prompt=GROUNDING_SYSTEM_PROMPT, max_tokens=3_000),
+            Agent(model, system_prompt=GROUNDING_SYSTEM_PROMPT, max_tokens=profile.max_tokens),
             history_turns=self._history_turns,
+            generation_profile=profile,
         )
         runtime._provider = model
         return runtime
@@ -92,6 +106,8 @@ class RagChatService:
             turn = self._repository.start_turn(
                 session_id, content, provider=selected.provider if selected else session.provider,
                 model=selected.model if selected else None,
+                metrics={"generation_profile": asdict(self._generation_profile)}
+                if self._generation_profile and selected and selected.provider == "ollama" else None,
             )
             return self._process(session, turn)
 
@@ -109,10 +125,12 @@ class RagChatService:
         started = monotonic()
         metrics = {"interpretation_seconds": 0, "retrieval_seconds": 0,
                    "generation_seconds": 0, "generation_attempts": 0}
+        if "generation_profile" in turn.metrics:
+            metrics["generation_profile"] = turn.metrics["generation_profile"]
         runtime = None
         def snapshot() -> dict:
             metrics["total_seconds"] = monotonic() - started
-            metrics["ollama_requests"] = getattr(runtime._provider, "request_metrics", []) if runtime else []
+            metrics["ollama_requests"] = list(getattr(runtime._provider, "request_metrics", [])) if runtime else []
             return metrics
         try:
             runtime = self._for_turn(turn)
@@ -200,6 +218,7 @@ class RagChatService:
         return generate_grounded_answer(
             self._agent, turn.content, decision.search_question, hits,
             memory=self._memory(state), metrics=metrics,
+            prompt_version=self._generation_profile.prompt_version if self._generation_profile else "baseline",
         )
 
     @staticmethod

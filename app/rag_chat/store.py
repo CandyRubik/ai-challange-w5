@@ -178,7 +178,8 @@ class SQLiteRagChatRepository:
             ).rowcount:
                 raise RagChatNotFound(session_id)
 
-    def start_turn(self, session_id: str, content: str, *, provider: str = "ollama", model: str | None = None) -> RagTurn:
+    def start_turn(self, session_id: str, content: str, *, provider: str = "ollama", model: str | None = None,
+                   metrics: dict | None = None) -> RagTurn:
         now = self._now()
         turn_id = str(uuid4())
         with self._connection() as connection:
@@ -200,9 +201,10 @@ class SQLiteRagChatRepository:
             ).fetchone()[0]
             connection.execute(
                 """INSERT INTO rag_chat_turns
-                   (id, session_id, position, content, status, created_at, updated_at, provider, model)
-                   VALUES (?, ?, ?, ?, 'pending', ?, ?, ?, ?)""",
-                (turn_id, session_id, position, content.strip(), now, now, provider, model),
+                   (id, session_id, position, content, status, created_at, updated_at, provider, model, metrics_json)
+                   VALUES (?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?)""",
+                (turn_id, session_id, position, content.strip(), now, now, provider, model,
+                 json.dumps(metrics or {}, ensure_ascii=False)),
             )
             title = content.strip()[:72] if position == 1 else session["title"]
             connection.execute(

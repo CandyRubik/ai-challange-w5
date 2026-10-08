@@ -41,9 +41,13 @@ class ModelRegistry:
             raise LlmConfigurationError("Неизвестный провайдер модели")
         return ModelSelection(provider, model or self._models[provider])
 
-    def build(self, selection: ModelSelection, *, thinking_enabled: bool = True):
+    def build(self, selection: ModelSelection, *, thinking_enabled: bool = True,
+              num_ctx: int | None = None, max_num_ctx: int | None = None,
+              temperature: float | None = None, seed: int | None = None):
         if selection.provider == "ollama":
-            return OllamaProvider(model=selection.model, base_url=self._ollama_url, num_ctx=self._num_ctx)
+            return OllamaProvider(model=selection.model, base_url=self._ollama_url,
+                                  num_ctx=self._num_ctx if num_ctx is None else num_ctx,
+                                  max_num_ctx=max_num_ctx, temperature=temperature, seed=seed)
         return DeepSeekProvider(model=selection.model, thinking_enabled=thinking_enabled)
 
     def catalog(self) -> dict:

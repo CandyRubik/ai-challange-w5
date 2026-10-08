@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-10-08T15:09:15.816067+00:00",
+  "observations": {
+    "load_average": [
+      8.31,
+      6.75,
+      5.56
+    ],
+    "system_memory_free_percent": 70,
+    "power_source": "Battery Power",
+    "pmset_power_mode": 1,
+    "foundation_low_power_mode_enabled": true,
+    "thermal_warning_recorded": false,
+    "performance_warning_recorded": false
+  },
+  "timing_change": {
+    "q8_question16_eval_count": 232,
+    "q8_question16_tokens_per_second_repeat1": 24.265,
+    "q8_question16_tokens_per_second_repeat2": 12.202,
+    "baseline_question3_eval_count": 104,
+    "baseline_question3_tokens_per_second_repeat1": 37.064,
+    "baseline_question3_tokens_per_second_repeat2": 16.221
+  },
+  "interpretation": "Same responses/token counts and negligible load_duration, but decode throughput changed between repeats. Host workload/power/thermal state is not isolated; no cause is established."
+}

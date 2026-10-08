@@ -1,0 +1,138 @@
+{
+  "method": "Codex reviews each saved response against these atomic required facts and the actual cited excerpts. Additional details are optional but must be accurate and supported. Negative cases require insufficient_context and no invented answer. Automatic status/quote checks alone are not semantic grading.",
+  "limitations": "Atomic required facts for new positive validation questions were written before generating their answers. Expected refusal statuses were frozen in day29-cases.json before any generation. Calibration facts were refined from the pre-existing day28 expectations. Small fixed chapter sample; no independent human review.",
+  "cases": [
+    {
+      "id": 1,
+      "expected_status": "answered",
+      "required_facts": [
+        "Каждое соединение обрабатывается новым потоком вместо обработки в основном потоке."
+      ]
+    },
+    {
+      "id": 2,
+      "expected_status": "answered",
+      "required_facts": [
+        "Обработчик может одновременно вызываться для нескольких запросов."
+      ]
+    },
+    {
+      "id": 3,
+      "expected_status": "answered",
+      "required_facts": [
+        "Текст отрисовывается параллельно загрузке изображений.",
+        "Когда нужны результаты, ожидается Future.get."
+      ]
+    },
+    {
+      "id": 4,
+      "expected_status": "answered",
+      "required_facts": [
+        "Размеры разнородных задач могут существенно различаться.",
+        "Дополнительные работники дают убывающую отдачу без более мелких однотипных независимых задач."
+      ]
+    },
+    {
+      "id": 5,
+      "expected_status": "answered",
+      "required_facts": [
+        "Для загрузки каждого изображения создаётся отдельная параллельная задача.",
+        "Готовые изображения отображаются по мере завершения."
+      ]
+    },
+    {
+      "id": 6,
+      "expected_status": "answered",
+      "required_facts": [
+        "Нужно запомнить число отправленных задач и посчитать извлечённые завершённые результаты."
+      ]
+    },
+    {
+      "id": 7,
+      "expected_status": "answered",
+      "required_facts": [
+        "Задача загрузки рекламы отменяется при таймауте.",
+        "Используется реклама по умолчанию."
+      ]
+    },
+    {
+      "id": 8,
+      "expected_status": "unknown",
+      "required_facts": []
+    },
+    {
+      "id": 9,
+      "expected_status": "unknown",
+      "required_facts": []
+    },
+    {
+      "id": 10,
+      "expected_status": "unknown",
+      "required_facts": []
+    },
+    {
+      "id": 11,
+      "expected_status": "answered",
+      "required_facts": [
+        "shutdown запрещает новые задачи, но позволяет завершиться ранее отправленным, включая ожидающие.",
+        "shutdownNow пытается отменить задачи и не запускает ожидающие.",
+        "awaitTermination ждёт завершения ExecutorService."
+      ]
+    },
+    {
+      "id": 12,
+      "expected_status": "answered",
+      "required_facts": [
+        "Runnable.run не возвращает значение и не бросает checked exceptions.",
+        "Callable.call возвращает значение и допускает checked exceptions.",
+        "submit возвращает Future."
+      ]
+    },
+    {
+      "id": 13,
+      "expected_status": "answered",
+      "required_facts": [
+        "У Timer один поток и долгая задача нарушает расписание остальных.",
+        "Unchecked exception завершает поток без восстановления.",
+        "Ранее запланированные задачи больше не выполняются, новые не принимаются."
+      ]
+    },
+    {
+      "id": 14,
+      "expected_status": "answered",
+      "required_facts": [
+        "Неожиданно умерший рабочий поток заменяется.",
+        "Задачи остаются последовательными в порядке очереди; конкретный FIFO не гарантируется этим фрагментом."
+      ]
+    },
+    {
+      "id": 15,
+      "expected_status": "answered",
+      "required_facts": [
+        "Timed invokeAll возвращается при завершении всех задач, прерывании вызывающего потока или истечении таймаута.",
+        "Незавершённые к таймауту задачи отменяются.",
+        "Порядок Futures соответствует порядку итератора исходных задач."
+      ]
+    },
+    {
+      "id": 16,
+      "expected_status": "answered",
+      "required_facts": [
+        "ThreadPerTaskExecutor создаёт и запускает новый поток для задачи.",
+        "WithinThreadExecutor выполняет r.run в вызывающем потоке синхронно и возвращается после выполнения."
+      ]
+    },
+    {
+      "id": 17,
+      "expected_status": "answered",
+      "required_facts": [
+        "Немедленная остановка не гарантируется; работающая задача должна реагировать на прерывание."
+      ]
+    },
+    {
+      "id": 18,
+      "expected_status": "unknown",
+      "required_facts": []
+    }
+  ]
+}

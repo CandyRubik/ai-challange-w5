@@ -200,6 +200,45 @@ python scripts/build_day28_video.py  # нужны ffmpeg и rsvg-convert
 [полный отчёт](docs/day28-artifacts/evaluation.json),
 [видео настоящего интерфейса](docs/day28-artifacts/day28-demo.mp4).
 
+### День 29: оптимизация локальной Qwen
+
+Локальный RAG использует профиль `optimized`: temperature 0, ответ до 1000
+токенов, контекст 8192 и prompt для объяснения конкурентного Java-кода.
+Интерпретация вопроса и ответ используют одну конфигурацию модели. Обязательные
+источники и память могут увеличить контекст до 32768; старый диалог обрезается
+по прежней политике. Профиль сохраняется до начала хода и используется при
+повторе после перезапуска. Старые незавершённые ходы используют `baseline`.
+
+Переменная `RAG_LLM_PROFILE` выбирает `baseline`, `compact` или `optimized`.
+Она относится к локальному RAG; настройки основного чата заданы отдельно.
+Для сравнения квантования установите вторую версию той же модели:
+
+```bash
+ollama pull qwen3.5:9b-q8_0
+python scripts/run_day29_evaluation.py --split calibration \
+  --profiles baseline compact ctx16k cap1500 temp01 temp02 promptv1 promptv2 optimized \
+  --repeats 1 --output /tmp/day29-calibration.json
+python scripts/run_day29_evaluation.py --output /tmp/day29-evaluation.json
+python scripts/run_day29_evaluation.py --question-ids 2 3 6 11 13 16 \
+  --power-guard --output /tmp/day29-timing-control.json
+python scripts/check_day29_application.py
+```
+
+Для полного прогона нужны только базовые зависимости и работающий локальный
+Ollama с Q4/Q8. Фрагменты книги зафиксированы в `evaluation/day29-cases.json`;
+повторное построение индекса и скачивание embeddings для этого сравнения не нужны.
+Сквозная проверка приложения дополнительно использует локальные веса RAG из дня 28.
+Прогон временно выгружает загруженные модели Ollama между блоками профилей;
+запускайте его без других запросов к этому серверу. Существующий JSON не
+перезаписывается без `--resume`; продолжение проверяет параметры, модели и код.
+На macOS `--power-guard` проверяет источник питания и режим перед и после
+каждого измерения; при изменении останавливает прогон. Контроль скорости
+содержит шесть разных типов вопросов по три повтора на конфигурацию.
+
+[Методика и результаты](docs/day29-local-llm.md),
+[интерактивный отчёт](docs/day29-artifacts/report.html),
+[видео](docs/day29-artifacts/day29-demo.mp4).
+
 ## API
 
 - `GET /api/health` — состояние backend и наличие ключа DeepSeek;
