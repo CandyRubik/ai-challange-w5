@@ -1,9 +1,10 @@
 """Measured generation profiles, scoped to local document answers."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import os
 
 from ..providers.errors import LlmConfigurationError
+from ..private_service import ServiceLimits
 
 
 @dataclass(frozen=True)
@@ -33,7 +34,16 @@ CONFIGURATION_LABELS = {
 def configuration_profile(name: str) -> RagGenerationProfile:
     if name not in CONFIGURATION_LABELS:
         raise ValueError("Неизвестная конфигурация локальной LLM")
-    return PROFILES["optimized" if name == "q8" else name]
+    return _bounded_profile(PROFILES["optimized" if name == "q8" else name])
+
+
+def _bounded_profile(profile):
+    limits = ServiceLimits.from_env()
+    if not limits.enabled:
+        return profile
+    return replace(profile, num_ctx=min(profile.num_ctx, limits.max_context),
+                   max_num_ctx=min(profile.max_num_ctx, limits.max_context),
+                   max_tokens=min(profile.max_tokens, limits.max_output))
 
 
 def configuration_model(registry, name: str):
@@ -45,6 +55,6 @@ def configuration_model(registry, name: str):
 def generation_profile(name: str | None = None) -> RagGenerationProfile:
     name = name or os.getenv("RAG_LLM_PROFILE", "optimized")
     try:
-        return PROFILES[name]
+        return _bounded_profile(PROFILES[name])
     except KeyError as error:
         raise LlmConfigurationError("RAG_LLM_PROFILE: выберите baseline, compact или optimized") from error

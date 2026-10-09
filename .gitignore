@@ -4,4 +4,12 @@ __pycache__/
 .pytest_cache/
 *.py[cod]
 data/
-
+deploy/private.env
+deploy/credentials.json
+docs/day30-artifacts/
+docs/day30-local-llm.md
+scripts/build_day30_video.py
+scripts/capture_day30_demo.cjs
+scripts/check_private_service.py
+scripts/configure_private_service.py
+scripts/snapshot_private_service.py

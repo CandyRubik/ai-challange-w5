@@ -35,6 +35,36 @@ calling, доступа к файлам, репозиторию, shell или о
 Runtime debug-настройки, multi-agent логика, workflow-интеграции и
 инструменты работы с кодом в проект не входят.
 
+## День 30: приватный сервис на VDS
+
+Текущий чат и локальная Qwen 3.5 9B Q4 разворачиваются через Docker Compose:
+Ollama, FastAPI и Caddy с HTTPS и HTTP Basic Auth. Доступ только владельцу;
+введены rate limit, ограниченная очередь и жёсткие пределы контекста/ответа.
+
+Для ручного запуска заполните `deploy/private.env` по образцу
+`deploy/private.env.example` и выполните:
+
+```bash
+docker compose --env-file deploy/private.env up -d --build --wait
+```
+
+Домен должен указывать на сервер, порты 80/443 — быть доступны для HTTPS.
+Docker Engine и Compose должны быть установлены на VDS. Для RAG дополнительно
+нужны подготовленные локальные каталоги `data/models`, `data/document_index`
+и `data/documents`; обычный чат работает без них.
+
+В GitHub Actions деплой запускается вручную: **CI → Run workflow → main**,
+после backend/frontend-проверок. Настройте repository secrets:
+
+- `VDS_HOST`, `VDS_USER`, `VDS_PORT`, `VDS_DEPLOY_DIR` — подключение и абсолютный путь;
+- `VDS_DEPLOY_KEY`, `VDS_KNOWN_HOSTS` — ключ SSH и проверенные ключи сервера;
+- `SERVICE_HOST` — DNS-имя для HTTPS;
+- `BASIC_AUTH_USER`, `BASIC_AUTH_HASH` — логин и bcrypt-хеш пароля.
+
+Хеш можно получить командой `docker run --rm -it caddy:2.10.2-alpine caddy hash-password`.
+Пароль и deployment env-файл в репозиторий не добавляются. Деплой сохраняет
+SQLite, веса моделей, TLS-данные и существующие RAG-каталоги.
+
 ## Запуск
 
 Требуется Python 3.11+.

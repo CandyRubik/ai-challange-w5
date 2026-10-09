@@ -1,0 +1,19 @@
+{$SERVICE_HOST} {
+    basic_auth {
+        {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+    }
+    request_body {
+        max_size 64KB
+    }
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options nosniff
+        Referrer-Policy no-referrer
+        -Server
+    }
+    reverse_proxy app:8000 {
+        transport http {
+            response_header_timeout 600s
+        }
+    }
+}

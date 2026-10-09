@@ -9,7 +9,7 @@ import httpx
 
 from ..agents.agent import AgentMessage
 from .deepseek import CONTINUATION_PROMPT, MAX_RESPONSE_SEGMENTS
-from .errors import LlmConfigurationError, LlmRequestError, LlmTruncatedResponseError
+from .errors import LlmConfigurationError, LlmContextLimitError, LlmRequestError, LlmTruncatedResponseError
 
 
 logger = logging.getLogger(__name__)
@@ -22,6 +22,7 @@ class OllamaProvider:
         self, *, model: str, base_url: str = "http://127.0.0.1:11434",
         num_ctx: int = 32_768, temperature: float | None = None,
         max_num_ctx: int | None = None, seed: int | None = None,
+        output_limit: int | None = None,
         client: httpx.Client | None = None,
     ) -> None:
         if num_ctx < 4096:
@@ -36,6 +37,7 @@ class OllamaProvider:
             raise LlmConfigurationError("temperature должна быть от 0 до 2")
         self._temperature = temperature
         self._seed = seed
+        self._output_limit = output_limit
         self._client = client
         self.request_metrics: list[dict[str, Any]] = []
 
@@ -52,7 +54,7 @@ class OllamaProvider:
             index = next((i for i, message in enumerate(bounded[:-1])
                           if message["role"] != "system"), None)
             if index is None:
-                raise LlmRequestError(
+                raise LlmContextLimitError(
                     "Контекст не помещается в локальную модель. Сократите запрос или память "
                     "либо увеличьте OLLAMA_NUM_CTX",
                 )
@@ -63,6 +65,8 @@ class OllamaProvider:
         self, messages: Sequence[AgentMessage], max_tokens: int, *, structured: bool = False,
         schema: dict[str, Any] | None = None,
     ) -> tuple[str, str | None]:
+        if self._output_limit is not None:
+            max_tokens = min(max_tokens, self._output_limit)
         # Required evidence and task memory can grow a compact RAG context.
         # History alone never forces growth; it uses the existing trimming policy.
         required = [m for m in messages[:-1] if m["role"] == "system"] + list(messages[-1:])
@@ -123,6 +127,8 @@ class OllamaProvider:
             parts.append(content)
             if reason != "length":
                 return "".join(parts).strip()
+            if self._output_limit is not None:
+                raise LlmRequestError("Ответ достиг лимита токенов сервиса. Задайте более узкий вопрос")
             conversation.extend([
                 {"role": "assistant", "content": content},
                 {"role": "user", "content": CONTINUATION_PROMPT},

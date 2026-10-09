@@ -58,6 +58,8 @@ class RagChatService:
             self._models.resolve(provider)
         if configuration:
             configuration_profile(configuration)
+            if self._models:
+                configuration_model(self._models, configuration)
         return self._repository.create(provider, configuration)
 
     def _default_configuration(self):
@@ -68,7 +70,10 @@ class RagChatService:
         items = []
         for name, label in CONFIGURATION_LABELS.items():
             profile = configuration_profile(name)
-            model = configuration_model(self._models, name).model if self._models else ""
+            try:
+                model = configuration_model(self._models, name).model if self._models else ""
+            except LlmConfigurationError:
+                continue
             items.append({"id": name, "label": label, "model": model, "profile": asdict(profile),
                           "available": model in installed,
                           "quantization": installed.get(model, {}).get("details", {}).get("quantization_level")})
@@ -78,6 +83,7 @@ class RagChatService:
         configuration_profile(configuration)
         if self._models is None:
             raise ValueError("Для выбора конфигурации нужен реестр моделей")
+        configuration_model(self._models, configuration)
         self._repository.set_configuration(session_id, configuration)
         return self.get(session_id)
 

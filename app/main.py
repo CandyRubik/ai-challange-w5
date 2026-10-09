@@ -5,8 +5,8 @@ import os
 from pathlib import Path
 from typing import Literal
 
-from fastapi import Depends, FastAPI, HTTPException, Response
-from fastapi.responses import FileResponse
+from fastapi import Depends, FastAPI, HTTPException, Request, Response
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
@@ -29,9 +29,11 @@ from .memory.updates import MemoryUpdateConflict
 from .state.task import TaskConflict
 from .providers.errors import (
     LlmConfigurationError,
+    LlmContextLimitError,
     LlmRequestError,
 )
 from .providers.registry import ModelRegistry
+from .private_service import PrivateServiceMiddleware, ServiceLimits
 from .schemas import (
     ChatSendRequest,
     ChatSendResponse,
@@ -85,6 +87,17 @@ app.add_middleware(
     allow_methods=["DELETE", "GET", "POST", "PUT"],
     allow_headers=["Content-Type"],
 )
+app.add_middleware(PrivateServiceMiddleware)
+
+
+def _model_failure(error: Exception) -> HTTPException:
+    return HTTPException(status_code=422 if isinstance(error, LlmContextLimitError) else 502,
+                         detail=str(error))
+
+
+@app.exception_handler(LlmConfigurationError)
+async def model_configuration_error(request: Request, error: LlmConfigurationError):
+    return JSONResponse({"detail": str(error)}, status_code=503)
 
 
 @lru_cache(maxsize=1)
@@ -169,6 +182,17 @@ def health() -> dict[str, bool | str]:
 @app.get("/api/models")
 def model_catalog(registry: ModelRegistry = Depends(get_model_registry)) -> dict:
     return registry.catalog()
+
+
+@app.get("/api/service")
+def service_limits() -> dict:
+    limits = ServiceLimits.from_env()
+    return {"private": limits.enabled, "limits": {
+        "max_context": limits.max_context, "max_output": limits.max_output,
+        "generations_per_minute": limits.generations_per_minute,
+        "active_generations": 1, "max_queue": limits.max_queue,
+        "queue_wait_seconds": limits.queue_wait_seconds, "max_body_bytes": limits.max_body_bytes,
+    } if limits.enabled else None}
 
 
 @app.post("/api/chat/sessions", response_model=ChatSession, status_code=201)
@@ -348,7 +372,7 @@ def send_chat_message(
     except AgentInputError as error:
         raise HTTPException(status_code=422, detail=str(error)) from None
     except (AgentOutputError, LlmRequestError) as error:
-        raise HTTPException(status_code=502, detail=str(error)) from None
+        raise _model_failure(error) from None
     except LlmConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from None
 
@@ -367,7 +391,7 @@ def retry_chat_message(
     except TaskConflict as error:
         raise HTTPException(status_code=409, detail=error.detail) from None
     except (AgentOutputError, LlmRequestError) as error:
-        raise HTTPException(status_code=502, detail=str(error)) from None
+        raise _model_failure(error) from None
     except LlmConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from None
     except AgentInputError as error:
@@ -407,7 +431,7 @@ def task_action(
     except TaskConflict as error:
         raise HTTPException(status_code=409, detail=error.detail) from None
     except (AgentOutputError, LlmRequestError) as error:
-        raise HTTPException(status_code=502, detail=str(error)) from None
+        raise _model_failure(error) from None
     except LlmConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from None
 
