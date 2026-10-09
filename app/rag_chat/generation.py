@@ -21,6 +21,7 @@ MAX_GROUNDING_ATTEMPTS = 4
 def generate_grounded_answer(
     agent: Agent, question: str, search_question: str, hits: list[SearchHit], *,
     memory: MemoryContext | None = None, metrics: dict | None = None,
+    prompt_version: str = "baseline",
 ) -> GroundedAnswer:
     metrics = metrics if metrics is not None else {}
     if not hits:
@@ -29,7 +30,7 @@ def generate_grounded_answer(
         "user_question": question, "standalone_search_question": search_question,
     }, ensure_ascii=False)
     feedback = ""
-    prompt, schema, lookup = prepare_citations(hits)
+    prompt, schema, lookup = prepare_citations(hits, prompt_version=prompt_version)
     if not lookup:
         return GroundedAnswer.unknown()
     for attempt in range(MAX_GROUNDING_ATTEMPTS):

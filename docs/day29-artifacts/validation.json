@@ -1,0 +1,22 @@
+{
+  "backend_tests": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 231
+  },
+  "compileall": "passed (app scripts tests)",
+  "frontend_syntax": "passed (both app.js files and report script)",
+  "measured_runs": {
+    "quality": 216,
+    "controlled_timing": 72,
+    "real_http": 18
+  },
+  "artifact_integrity": "passed: generator code, model weights, quality/rubric hashes, complete reports, finished JSON responses",
+  "browser_qa": "passed: report table, question/repeat/profile selection, explicit accessible labels; actual rendered frames 3/5/6 checked",
+  "video": {
+    "duration_seconds": 120,
+    "width": 1600,
+    "height": 900,
+    "codec": "h264",
+    "audio": false
+  }
+}

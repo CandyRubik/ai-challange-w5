@@ -1,0 +1,75 @@
+{
+  "created_at": "2026-10-08T14:52:05.870483+00:00",
+  "platform": "macOS-26.2-arm64-arm-64bit-Mach-O",
+  "architecture": "arm64",
+  "cpu": "Apple M4 Pro",
+  "ram_bytes": 51539607552,
+  "hardware_model": "Mac16,8",
+  "server_launch": {
+    "OLLAMA_NO_CLOUD": "1",
+    "OLLAMA_HOST": "127.0.0.1:11434"
+  },
+  "dependencies": {
+    "httpx": "0.28.1",
+    "pydantic": "2.13.5",
+    "fastapi": "0.142.2",
+    "torch": "2.14.1",
+    "sentence-transformers": "5.7.0",
+    "faiss-cpu": "1.15.1"
+  },
+  "ollama_version": {
+    "version": "0.35.1"
+  },
+  "models": [
+    {
+      "name": "qwen3.5:9b-q8_0",
+      "model": "qwen3.5:9b-q8_0",
+      "modified_at": "2026-10-08T17:39:14.372686433+03:00",
+      "size": 10449218124,
+      "digest": "a8ee95bc3592ebaa624014ca8b429d25e0ef5f45030dc35786da7ff7e9e1b60a",
+      "details": {
+        "parent_model": "model.gguf",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "9.0B",
+        "quantization_level": "Q8_0",
+        "context_length": 262144,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ]
+    },
+    {
+      "name": "qwen3.5:9b-q4_K_M",
+      "model": "qwen3.5:9b-q4_K_M",
+      "modified_at": "2026-10-07T15:28:32.128338012+03:00",
+      "size": 6550825550,
+      "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+      "details": {
+        "parent_model": "model.gguf",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "9.0B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ]
+    }
+  ]
+}

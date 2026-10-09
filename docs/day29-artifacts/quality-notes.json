@@ -1,0 +1,382 @@
+{
+  "reviewer": "Codex",
+  "method": "Manual semantic review of each distinct saved response and its citations against evaluation/day29-rubric.json. Repeated identical responses reuse annotations.",
+  "responses": {
+    "1:fcbb9e19b0798f058a7a1eb7ea21213c2a87bcf693fb4ec211ef998ff141ba81": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Новый поток вместо основного и улучшение отзывчивости подтверждены."
+    },
+    "2:038c5d817d270a5ff3cb6f580c50aa19f41105f369574d21d1587621783ec5c3": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Причина потокобезопасности названа прямо."
+    },
+    "3:f2d863b0349fff0e5d933ba5dd67e6c2cc501db764ab2df1897c294c1421d33d": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Параллельная отрисовка текста есть; ожидание Future.get пропущено."
+    },
+    "4:ebfd0dc5cc75282cb2f756a8d70800e2922c57aab84b02158a6970b6135ba775": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Размеры задач, убывающая отдача и более мелкие однотипные задачи покрыты."
+    },
+    "5:a2785cf773fb9f17ea8cf2d6a7e8c2c8e7131a26bb37c17e914e1c9d007c0580": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": false,
+      "note": "Оба необходимых факта есть; цитата о сокращении времени загрузки изображений шире пересказана как время отрисовки всей страницы."
+    },
+    "6:2a6e38dabb084609358f7b0b089a9a8755793f788e26de6f85285b2eeebb8d76": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Подсчёт отправленных и завершённых задач есть; перевод handle как «обработчик» неточен, но основную функцию не меняет."
+    },
+    "7:ee03684795041d097d3934ceacf582feba0d2303fe2663e6ea382aa9cb4e75d9": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Отмена и реклама по умолчанию подтверждены."
+    },
+    "8:a7503a9381c4d969bd77072ad660c829aebb5b5844fad7e7d8bdbabfbae8b437": {
+      "facts_present": [],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Корректный отказ: в этих фрагментах нет ответа."
+    },
+    "9:a7503a9381c4d969bd77072ad660c829aebb5b5844fad7e7d8bdbabfbae8b437": {
+      "facts_present": [],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Корректный отказ: в этих фрагментах нет ответа."
+    },
+    "10:a7503a9381c4d969bd77072ad660c829aebb5b5844fad7e7d8bdbabfbae8b437": {
+      "facts_present": [],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Корректный отказ: в этих фрагментах нет ответа."
+    },
+    "11:9e5cb210387617b6d24d20a395bc8975b6c3656bb2e40fb3b1ff78d96dcd46a1": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Оба режима завершения и awaitTermination подтверждены."
+    },
+    "12:a67c9bbff556074dbd7fbf5edb6675bbc6d419c0ffbc91b95192b734bbb7fa3d": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Различие Runnable/Callable и Future из submit покрыты; проверяемые исключения выражены через противопоставление Runnable."
+    },
+    "13:447e5c582a01d28fcd36924787c554c48c695914c88fcd9b92fdcbca8b32f125": {
+      "facts_present": [
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Последствия исключения и судьба задач есть; причина задержек — единственный поток Timer — не названа."
+    },
+    "14:998be75f3f194bb5dd5875cbb8d1373528375066f06d0ed5c022964054a4beaa": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Замена потока и последовательность по порядку очереди подтверждены; перевод неожиданной смерти неудачен."
+    },
+    "15:61beaed9ae1f208dd7c6816228bc9295497c39a5ec7b10252e1120d77fb278ab": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Условия возврата, отмена и порядок Futures есть; первая фраза о возврате грамматически неудачна."
+    },
+    "16:e86f3f34ed02a0f71c2b4c1ed8e2eeeb83fa15fc16f455a7f6c48d3eb45a673e": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Отдельный поток и синхронное выполнение до возврата execute подтверждены."
+    },
+    "17:a7503a9381c4d969bd77072ad660c829aebb5b5844fad7e7d8bdbabfbae8b437": {
+      "facts_present": [],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Лишний отказ: источники описывают реакцию работающей задачи на прерывание."
+    },
+    "18:a7503a9381c4d969bd77072ad660c829aebb5b5844fad7e7d8bdbabfbae8b437": {
+      "facts_present": [],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Корректный отказ: в этих фрагментах нет ответа."
+    },
+    "1:5c80f82263952665ba93962f345fe61f3d07849437780f80839e75e908a43211": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Новый поток, отзывчивость и потокобезопасность подтверждены; последнее — дополнительная информация."
+    },
+    "2:9e44a1c8a7c1f6e1bab3d02b02858c3ccb839adf26bf7f436134b46d2d29e441": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Кратко названа конкурентность вызова обработчика."
+    },
+    "3:e1ec54ac8f10625bc04586f5c12b93cf8fa11f9af6332b81e736b47e2037865b": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Параллельная отрисовка текста и ожидание future.get() есть; дополнение об отправке задачи частично повторяет первый тезис."
+    },
+    "4:15ead981ef0ed605a10c43820ba6e7e1c23d27cb7a47ea8c99b231c32c0c900a": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Различие размеров и пределы масштабирования подтверждены."
+    },
+    "5:39c5ccc218dde81a5fb3a79777d45630e0a2d85644eb7e7d89f25eafca046866": {
+      "facts_present": [
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Отрисовка по мере готовности подтверждена; отдельная параллельная задача для каждого изображения явно не названа."
+    },
+    "6:392d39f770cae539eba0d554c25baab7c4ef3e579ed185cba5a38d0ab23278dd": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Только необходимый факт о подсчёте задач, без лишнего обобщения take/poll."
+    },
+    "7:182fe17efca033bfb3192e2995990a7faad84f73206a72a2454fe32e47bb0087": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "TimeoutException, отмена и запасная реклама подтверждены."
+    },
+    "11:7115273fc010da8db2338d68309f166fdfa49843ed881f5f62c4a4b5baa9d4fa": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Режимы завершения и awaitTermination подтверждены."
+    },
+    "12:dff2646faa058bdcfb48cc753a44a1629e341a4a12e9aecbaca0c6636f51553d": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Различие задач и Future из submit покрыты."
+    },
+    "13:ec4d56b3e07fc51beb39c3c9c498f56b13116834299f26394c198fdf4da0560c": {
+      "facts_present": [
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Прекращение потока и отсутствие восстановления названы; единственный поток и судьба уже запланированных/новых задач явно не описаны."
+    },
+    "14:bf74c7bab8ac4a0af542078963438a2ef8d173fdb704775b2dbe40ecf75ccb0d": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Замена потока и порядок очереди подтверждены."
+    },
+    "15:91c8c498ba75d8a3ac25366f1b99640c0f52470fb7a08994b339f75916c450cb": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Условия возврата, отмена и соответствие порядков Futures покрыты."
+    },
+    "16:b626a0294139fc7b1362132bb746e7bb57660487558920c6594a39bd6023e664": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Где работает задача и когда возвращается execute, объяснено для обоих Executor."
+    },
+    "1:3872828df085df8106d581819fd45301e74bfb5a58b09674ab624f806370655b": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Отдельный поток вместо основного и отзывчивость подтверждены."
+    },
+    "2:4cf7b70f4f690ce04c7d3c05b929869a11f2a3d08153e5f23717de32fe69092d": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Причина потокобезопасности названа прямо."
+    },
+    "3:b102e5c37239e68f0e9469d70a8b8aa780307f2d9cf5515843dd5c98bac1632b": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Рендеринг текста параллельно загрузке есть; ожидание Future.get не названо."
+    },
+    "4:b0117bf4749e7ce7f7639cfd8ea0af70d636a833f4c712a9bb6d669aaff4f266": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Размеры задач и убывающая отдача покрыты; пример 9% взят из фрагмента."
+    },
+    "5:c653add2f881dccdbc7f48ccbb17e65caaee41e719f0d6bbbe228b3ae67ba7a7": {
+      "facts_present": [
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Отрисовка готового изображения названа; отдельная задача на каждое изображение пропущена. Дополнительная цитата о разделении Executor не помогает этому тезису."
+    },
+    "6:5650c31f82b2c4e0c47e1401eeb0187f20e1ce917e573ab01f248b2c11b5fa2b": {
+      "facts_present": [
+        1
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Необходимый факт о подсчёте задач подтверждён."
+    },
+    "7:04e72e8d339a072ff61a6effec4f7e817511b0c27f88297c3844556f9b3c98bb": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Отмена после таймаута и запасной баннер подтверждены."
+    },
+    "11:d9f0edcbceb3d6017fdad0026362d1c80a0279ec0a1ab84a026166fca2327e2c": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Все различия shutdown/shutdownNow и способ ожидания подтверждены."
+    },
+    "12:5730c8b20402dcbd6a18a60bf6adfc4e8e2c042a97247a17923bd7784c9c3e43": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Различие задач и Future из submit подтверждены."
+    },
+    "13:ad0c800b79615d31f5243fea123952a1443fdac52cb391388f7512c5b5d56c86": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Единственный поток и прекращение без восстановления есть; запрет новых задач явно не назван."
+    },
+    "14:328efef8eb3597ca6d464b2508d038d25c8b9de9fb8dc7ee776f3e1202bb7b74": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Замена потока и последовательность по порядку очереди есть; перевод unexpectedly неточен."
+    },
+    "15:a525bf4e4e04363abd4aaaf2d4137158e7ba64dda92d7873d2f0163add84071c": {
+      "facts_present": [
+        1,
+        2,
+        3
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Все запрошенные условия, порядок и отмена подтверждены."
+    },
+    "16:072b914a8240341faaff33f523a0010bbff590a90389060a2e805113c329b2d2": {
+      "facts_present": [
+        1,
+        2
+      ],
+      "factually_correct": true,
+      "citation_support": true,
+      "note": "Оба механизма выполнения и моменты возврата execute покрыты."
+    }
+  }
+}

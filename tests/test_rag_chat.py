@@ -511,3 +511,81 @@ def test_invalid_quote_retry_receives_validation_feedback(tmp_path: Path) -> Non
     assert turn.grounding_status == "answered"
     assert len(model.calls) == 4
     assert "Цитата отсутствует" in model.calls[1]
+
+
+def test_retry_pins_local_generation_profile_across_restart(tmp_path: Path):
+    from app.providers.errors import LlmRequestError
+    from app.providers.registry import ModelRegistry
+    from app.rag_chat.profiles import PROFILES
+
+    class RecordingRegistry(ModelRegistry):
+        def __init__(self, fail=False):
+            super().__init__()
+            self.fail = fail
+            self.configurations = []
+        def build(self, selection, **kwargs):
+            self.configurations.append(kwargs)
+            fail = self.fail
+            class CombinedModel:
+                def __init__(self):
+                    self.answer_calls = 0
+                def generate_json(self, **call):
+                    if call["max_tokens"] == 700:
+                        return InterpretationModel().generate_json(**call)
+                    if fail:
+                        self.answer_calls += 1
+                        if self.answer_calls < 4:
+                            return "{}"
+                        raise LlmRequestError("temporary")
+                    return AnswerModel().generate_json(**call)
+            return CombinedModel()
+
+    def service(registry, profile):
+        return RagChatService(
+            SQLiteRagChatRepository(tmp_path / "pinned.sqlite3"),
+            TurnInterpreter(InterpretationModel()),
+            DocumentRag(Index(), InterpretationModel(), reranker=Reranker(),
+                        settings=RetrievalSettings(rewrite=False, candidate_k=1, final_k=1)),
+            Agent(AnswerModel()), model_registry=registry, generation_profile=profile,
+        )
+
+    original = service(RecordingRegistry(fail=True), PROFILES["optimized"])
+    session = original.create()
+    failed = original.send(session.id, "Что делает Executor?")
+    assert failed.status == "failed"
+    assert failed.metrics["generation_profile"]["name"] == "optimized"
+    assert failed.metrics["validation_errors"]
+
+    registry = RecordingRegistry()
+    restarted = service(registry, PROFILES["baseline"])
+    result = restarted.retry(session.id, failed.id)
+    assert result.status == "done"
+    assert registry.configurations[-1]["num_ctx"] == 8192
+    assert result.metrics["generation_profile"] == failed.metrics["generation_profile"]
+    assert "validation_errors" not in result.metrics
+
+
+def test_legacy_pending_turn_uses_baseline_after_optimized_profile_enabled(tmp_path: Path):
+    from app.providers.registry import ModelRegistry
+    from app.rag_chat.profiles import PROFILES
+
+    class LegacyModel(InterpretationModel):
+        def generate_json(self, **kwargs):
+            if kwargs["max_tokens"] == 700:
+                return super().generate_json(**kwargs)
+            assert kwargs["max_tokens"] == 3000
+            assert "Explain Java concurrency" not in kwargs["messages"][0]["content"]
+            return AnswerModel().generate_json(**kwargs)
+    class Registry(ModelRegistry):
+        def build(self, selection, **kwargs):
+            assert "num_ctx" not in kwargs
+            return LegacyModel()
+
+    repository = SQLiteRagChatRepository(tmp_path / "legacy-profile.sqlite3")
+    session = repository.create()
+    pending = repository.start_turn(session.id, "Что делает Executor?", model="local")
+    chat = RagChatService(repository, TurnInterpreter(InterpretationModel()),
+                          DocumentRag(Index(), InterpretationModel(), reranker=Reranker(),
+                                      settings=RetrievalSettings(rewrite=False, candidate_k=1, final_k=1)),
+                          Agent(AnswerModel()), model_registry=Registry(), generation_profile=PROFILES["optimized"])
+    assert chat.retry(session.id, pending.id).status == "done"

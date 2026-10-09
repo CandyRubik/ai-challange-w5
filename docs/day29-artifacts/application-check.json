@@ -1,0 +1,1967 @@
+{
+  "created_at": "2026-10-08T16:03:40.648936+00:00",
+  "cold_warm": [
+    {
+      "profile": "baseline",
+      "label": "cold",
+      "question_id": 3,
+      "question": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+      "elapsed_seconds": 6.969118459001038,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 32768,
+            "num_predict": 3000,
+            "temperature": 0
+          },
+          "total_duration": 6963469792,
+          "load_duration": 1329623834,
+          "prompt_eval_count": 1220,
+          "prompt_eval_duration": 2987281000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 104,
+          "eval_duration": 2640010000,
+          "done_reason": "stop"
+        }
+      ],
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0044] [DOC:structure-0048]\nКласс FutureRenderer использует ExecutorService для асинхронной загрузки изображений и последующей их отрисовки. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Task Execution public class FutureRenderer { private final ExecutorService executor =...; void renderPage (CharSequence source ) { final List<ImageInfo > imageInfos = scanForImageInfo (source ); Callable <List<ImageData >> task = new Callable <List<ImageData >>() { public List <ImageData > call() { List <ImageData > result = new ArrayList <ImageData >(); for (ImageInfo imageInfo : imageInfos )"
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "baseline",
+      "label": "warm",
+      "question_id": 3,
+      "question": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+      "elapsed_seconds": 2.7550466249995225,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 32768,
+            "num_predict": 3000,
+            "temperature": 0
+          },
+          "total_duration": 2750899625,
+          "load_duration": 911584,
+          "prompt_eval_count": 1220,
+          "prompt_eval_duration": 82700000,
+          "prompt_eval_cached_count": 1216,
+          "eval_count": 104,
+          "eval_duration": 2663279000,
+          "done_reason": "stop"
+        }
+      ],
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0044] [DOC:structure-0048]\nКласс FutureRenderer использует ExecutorService для асинхронной загрузки изображений и последующей их отрисовки. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Task Execution public class FutureRenderer { private final ExecutorService executor =...; void renderPage (CharSequence source ) { final List<ImageInfo > imageInfos = scanForImageInfo (source ); Callable <List<ImageData >> task = new Callable <List<ImageData >>() { public List <ImageData > call() { List <ImageData > result = new ArrayList <ImageData >(); for (ImageInfo imageInfo : imageInfos )"
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "label": "cold",
+      "question_id": 3,
+      "question": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+      "elapsed_seconds": 10.193140666000545,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 1000,
+            "temperature": 0
+          },
+          "total_duration": 10188752167,
+          "load_duration": 1056620542,
+          "prompt_eval_count": 1339,
+          "prompt_eval_duration": 3190105000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 231,
+          "eval_duration": 5937123000,
+          "done_reason": "stop"
+        }
+      ],
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0045] [DOC:structure-0048]\nМетод renderPage сначала создает задачу для загрузки изображений, а затем сразу же отрисовывает текст. [DOC:structure-0044]\nПосле отрисовки текста программа ожидает завершения загрузки изображений, вызывая future.get(), чтобы получить результат. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0045",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        },
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0045",
+          "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Waiting for image download with Future."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "profile": "optimized",
+      "label": "warm",
+      "question_id": 3,
+      "question": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+      "elapsed_seconds": 6.014861749999909,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 1000,
+            "temperature": 0
+          },
+          "total_duration": 6010665834,
+          "load_duration": 989834,
+          "prompt_eval_count": 1339,
+          "prompt_eval_duration": 82651000,
+          "prompt_eval_cached_count": 1335,
+          "eval_count": 231,
+          "eval_duration": 5922489000,
+          "done_reason": "stop"
+        }
+      ],
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0045] [DOC:structure-0048]\nМетод renderPage сначала создает задачу для загрузки изображений, а затем сразу же отрисовывает текст. [DOC:structure-0044]\nПосле отрисовки текста программа ожидает завершения загрузки изображений, вызывая future.get(), чтобы получить результат. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0045",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        },
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0045",
+          "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Waiting for image download with Future."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        }
+      ],
+      "status": "answered"
+    }
+  ],
+  "http_runs": [
+    {
+      "profile": "baseline",
+      "repeat": 1,
+      "elapsed_seconds": 10.162144542000533,
+      "turn": {
+        "id": "b1e9a2ca-3399-43e9-888b-488b9a7426e5",
+        "session_id": "2cc6498e-810c-48d3-ba69-6f06b428362d",
+        "position": 1,
+        "content": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+        "answer": "FutureRenderer отрисовывает текст параллельно с загрузкой данных изображений. [DOC:structure-0045] [DOC:structure-0044]\nВ FutureRenderer создается Callable для загрузки всех изображений, а основной поток ожидает их результата. [DOC:structure-0044]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "What can FutureRenderer do while images are loading?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0045",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0044",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0045",
+            "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:04:14.684637Z",
+        "updated_at": "2026-10-08T16:04:24.843751Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.163399332999688,
+          "retrieval_seconds": 0.36228304100040987,
+          "generation_seconds": 5.631172792000143,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0045",
+            "structure-0044",
+            "structure-0046"
+          ],
+          "total_seconds": 10.158484375000626,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4158769208,
+              "load_duration": 962625,
+              "prompt_eval_count": 1016,
+              "prompt_eval_duration": 2438154000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 66,
+              "eval_duration": 1708100000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 3000,
+                "temperature": 0
+              },
+              "total_duration": 5626077834,
+              "load_duration": 1437375,
+              "prompt_eval_count": 1347,
+              "prompt_eval_duration": 3272323000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 91,
+              "eval_duration": 2339809000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 1,
+      "elapsed_seconds": 15.940192750000278,
+      "turn": {
+        "id": "a0124238-cb7a-4ed0-9248-2c60d6580135",
+        "session_id": "2cc6498e-810c-48d3-ba69-6f06b428362d",
+        "position": 2,
+        "content": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+        "answer": "Если задача таймера выполняется слишком долго, точность времени выполнения других задач таймера может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача занимает 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли задача таймера выбрасывает unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из задачи таймера, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера уже запланированные, но еще не выполненные задачи таймера никогда не выполняются, а новые задачи нельзя планировать. [DOC:structure-0033]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why does a long-running Timer task delay other tasks and what happens after an unchecked exception?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0032",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0033",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "The Timer thread doesn’t catch the exception,"
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:04:24.847643Z",
+        "updated_at": "2026-10-08T16:04:40.785408Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.9609692079993692,
+          "retrieval_seconds": 0.3596238340014679,
+          "generation_seconds": 11.61484579199896,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0032",
+            "structure-0033"
+          ],
+          "total_seconds": 15.937017000000196,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3955203292,
+              "load_duration": 1122584,
+              "prompt_eval_count": 1114,
+              "prompt_eval_duration": 2683157000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 49,
+              "eval_duration": 1249352000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 3000,
+                "temperature": 0
+              },
+              "total_duration": 11610264416,
+              "load_duration": 934625,
+              "prompt_eval_count": 1103,
+              "prompt_eval_duration": 2690104000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 346,
+              "eval_duration": 8908288000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 1,
+      "elapsed_seconds": 4.424553582999579,
+      "turn": {
+        "id": "a48c3fdf-0571-42cf-9299-8dbcc47d04ba",
+        "session_id": "2cc6498e-810c-48d3-ba69-6f06b428362d",
+        "position": 3,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-08T16:04:40.787821Z",
+        "updated_at": "2026-10-08T16:04:45.210452Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.128007084000274,
+          "retrieval_seconds": 0.29283508299886307,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [],
+          "total_seconds": 4.422135417000391,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4123811667,
+              "load_duration": 1228000,
+              "prompt_eval_count": 1333,
+              "prompt_eval_duration": 2978777000,
+              "prompt_eval_cached_count": 90,
+              "eval_count": 44,
+              "eval_duration": 1125038000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 1,
+      "elapsed_seconds": 10.265879708000284,
+      "turn": {
+        "id": "96fff098-7d32-473e-8f36-b573c09dd1b5",
+        "session_id": "6d2bbca6-baa1-44cc-81df-1a93d008a383",
+        "position": 1,
+        "content": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+        "answer": "FutureRenderer отрисовывает текст страницы параллельно с загрузкой изображений. [DOC:structure-0045] [DOC:structure-0044]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "What can FutureRenderer do while images are loading?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0045",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0044",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0045",
+            "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:04:46.509783Z",
+        "updated_at": "2026-10-08T16:04:56.773246Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.163514833999216,
+          "retrieval_seconds": 0.2804676670002664,
+          "generation_seconds": 5.817327208000279,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0045",
+            "structure-0044",
+            "structure-0046"
+          ],
+          "total_seconds": 10.262951750000866,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4159322958,
+              "load_duration": 864875,
+              "prompt_eval_count": 1016,
+              "prompt_eval_duration": 2438908000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 66,
+              "eval_duration": 1708721000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 1000,
+                "temperature": 0
+              },
+              "total_duration": 5812842458,
+              "load_duration": 1070958,
+              "prompt_eval_count": 1466,
+              "prompt_eval_duration": 3491824000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 89,
+              "eval_duration": 2306637000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 1,
+      "elapsed_seconds": 15.905160374999468,
+      "turn": {
+        "id": "b30aa750-ecdd-4521-900e-c12425f0c847",
+        "session_id": "6d2bbca6-baa1-44cc-81df-1a93d008a383",
+        "position": 2,
+        "content": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+        "answer": "Если задача таймера выполняется слишком долго, точность выполнения других задач TimerTask может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача выполняется 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли из TimerTask выбрасывается unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из TimerTask, приводит к завершению потока таймера. [DOC:structure-0033]\nТаймер не восстанавливает поток в этой ситуации и ошибочно предполагает, что весь Таймер был отменен. [DOC:structure-0033]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why does a long-running Timer task delay other tasks and what happens after an unchecked exception?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0032",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0033",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "The Timer thread doesn’t catch the exception,"
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "Timer also doesn’t resurrect the thread in this situation; instead, it erroneously assumes the entire Timer was cancelled."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:04:56.776703Z",
+        "updated_at": "2026-10-08T16:05:12.679359Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.898658833999434,
+          "retrieval_seconds": 0.29379045799942105,
+          "generation_seconds": 11.707092791000832,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0032",
+            "structure-0033"
+          ],
+          "total_seconds": 15.901759374999529,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3890726125,
+              "load_duration": 1119000,
+              "prompt_eval_count": 1083,
+              "prompt_eval_duration": 2609785000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 49,
+              "eval_duration": 1258170000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 1000,
+                "temperature": 0
+              },
+              "total_duration": 11702735500,
+              "load_duration": 955125,
+              "prompt_eval_count": 1222,
+              "prompt_eval_duration": 2986365000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 337,
+              "eval_duration": 8704222000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 1,
+      "elapsed_seconds": 4.380868583999472,
+      "turn": {
+        "id": "593c303c-42e6-4794-9fbe-bd1f333472a3",
+        "session_id": "6d2bbca6-baa1-44cc-81df-1a93d008a383",
+        "position": 3,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-08T16:05:12.681918Z",
+        "updated_at": "2026-10-08T16:05:17.060388Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.1138186669995775,
+          "retrieval_seconds": 0.2628384999989066,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [],
+          "total_seconds": 4.377876249998735,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4109650584,
+              "load_duration": 925792,
+              "prompt_eval_count": 1293,
+              "prompt_eval_duration": 3031178000,
+              "prompt_eval_cached_count": 59,
+              "eval_count": 42,
+              "eval_duration": 1058167999,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 2,
+      "elapsed_seconds": 6.287906209001449,
+      "turn": {
+        "id": "6446dba0-e0e4-427c-b711-78433b6f98ee",
+        "session_id": "3ee2d14f-eb16-47ea-95ea-34f44ba5cb8e",
+        "position": 1,
+        "content": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+        "answer": "FutureRenderer отрисовывает текст страницы параллельно с загрузкой изображений. [DOC:structure-0045] [DOC:structure-0044]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "What can FutureRenderer do while images are loading?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0045",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0044",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0045",
+            "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:05:17.201150Z",
+        "updated_at": "2026-10-08T16:05:23.486981Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.6115861250000307,
+          "retrieval_seconds": 0.27945295900099154,
+          "generation_seconds": 2.3929065829997853,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0045",
+            "structure-0044",
+            "structure-0046"
+          ],
+          "total_seconds": 6.285348875000636,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3607477041,
+              "load_duration": 799666,
+              "prompt_eval_count": 1016,
+              "prompt_eval_duration": 1880518000,
+              "prompt_eval_cached_count": 269,
+              "eval_count": 66,
+              "eval_duration": 1717674000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 1000,
+                "temperature": 0
+              },
+              "total_duration": 2389047917,
+              "load_duration": 936834,
+              "prompt_eval_count": 1466,
+              "prompt_eval_duration": 94210000,
+              "prompt_eval_cached_count": 1462,
+              "eval_count": 89,
+              "eval_duration": 2282943000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 2,
+      "elapsed_seconds": 12.480576542000563,
+      "turn": {
+        "id": "f3e3a835-c1fd-432a-87f3-0cc6ce1d7c5f",
+        "session_id": "3ee2d14f-eb16-47ea-95ea-34f44ba5cb8e",
+        "position": 2,
+        "content": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+        "answer": "Если задача таймера выполняется слишком долго, точность выполнения других задач TimerTask может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача выполняется 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли из TimerTask выбрасывается unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из TimerTask, приводит к завершению потока таймера. [DOC:structure-0033]\nТаймер не восстанавливает поток в этой ситуации и ошибочно предполагает, что весь Таймер был отменен. [DOC:structure-0033]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why does a long-running Timer task delay other tasks and what happens after an unchecked exception?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0032",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0033",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "The Timer thread doesn’t catch the exception,"
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "Timer also doesn’t resurrect the thread in this situation; instead, it erroneously assumes the entire Timer was cancelled."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:05:23.489690Z",
+        "updated_at": "2026-10-08T16:05:35.967665Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.3282665830010956,
+          "retrieval_seconds": 0.30021279100037646,
+          "generation_seconds": 8.847178209000049,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0032",
+            "structure-0033"
+          ],
+          "total_seconds": 12.47726233299909,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3324178125,
+              "load_duration": 1172042,
+              "prompt_eval_count": 1083,
+              "prompt_eval_duration": 2048000000,
+              "prompt_eval_cached_count": 269,
+              "eval_count": 49,
+              "eval_duration": 1264512000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 1000,
+                "temperature": 0
+              },
+              "total_duration": 8843112500,
+              "load_duration": 953417,
+              "prompt_eval_count": 1222,
+              "prompt_eval_duration": 92512000,
+              "prompt_eval_cached_count": 1218,
+              "eval_count": 337,
+              "eval_duration": 8738709000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 2,
+      "elapsed_seconds": 3.8917369579994556,
+      "turn": {
+        "id": "9a4c2f28-c022-48a3-b70c-b5f4442247f0",
+        "session_id": "3ee2d14f-eb16-47ea-95ea-34f44ba5cb8e",
+        "position": 3,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-08T16:05:35.971121Z",
+        "updated_at": "2026-10-08T16:05:39.860213Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.624823792000825,
+          "retrieval_seconds": 0.26215420799962885,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [],
+          "total_seconds": 3.888258249999126,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3619397792,
+              "load_duration": 1307042,
+              "prompt_eval_count": 1293,
+              "prompt_eval_duration": 2539507000,
+              "prompt_eval_cached_count": 269,
+              "eval_count": 42,
+              "eval_duration": 1065507000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 2,
+      "elapsed_seconds": 10.203603125000882,
+      "turn": {
+        "id": "7949e9d8-b827-4685-99d0-c38725b8f2a4",
+        "session_id": "c8165b46-d87a-4c7a-85fc-c1382cc4e57d",
+        "position": 1,
+        "content": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+        "answer": "FutureRenderer отрисовывает текст параллельно с загрузкой данных изображений. [DOC:structure-0045] [DOC:structure-0044]\nВ FutureRenderer создается Callable для загрузки всех изображений, а основной поток ожидает их результата. [DOC:structure-0044]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "What can FutureRenderer do while images are loading?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0045",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0044",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0045",
+            "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:05:41.441325Z",
+        "updated_at": "2026-10-08T16:05:51.642489Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.199809333000303,
+          "retrieval_seconds": 0.2802618749992689,
+          "generation_seconds": 5.719126957999833,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0045",
+            "structure-0044",
+            "structure-0046"
+          ],
+          "total_seconds": 10.200532208000368,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4193377000,
+              "load_duration": 956459,
+              "prompt_eval_count": 1016,
+              "prompt_eval_duration": 2477545000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 66,
+              "eval_duration": 1703260000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 3000,
+                "temperature": 0
+              },
+              "total_duration": 5714934917,
+              "load_duration": 991625,
+              "prompt_eval_count": 1347,
+              "prompt_eval_duration": 3358584000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 91,
+              "eval_duration": 2342613000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 2,
+      "elapsed_seconds": 16.14180433399997,
+      "turn": {
+        "id": "d3d36c79-58a7-4434-a894-3b4c025a3248",
+        "session_id": "c8165b46-d87a-4c7a-85fc-c1382cc4e57d",
+        "position": 2,
+        "content": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+        "answer": "Если задача таймера выполняется слишком долго, точность времени выполнения других задач таймера может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача занимает 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли задача таймера выбрасывает unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из задачи таймера, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера уже запланированные, но еще не выполненные задачи таймера никогда не выполняются, а новые задачи нельзя планировать. [DOC:structure-0033]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why does a long-running Timer task delay other tasks and what happens after an unchecked exception?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0032",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0033",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "The Timer thread doesn’t catch the exception,"
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:05:51.646018Z",
+        "updated_at": "2026-10-08T16:06:07.784905Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.070946583999103,
+          "retrieval_seconds": 0.29421733300114283,
+          "generation_seconds": 11.771430041999338,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0032",
+            "structure-0033"
+          ],
+          "total_seconds": 16.138184166999054,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4065186625,
+              "load_duration": 1121500,
+              "prompt_eval_count": 1114,
+              "prompt_eval_duration": 2776341000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 49,
+              "eval_duration": 1265670000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 3000,
+                "temperature": 0
+              },
+              "total_duration": 11767226750,
+              "load_duration": 946833,
+              "prompt_eval_count": 1103,
+              "prompt_eval_duration": 2786583000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 346,
+              "eval_duration": 8968262000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 2,
+      "elapsed_seconds": 4.569306124998548,
+      "turn": {
+        "id": "6ec38ff4-c0bd-493d-b303-4052d31cf67b",
+        "session_id": "c8165b46-d87a-4c7a-85fc-c1382cc4e57d",
+        "position": 3,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-08T16:06:07.788564Z",
+        "updated_at": "2026-10-08T16:06:12.355131Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.301344584000617,
+          "retrieval_seconds": 0.2632056239999656,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [],
+          "total_seconds": 4.565845458000695,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4295751583,
+              "load_duration": 1140625,
+              "prompt_eval_count": 1333,
+              "prompt_eval_duration": 3132442000,
+              "prompt_eval_cached_count": 90,
+              "eval_count": 44,
+              "eval_duration": 1139883000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 3,
+      "elapsed_seconds": 6.2369562499989115,
+      "turn": {
+        "id": "9187f496-7364-4528-a030-ce1d81499724",
+        "session_id": "b5167fa8-aacd-4250-b0e4-6c53fedf6705",
+        "position": 1,
+        "content": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+        "answer": "FutureRenderer отрисовывает текст параллельно с загрузкой данных изображений. [DOC:structure-0045] [DOC:structure-0044]\nВ FutureRenderer создается Callable для загрузки всех изображений, а основной поток ожидает их результата. [DOC:structure-0044]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "What can FutureRenderer do while images are loading?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0045",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0044",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0045",
+            "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:06:12.504425Z",
+        "updated_at": "2026-10-08T16:06:18.739342Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.4986210000006395,
+          "retrieval_seconds": 0.2894895000008546,
+          "generation_seconds": 2.44454124999902,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0045",
+            "structure-0044",
+            "structure-0046"
+          ],
+          "total_seconds": 6.234417540999857,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3494435875,
+              "load_duration": 757250,
+              "prompt_eval_count": 1016,
+              "prompt_eval_duration": 1787148000,
+              "prompt_eval_cached_count": 309,
+              "eval_count": 66,
+              "eval_duration": 1697870000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 3000,
+                "temperature": 0
+              },
+              "total_duration": 2440509167,
+              "load_duration": 955833,
+              "prompt_eval_count": 1347,
+              "prompt_eval_duration": 94222000,
+              "prompt_eval_cached_count": 1343,
+              "eval_count": 91,
+              "eval_duration": 2334656000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 3,
+      "elapsed_seconds": 12.791920583998944,
+      "turn": {
+        "id": "80b27108-62a5-4841-b867-8f04e7db7e0b",
+        "session_id": "b5167fa8-aacd-4250-b0e4-6c53fedf6705",
+        "position": 2,
+        "content": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+        "answer": "Если задача таймера выполняется слишком долго, точность времени выполнения других задач таймера может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача занимает 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли задача таймера выбрасывает unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из задачи таймера, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера уже запланированные, но еще не выполненные задачи таймера никогда не выполняются, а новые задачи нельзя планировать. [DOC:structure-0033]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why does a long-running Timer task delay other tasks and what happens after an unchecked exception?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0032",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0033",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "The Timer thread doesn’t catch the exception,"
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:06:18.742319Z",
+        "updated_at": "2026-10-08T16:06:31.531800Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.3779567910005426,
+          "retrieval_seconds": 0.2985168330014858,
+          "generation_seconds": 9.110727041001155,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0032",
+            "structure-0033"
+          ],
+          "total_seconds": 12.788844791999509,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3373002875,
+              "load_duration": 990625,
+              "prompt_eval_count": 1114,
+              "prompt_eval_duration": 2098951000,
+              "prompt_eval_cached_count": 309,
+              "eval_count": 49,
+              "eval_duration": 1261451000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 3000,
+                "temperature": 0
+              },
+              "total_duration": 9106725291,
+              "load_duration": 913875,
+              "prompt_eval_count": 1103,
+              "prompt_eval_duration": 93336000,
+              "prompt_eval_cached_count": 1099,
+              "eval_count": 346,
+              "eval_duration": 9002288000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "baseline",
+      "repeat": 3,
+      "elapsed_seconds": 4.0341312079999625,
+      "turn": {
+        "id": "8a6fc8a9-3bd1-4ee1-8e50-27f9b04e7e8e",
+        "session_id": "b5167fa8-aacd-4250-b0e4-6c53fedf6705",
+        "position": 3,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-08T16:06:31.534587Z",
+        "updated_at": "2026-10-08T16:06:35.566182Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 3.7628290410011687,
+          "retrieval_seconds": 0.2672576660006598,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "generation_profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [],
+          "total_seconds": 4.031082083000001,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 32768,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 3756811166,
+              "load_duration": 836541,
+              "prompt_eval_count": 1333,
+              "prompt_eval_duration": 2610260000,
+              "prompt_eval_cached_count": 309,
+              "eval_count": 44,
+              "eval_duration": 1134339000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 3,
+      "elapsed_seconds": 10.510311124999134,
+      "turn": {
+        "id": "2c6cd23d-6b86-4ccf-9bf4-91f6e532f086",
+        "session_id": "cd0b75e6-c778-439b-9fe6-894afc3642a3",
+        "position": 1,
+        "content": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+        "answer": "FutureRenderer отрисовывает текст страницы параллельно с загрузкой изображений. [DOC:structure-0045] [DOC:structure-0044]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "What can FutureRenderer do while images are loading?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0045",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0044",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.3.3 Example: page renderer with Future",
+            "page_start": 15,
+            "page_end": 15
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0045",
+            "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+          },
+          {
+            "chunk_id": "structure-0044",
+            "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:06:37.133551Z",
+        "updated_at": "2026-10-08T16:06:47.641997Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.258571917000154,
+          "retrieval_seconds": 0.2832369160005328,
+          "generation_seconds": 5.964453708998917,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0045",
+            "structure-0044",
+            "structure-0046"
+          ],
+          "total_seconds": 10.50777083399953,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4254475458,
+              "load_duration": 876666,
+              "prompt_eval_count": 1016,
+              "prompt_eval_duration": 2541463000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 66,
+              "eval_duration": 1701397000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 1000,
+                "temperature": 0
+              },
+              "total_duration": 5960627500,
+              "load_duration": 885250,
+              "prompt_eval_count": 1466,
+              "prompt_eval_duration": 3666925000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 89,
+              "eval_duration": 2279602000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 3,
+      "elapsed_seconds": 16.41757887499989,
+      "turn": {
+        "id": "e5c42164-8b15-4e5f-989a-58b5cb60ef6d",
+        "session_id": "cd0b75e6-c778-439b-9fe6-894afc3642a3",
+        "position": 2,
+        "content": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+        "answer": "Если задача таймера выполняется слишком долго, точность выполнения других задач TimerTask может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача выполняется 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли из TimerTask выбрасывается unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из TimerTask, приводит к завершению потока таймера. [DOC:structure-0033]\nТаймер не восстанавливает поток в этой ситуации и ошибочно предполагает, что весь Таймер был отменен. [DOC:structure-0033]",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "Why does a long-running Timer task delay other tasks and what happens after an unchecked exception?",
+        "sources": [
+          {
+            "kind": "document",
+            "chunk_id": "structure-0032",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          },
+          {
+            "kind": "document",
+            "chunk_id": "structure-0033",
+            "source": "https://jcip.net/jcip-sample.pdf",
+            "title": "Java Concurrency in Practice — sample chapter",
+            "section": "6.2.5 Delayed and periodic tasks",
+            "page_start": 11,
+            "page_end": 11
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+          },
+          {
+            "chunk_id": "structure-0032",
+            "quote": "The Timer thread doesn’t catch the exception,"
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+          },
+          {
+            "chunk_id": "structure-0033",
+            "quote": "Timer also doesn’t resurrect the thread in this situation; instead, it erroneously assumes the entire Timer was cancelled."
+          }
+        ],
+        "grounding_status": "answered",
+        "error": null,
+        "created_at": "2026-10-08T16:06:47.644655Z",
+        "updated_at": "2026-10-08T16:07:04.059956Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.077145250001195,
+          "retrieval_seconds": 0.2937750419987424,
+          "generation_seconds": 12.042132291999224,
+          "generation_attempts": 1,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [
+            "structure-0032",
+            "structure-0033"
+          ],
+          "total_seconds": 16.414658959000008,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4073006833,
+              "load_duration": 855542,
+              "prompt_eval_count": 1083,
+              "prompt_eval_duration": 2757323000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 49,
+              "eval_duration": 1296279000,
+              "done_reason": "stop"
+            },
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 1000,
+                "temperature": 0
+              },
+              "total_duration": 12038200625,
+              "load_duration": 980583,
+              "prompt_eval_count": 1222,
+              "prompt_eval_duration": 3141755000,
+              "prompt_eval_cached_count": 0,
+              "eval_count": 337,
+              "eval_duration": 8883812000,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "profile": "optimized",
+      "repeat": 3,
+      "elapsed_seconds": 4.627578333000201,
+      "turn": {
+        "id": "1fb90b9c-87a3-4644-9e13-40dd28899c10",
+        "session_id": "cd0b75e6-c778-439b-9fe6-894afc3642a3",
+        "position": 3,
+        "content": "Как в этой главе работает Java StructuredTaskScope?",
+        "answer": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+        "status": "done",
+        "kind": "question",
+        "question_scope": "document",
+        "search_question": "How does Java StructuredTaskScope work in chapter 6?",
+        "sources": [],
+        "citations": [],
+        "grounding_status": "insufficient_context",
+        "error": null,
+        "created_at": "2026-10-08T16:07:04.062747Z",
+        "updated_at": "2026-10-08T16:07:08.687977Z",
+        "provider": "ollama",
+        "model": "qwen3.5:9b-q4_K_M",
+        "metrics": {
+          "interpretation_seconds": 4.359414332999222,
+          "retrieval_seconds": 0.2641148749989952,
+          "generation_seconds": 0,
+          "generation_attempts": 0,
+          "generation_profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "selected_chunk_ids": [],
+          "total_seconds": 4.624757125000542,
+          "ollama_requests": [
+            {
+              "options": {
+                "num_ctx": 8192,
+                "num_predict": 700,
+                "temperature": 0
+              },
+              "total_duration": 4355304375,
+              "load_duration": 1217125,
+              "prompt_eval_count": 1293,
+              "prompt_eval_duration": 3267381000,
+              "prompt_eval_cached_count": 59,
+              "eval_count": 42,
+              "eval_duration": 1067071999,
+              "done_reason": "stop"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "power_state_start": {
+    "source": "AC Power",
+    "power_mode": 0
+  },
+  "method": "Real FastAPI routes with Qwen, local E5/FAISS/reranker and SQLite; cloud key absent. Model/context warmup excluded from HTTP timing; profile order alternates across three repeats.",
+  "limitations": "Small descriptive timing sample; unloading weights leaves operating-system disk cache intact. External sockets are not blocked in this check.",
+  "retrieval_startup_seconds": 6.4879827499989915,
+  "complete": true,
+  "power_state_end": {
+    "source": "AC Power",
+    "power_mode": 0
+  }
+}

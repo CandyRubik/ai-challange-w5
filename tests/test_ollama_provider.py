@@ -120,3 +120,41 @@ def test_oversized_required_context_is_rejected_before_network():
         provider_with(handler, num_ctx=4096).generate(messages=[
             MESSAGES[0], {"role": "user", "content": "Я" * 4000},
         ])
+
+
+def test_compact_context_grows_for_required_memory_without_losing_evidence():
+    calls = []
+    def handler(request):
+        calls.append(json.loads(request.content))
+        return answer('{"ok":true}')
+    messages = [{"role": "system", "content": "Evidence and required memory. " * 350}, MESSAGES[-1]]
+    provider = OllamaProvider(model="local", num_ctx=8192, max_num_ctx=32768,
+                             temperature=.2, seed=17,
+                             client=httpx.Client(transport=httpx.MockTransport(handler)))
+
+    provider.generate_json(messages=messages, max_tokens=1000)
+
+    assert calls[0]["messages"] == messages
+    assert calls[0]["options"] == {"num_ctx": 16384, "num_predict": 1000, "temperature": .2, "seed": 17}
+    assert provider.request_metrics[0]["options"] == calls[0]["options"]
+
+
+def test_compact_context_trims_old_history_instead_of_growing_for_it():
+    calls = []
+    def handler(request):
+        calls.append(json.loads(request.content))
+        return answer()
+    provider = OllamaProvider(model="local", num_ctx=8192, max_num_ctx=32768,
+                             client=httpx.Client(transport=httpx.MockTransport(handler)))
+    provider.generate(messages=[MESSAGES[0], {"role": "user", "content": "old " * 10000}, MESSAGES[-1]], max_tokens=1000)
+    assert calls[0]["options"]["num_ctx"] == 8192
+    assert calls[0]["messages"] == MESSAGES
+
+
+def test_compact_context_has_a_hard_upper_bound():
+    def handler(request):
+        pytest.fail("Required context overflow must not reach the model")
+    provider = OllamaProvider(model="local", num_ctx=8192, max_num_ctx=16384,
+                             client=httpx.Client(transport=httpx.MockTransport(handler)))
+    with pytest.raises(LlmRequestError, match="Контекст не помещается"):
+        provider.generate_json(messages=[{"role": "system", "content": "x" * 17000}, MESSAGES[-1]], max_tokens=1000)

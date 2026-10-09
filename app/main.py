@@ -5,8 +5,8 @@ import os
 from pathlib import Path
 from typing import Literal
 
-from fastapi import Depends, FastAPI, HTTPException, Response
-from fastapi.responses import FileResponse
+from fastapi import Depends, FastAPI, HTTPException, Request, Response
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
@@ -15,9 +15,11 @@ from .indexing.corpus import DEFAULT_PDF
 from .indexing.rag import DocumentRag, RetrievalSettings
 from .indexing.rerank import LocalCrossEncoderReranker
 from .indexing.store import DEFAULT_INDEX_DIR, DocumentIndex, DocumentIndexError
-from .rag_chat.models import RagCreateRequest, RagSendRequest, RagSession, RagSessionSummary, RagTurn
+from .rag_chat.models import (RagCreateRequest, RagSendRequest, RagSession, RagSessionSummary,
+                              RagTurn, RagConfigurationRequest)
 from .rag_chat.service import GROUNDING_SYSTEM_PROMPT, RagChatService
 from .rag_chat.state import TurnInterpreter
+from .rag_chat.profiles import generation_profile
 from .rag_chat.store import RagChatNotFound, RagTurnConflict, SQLiteRagChatRepository
 from .invariants import (
     InvariantSnapshot, InvariantUpdateRequest, InvariantSettingsConflict,
@@ -27,9 +29,11 @@ from .memory.updates import MemoryUpdateConflict
 from .state.task import TaskConflict
 from .providers.errors import (
     LlmConfigurationError,
+    LlmContextLimitError,
     LlmRequestError,
 )
 from .providers.registry import ModelRegistry
+from .private_service import PrivateServiceMiddleware, ServiceLimits
 from .schemas import (
     ChatSendRequest,
     ChatSendResponse,
@@ -83,6 +87,17 @@ app.add_middleware(
     allow_methods=["DELETE", "GET", "POST", "PUT"],
     allow_headers=["Content-Type"],
 )
+app.add_middleware(PrivateServiceMiddleware)
+
+
+def _model_failure(error: Exception) -> HTTPException:
+    return HTTPException(status_code=422 if isinstance(error, LlmContextLimitError) else 502,
+                         detail=str(error))
+
+
+@app.exception_handler(LlmConfigurationError)
+async def model_configuration_error(request: Request, error: LlmConfigurationError):
+    return JSONResponse({"detail": str(error)}, status_code=503)
 
 
 @lru_cache(maxsize=1)
@@ -167,6 +182,17 @@ def health() -> dict[str, bool | str]:
 @app.get("/api/models")
 def model_catalog(registry: ModelRegistry = Depends(get_model_registry)) -> dict:
     return registry.catalog()
+
+
+@app.get("/api/service")
+def service_limits() -> dict:
+    limits = ServiceLimits.from_env()
+    return {"private": limits.enabled, "limits": {
+        "max_context": limits.max_context, "max_output": limits.max_output,
+        "generations_per_minute": limits.generations_per_minute,
+        "active_generations": 1, "max_queue": limits.max_queue,
+        "queue_wait_seconds": limits.queue_wait_seconds, "max_body_bytes": limits.max_body_bytes,
+    } if limits.enabled else None}
 
 
 @app.post("/api/chat/sessions", response_model=ChatSession, status_code=201)
@@ -346,7 +372,7 @@ def send_chat_message(
     except AgentInputError as error:
         raise HTTPException(status_code=422, detail=str(error)) from None
     except (AgentOutputError, LlmRequestError) as error:
-        raise HTTPException(status_code=502, detail=str(error)) from None
+        raise _model_failure(error) from None
     except LlmConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from None
 
@@ -365,7 +391,7 @@ def retry_chat_message(
     except TaskConflict as error:
         raise HTTPException(status_code=409, detail=error.detail) from None
     except (AgentOutputError, LlmRequestError) as error:
-        raise HTTPException(status_code=502, detail=str(error)) from None
+        raise _model_failure(error) from None
     except LlmConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from None
     except AgentInputError as error:
@@ -405,7 +431,7 @@ def task_action(
     except TaskConflict as error:
         raise HTTPException(status_code=409, detail=error.detail) from None
     except (AgentOutputError, LlmRequestError) as error:
-        raise HTTPException(status_code=502, detail=str(error)) from None
+        raise _model_failure(error) from None
     except LlmConfigurationError as error:
         raise HTTPException(status_code=503, detail=str(error)) from None
 
@@ -434,6 +460,7 @@ def get_rag_chat_service() -> RagChatService:
                     settings=RetrievalSettings(rewrite=False)),
         Agent(model, system_prompt=GROUNDING_SYSTEM_PROMPT, max_tokens=3_000),
         model_registry=registry,
+        generation_profile=generation_profile(),
     )
 
 
@@ -456,7 +483,7 @@ def document_source() -> FileResponse:
 @app.post("/api/rag-chat/sessions", response_model=RagSession, status_code=201)
 def create_rag_chat(request: RagCreateRequest | None = None,
                     service: RagChatService = Depends(get_rag_chat_service)) -> RagSession:
-    return service.create(request.provider if request else None)
+    return service.create(request.provider if request else None, request.configuration if request else None)
 
 
 @app.get("/api/rag-chat/sessions", response_model=list[RagSessionSummary])
@@ -470,6 +497,22 @@ def get_rag_chat(session_id: str, service: RagChatService = Depends(get_rag_chat
         return service.get(session_id)
     except RagChatNotFound:
         raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+
+
+@app.get("/api/rag-chat/configurations")
+def rag_configurations(service: RagChatService = Depends(get_rag_chat_service)) -> dict:
+    return service.configuration_catalog()
+
+
+@app.put("/api/rag-chat/sessions/{session_id}/configuration", response_model=RagSession)
+def set_rag_configuration(session_id: str, request: RagConfigurationRequest,
+                          service: RagChatService = Depends(get_rag_chat_service)) -> RagSession:
+    try:
+        return service.set_configuration(session_id, request.configuration)
+    except RagChatNotFound:
+        raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
 
 
 @app.put("/api/rag-chat/sessions/{session_id}/model", response_model=RagSession)
@@ -494,7 +537,8 @@ def delete_rag_chat(session_id: str, service: RagChatService = Depends(get_rag_c
 def send_rag_chat_turn(session_id: str, request: RagSendRequest,
                        service: RagChatService = Depends(get_rag_chat_service)) -> RagTurn:
     try:
-        return service.send(session_id, request.content, request.provider)
+        return service.send(session_id, request.content, request.provider,
+                            configuration=request.configuration, compare_with=request.compare_with)
     except RagChatNotFound:
         raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
     except RagTurnConflict as error:

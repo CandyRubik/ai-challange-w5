@@ -6,6 +6,10 @@ class LlmRequestError(RuntimeError):
     """The selected provider failed to complete a request."""
 
 
+class LlmContextLimitError(LlmRequestError):
+    """Required input cannot fit into the configured context budget."""
+
+
 class LlmTruncatedResponseError(LlmRequestError):
     """A structured response did not fit into one complete answer."""
 

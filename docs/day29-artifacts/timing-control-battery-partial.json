@@ -1,0 +1,3811 @@
+{
+  "created_at": "2026-10-08T15:27:00.325520+00:00",
+  "config": {
+    "cases_sha256": "ce05e1d119cce3410977bc934b959e222186ee11dc1e1add9b4a0571cf333a04",
+    "split": "all",
+    "repeats": 3,
+    "profiles": {
+      "baseline": {
+        "name": "baseline",
+        "num_ctx": 32768,
+        "max_tokens": 3000,
+        "temperature": 0,
+        "prompt_version": "baseline",
+        "max_num_ctx": 32768,
+        "model": "qwen3.5:9b-q4_K_M"
+      },
+      "compact": {
+        "name": "compact",
+        "num_ctx": 8192,
+        "max_tokens": 1000,
+        "temperature": 0,
+        "prompt_version": "baseline",
+        "max_num_ctx": 32768,
+        "model": "qwen3.5:9b-q4_K_M"
+      },
+      "optimized": {
+        "name": "optimized",
+        "num_ctx": 8192,
+        "max_tokens": 1000,
+        "temperature": 0,
+        "prompt_version": "complete-v3",
+        "max_num_ctx": 32768,
+        "model": "qwen3.5:9b-q4_K_M"
+      },
+      "q8": {
+        "name": "q8",
+        "num_ctx": 8192,
+        "max_tokens": 1000,
+        "temperature": 0,
+        "prompt_version": "complete-v3",
+        "max_num_ctx": 32768,
+        "model": "qwen3.5:9b-q8_0"
+      }
+    },
+    "seed_policy": "1000 + repeat; same seed for paired profiles",
+    "generation_code_sha256": {
+      "app/providers/ollama.py": "ad2ef152f36f44546522b7f02b2f5423f567efde4d9a58d683c5ae71f90e4829",
+      "app/rag_chat/citation_options.py": "fc5ac3ea3343dc8af0045d88a5f3dc2f41b90bc238914efc0ededdced58dbb86",
+      "app/rag_chat/generation.py": "d9859c20d486446b8947379171d0e1a4b113525ac467662321a685abbd616548",
+      "app/agents/agent.py": "920bb95d3edb829fd38ae2ffe2af27342dabb935d31e71c088835b1020ac75f5",
+      "app/orchestration/prompt.py": "ed87e0d20711d16add445bcf06c7151a6d8c5562e37f74ddf51eb050bbc7e72d"
+    },
+    "question_ids": [
+      2,
+      3,
+      6,
+      11,
+      13,
+      16
+    ],
+    "power_state": {
+      "source": "Battery Power",
+      "power_mode": 1
+    }
+  },
+  "platform": "macOS-26.2-arm64-arm-64bit-Mach-O",
+  "models": {
+    "qwen3.5:9b-q4_K_M": {
+      "name": "qwen3.5:9b-q4_K_M",
+      "model": "qwen3.5:9b-q4_K_M",
+      "modified_at": "2026-10-07T15:28:32.128338012+03:00",
+      "size": 6550825550,
+      "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+      "details": {
+        "parent_model": "model.gguf",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "9.0B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ]
+    },
+    "qwen3.5:9b-q8_0": {
+      "name": "qwen3.5:9b-q8_0",
+      "model": "qwen3.5:9b-q8_0",
+      "modified_at": "2026-10-08T17:39:14.372686433+03:00",
+      "size": 10449218124,
+      "digest": "a8ee95bc3592ebaa624014ca8b429d25e0ef5f45030dc35786da7ff7e9e1b60a",
+      "details": {
+        "parent_model": "model.gguf",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "9.0B",
+        "quantization_level": "Q8_0",
+        "context_length": 262144,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ]
+    }
+  },
+  "ollama_version": {
+    "version": "0.35.1"
+  },
+  "method": "Frozen source excerpts: calibration uses day28 retrieval; validation uses documented manually selected chapter excerpts. Retrieval is excluded to isolate generation. Every refusal case supplies nonempty evidence to the LLM. Validation cases are excluded from tuning.",
+  "cases": [
+    {
+      "id": 2,
+      "split": "calibration",
+      "question": "Почему обработчик запроса в ThreadPerTaskWebServer должен быть потокобезопасным?",
+      "search_question": "Why must the request handler in ThreadPerTaskWebServer be thread-safe?",
+      "expected": "Обработчик может одновременно выполняться для нескольких запросов.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.8931137919425964,
+          "chunk_id": "structure-0008",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3,
+          "text": "be ser viced simultaneously. This may improve throughput if there are multiple process- ors, or if tasks need to block for any reason such as I/O completion, lock acquisition, or resource availability.  Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks. Under light to moderate load, the thread-per-task approach is an improvement over sequential execution. As long as the request arrival rate does not exceed the ser ver ’s capacity to handle requests, this approach offers better responsiveness and throughput.",
+          "token_count": 136
+        },
+        {
+          "score": 0.8868464231491089,
+          "chunk_id": "structure-0007",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3,
+          "text": "A more responsive approach is to create a new thread for ser vicing each request, as shown in ThreadPerTaskWebServer in Listing 6.2. class ThreadPerTaskWebServer { public static void main(String [] args) throws IOException { ServerSocket socket = new ServerSocket (80); while (true ) { final Socket connection = socket.accept (); Runnable task = new Runnable () { public void run() { handleRequest(connection); } }; new Thread(task).start(); } } } Listing 6.2. Web server that starts a new thread for each request. ThreadPerTaskWebServer is similar in structure to the single-threaded version—the main thread still alternat es between accepting an incoming con- nection and dispatching the request. The difference is that for each connection, the main loop creates a new thread to process the request instead of processing it within the main thread. This has three main consequences:  Task processing is offloaded from the main thread, enabling the main loop to resume waiting for the next incoming connection more quickly. This enables new connections to be accepted before previous requests complete, improving responsiveness.  Tasks can be processed in parallel, enabling multiple requests to",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "split": "calibration",
+      "question": "Что FutureRenderer успевает делать, пока загружаются изображения?",
+      "search_question": "What does FutureRenderer do while images are loading in chapter 6?",
+      "expected": "Он отображает текст страницы параллельно загрузке изображений, а затем ждёт Future.get для их отрисовки.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.9013963937759399,
+          "chunk_id": "structure-0045",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15,
+          "text": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data. When all the images are downloaded, they are rendered onto the page. This is an improvement in that the user sees a result quickly and it exploits some parallelism, but we can do considerably better. There is no need for users to wait for all theimagestobedownloaded;theywouldprobablypreferto see individual images drawn as they become available.",
+          "token_count": 112
+        },
+        {
+          "score": 0.8797121047973633,
+          "chunk_id": "structure-0048",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16,
+          "text": "128 Chapter 6. Task Execution public class FutureRenderer { private final ExecutorService executor =...; void renderPage (CharSequence source ) { final List<ImageInfo > imageInfos = scanForImageInfo (source ); Callable <List<ImageData >> task = new Callable <List<ImageData >>() { public List <ImageData > call() { List <ImageData > result = new ArrayList <ImageData >(); for (ImageInfo imageInfo : imageInfos ) result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too future.cancel (true); } catch (ExecutionException e) { throw launderThrowable (e.getCause ()); } } } Listing 6.13. Waiting for image download with Future.",
+          "token_count": 290
+        },
+        {
+          "score": 0.8719169497489929,
+          "chunk_id": "structure-0044",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15,
+          "text": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images. (Because one task is largely CPU-bound and the other is largely I/O-bound, this approach may yield improvements even on single-CPU systems.) Callable and Future can help us express the interaction between these coop- erating tasks. In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService. This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images. The state-dependent nature of get means that the caller need not be aware of the state of the task, and the safe publication properties of task submission and result retrieval make this approach thread-safe. The exception handling code surrounding Future.get deals with two possible problems: that the task encoun- tered an Exception, or the thread calling get was interrupted before the results were available. (S ee S",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "split": "calibration",
+      "question": "Как узнать, что все результаты пакета получены из CompletionService при общем Executor?",
+      "search_question": "How to determine when all results from a batch are received from CompletionService with a shared Executor?",
+      "expected": "Запомнить число отправленных задач и посчитать полученные завершённые результаты.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 0.8924267292022705,
+          "chunk_id": "structure-0055",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19,
+          "text": "6.3. Finding exploitable parallelism 131 perfectly sensible to create an ExecutorCompletionService that is private to a particular computation while sharing a common Executor. When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation. By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor.",
+          "token_count": 137
+        },
+        {
+          "score": 0.8883477449417114,
+          "chunk_id": "structure-0050",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.5 CompletionService: Executor meets BlockingQueue",
+          "page_start": 17,
+          "page_end": 17,
+          "text": "If you have a batch of computations to submit to an Executor and you want to retrieve their results as they become available, you could retain the Future associated with each task and repeatedly poll for completion by calling get with a timeout of zero. This is possible, but tedious. Fortunately there is a better way: a completion service. CompletionService combines the functionality of an Executor and a Block- ingQueue.YoucansubmitCallable tasks to it for execution and use the queue- like methods take and poll to retrieve completed results, packaged as Futures, as they become available. ExecutorCompletionService implements Completion- Service, delegating the computation to an Executor. The implementation of ExecutorCompletionService is quite straightfor ward. The constructor creates a BlockingQueue to hold the completed results. Future- Task has a done method that is called when the computation completes. When a task is submitted, it is wrapped with a QueueingFuture, a subclass of FutureTask that overrides done to place the result on the BlockingQueue, as shown in Listing 6.14.Thetake and poll methods delegate to the BlockingQueue, blocking if results are not yet available. private class Que",
+          "token_count": 300
+        },
+        {
+          "score": 0.8706310987472534,
+          "chunk_id": "structure-0053",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 18,
+          "page_end": 18,
+          "text": "We c a n u s e a CompletionService to improve the perfor mance of the page ren- derer in two ways: shorter total runtime and improved responsiveness. We can create a separate task for downloading each image and execute them in a thread pool, tur ning the sequential download into a parallel one: this reduces the amount of time to download all the images. And by fetching results from the CompletionService and rendering each image as soon as it is available, we can give the user a more dynamic and responsive user interface. This implementation is shown in Renderer in Listing 6.15. public class Renderer { private final ExecutorService executor ; Renderer (ExecutorService executor ) { this.executor = executor ; } void renderPage (CharSequence source ) { final List<ImageInfo > info = scanForImageInfo (source ); CompletionService <ImageData > completionService = new ExecutorCompletionService <ImageData >(executor ); for (final ImageInfo imageInfo : info) completionService.submit( new Callable <ImageData >() { public ImageData call() { return imageInfo.downloadImage (); } }); renderText (source ); try { for(intt=0,n=info.size();t<n;t++) {",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "split": "validation",
+      "question": "Чем shutdown отличается от shutdownNow и как дождаться завершения ExecutorService?",
+      "search_question": "Чем shutdown отличается от shutdownNow и как дождаться завершения ExecutorService?",
+      "expected": "shutdown допускает завершение ранее отправленных задач; shutdownNow пытается отменить и не запускает ожидающие; awaitTermination позволяет ждать завершения.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 1.0,
+          "chunk_id": "structure-0028",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9,
+          "text": "task submission). The lifecycle man- agement methods of ExecutorService are shown in Listing 6.7. public interface ExecutorService extends Executor { void shutdown (); List<Runnable > shutdownNow (); boolean isShutdown (); boolean isTerminated (); boolean awaitTermination (long timeout, TimeUnit unit) throws InterruptedException ; //... additional convenience methods for task submission } Listing 6.7. Lifecycle methods in ExecutorService. The lifecycle implied by ExecutorService has three states— running, shutting down,andterminated. ExecutorServices are initially created in the running state. The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution. The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun. Tasks submitted to an ExecutorService after it has been shut down are han- dled by the rejected execution handler (see S ection 8.3.3), which might silently dis-",
+          "token_count": 288
+        },
+        {
+          "score": 1.0,
+          "chunk_id": "structure-0029",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10,
+          "text": "122 Chapter 6. Task Execution card the task or might cause execute to throw the unchecked RejectedExecu- tionException. Once all tasks have completed, the ExecutorService transitions to the terminated state. You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated. It is common to follow shutdown immediately by awaitTermina- tion, creating the effect of synchronously shutting down the ExecutorService. (Executor shutdown and task cancellation are covered in more detail in Chapter 7.) LifecycleWebServer in Listing 6.8 extends our web ser ver with lifecycle sup- port. It can be shut down in two ways: programmatically by calling stop,and through a client request by sending the web ser ver a specially for matted HTTP request. class LifecycleWebServer { private final ExecutorService exec =...; public void start() throws IOException { ServerSocket socket = new ServerSocket (80); while (!exec.isShutdown ()) { try { final Socket conn = socket.accept (); exec.execute (new Runnable () { public void run() { handle",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "split": "validation",
+      "question": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+      "search_question": "Почему долгая задача Timer задерживает другие задачи и что происходит после unchecked exception?",
+      "expected": "У Timer один поток; долгая задача нарушает точность расписания; unchecked exception завершает поток без восстановления, старые задачи не выполняются и новые не принимаются.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 1.0,
+          "chunk_id": "structure-0032",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11,
+          "text": "The Timer facility manages the execution of deferred (“run this task in 100 ms”) and periodic (“run this task every 10 ms”) tasks. However, Timer has some draw- backs, and ScheduledThreadPoolExecutor should be thought of as its replace- ment.6 Yo u c a n c o n s t r u c t a ScheduledThreadPoolExecutor through its construc- tor or through the newScheduledThreadPool factory. A Timer creates only a single thread for executing timer tasks. If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer. If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely. S cheduled thread pools address this limitation by letting you provide multiple threads for executing deferred and periodic tasks. Another problem with Timer is that it behaves poorly if a TimerTask throws an unchecked exception. The Timer thread doesn’t catch the exception,",
+          "token_count": 300
+        },
+        {
+          "score": 1.0,
+          "chunk_id": "structure-0033",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11,
+          "text": "so an un- checked exception thrown from a TimerTask ter minates the timer thread. Timer also doesn’t resurrect the thread in this situation; instead, it erroneously assumes the entire Timer was cancelled. In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled. (This problem, called “thread leakage” is described in S ection 7.3,alongwith techniques for avoiding it.) OutOfTime in Listing 6.9 illustrates how a Timer can become confused in this manner and, as confusion loves company, how the Timer shares its confusion with the next hapless caller that tries to submit a TimerTask. You might expect the program to run for six seconds and exit, but what actually happens is that it ter minates after one second with an IllegalStateException whose message text is “Timer already cancelled”. ScheduledThreadPoolExecutor deals properly with ill-behaved tasks; there is little reason to use Timer in Java 5.0 or later. If you need to build your own scheduling ser vice, you may still be able to take advantage of the librar y by using a DelayQueue,aBlockingQueue implementation that provides the scheduling functional",
+          "token_count": 300
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "split": "validation",
+      "question": "Сравни ThreadPerTaskExecutor и WithinThreadExecutor: где запускается задача и когда возвращается execute?",
+      "search_question": "Сравни ThreadPerTaskExecutor и WithinThreadExecutor: где запускается задача и когда возвращается execute?",
+      "expected": "Первый создаёт и запускает новый поток; второй выполняет r.run синхронно в вызывающем потоке и возвращается после завершения задачи.",
+      "expected_status": "answered",
+      "hits": [
+        {
+          "score": 1.0,
+          "chunk_id": "structure-0017",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6,
+          "text": "118 Chapter 6. Task Execution class TaskExecutionWebServer { private static final int NTHREADS = 100; private static final Executor exec = Executors.newFixedThreadPool(NTHREADS); public static void main(String [] args) throws IOException { ServerSocket socket = new ServerSocket (80); while (true ) { final Socket connection = socket.accept (); Runnable task = new Runnable () { public void run() { handleRequest (connection ); } }; exec.execute(task); } } } Listing 6.4. Web ser ver using a thread pool. We can easily modify TaskExecutionWebServer to behave like ThreadPer- TaskWebServer by substituting an Executor that creates a new thread for each request. Writing such an Executor is trivial, as shown in ThreadPerTaskExecut- or in Listing 6.5. public class ThreadPerTaskExecutor implements Executor { public void execute (Runnable r) { new Thread(r).start(); }; } Listing 6.5. Executor that starts a new thread for each task. Similarly, it is also easy to write an Executor that would make Tas",
+          "token_count": 300
+        },
+        {
+          "score": 1.0,
+          "chunk_id": "structure-0018",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6,
+          "text": "kExecut- ionWebServer behave like the single-threaded version, executing each task syn- chronously before retur ning from execute,asshowninWithinThreadExecutor in Listing 6.6.",
+          "token_count": 47
+        },
+        {
+          "score": 1.0,
+          "chunk_id": "structure-0020",
+          "strategy": "structure",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.2 Execution policies",
+          "page_start": 7,
+          "page_end": 7,
+          "text": "6.2.TheExecutor framework 119 public class WithinThreadExecutor implements Executor { public void execute (Runnable r) { r.run(); }; } Listing 6.6. Executor that executes tasks synchronously in the calling thread.  In what thread will tasks be executed?  In what order should tasks be executed (FIFO, LIFO, priority order)?  How many tasks may execute concurrently?  How many tasks may be queued pending execution?  If a task has to be rejected because the system is overloaded, which task should be selected as the victim, and how should the application be noti- fied?  What actions should be taken before or after executing a task? Execution policies are a resource management tool, and the optimal policy depends on the available computing resources and your quality-of-ser vice re- quirements. By limiting the number of concurrent tasks, you can ensure that the application does not fail due to resource exhaustion or suffer perfor mance problems due to contention for scarce resources. 3 S eparating the specification of execution policy from task submission makes it practical to select an execution policy at deployment time that is matched to the available hardware. Whenever you see code of the form",
+          "token_count": 300
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "profile": "baseline",
+      "question_id": 2,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 7.761355791999449,
+      "status_pass": true,
+      "tokens_per_second": 19.884410205072097,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 26,
+        "peak_ollama_rss_bytes": 8198782976,
+        "peak_model_allocation_bytes": 7336833841,
+        "peak_model_vram_bytes": 7336833841,
+        "sampled_context_lengths": [
+          32768
+        ],
+        "ollama_cpu_seconds": 5.07,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 7.758668833001138,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 7750360333,
+            "load_duration": 1295375,
+            "prompt_eval_count": 931,
+            "prompt_eval_duration": 3661342000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 81,
+            "eval_duration": 4073543000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Обработчик задач должен быть потокобезопасным, потому что он может вызываться одновременно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "baseline",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.965940499998396,
+      "status_pass": true,
+      "tokens_per_second": 20.27539839695682,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 33,
+        "peak_ollama_rss_bytes": 8394489856,
+        "peak_model_allocation_bytes": 7336833841,
+        "peak_model_vram_bytes": 7336833841,
+        "sampled_context_lengths": [
+          32768
+        ],
+        "ollama_cpu_seconds": 7.75,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.965185208000548,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 9954103417,
+            "load_duration": 1898208,
+            "prompt_eval_count": 1220,
+            "prompt_eval_duration": 4805263000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 104,
+            "eval_duration": 5129369000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0044] [DOC:structure-0048]\nКласс FutureRenderer использует ExecutorService для асинхронной загрузки изображений и последующей их отрисовки. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Task Execution public class FutureRenderer { private final ExecutorService executor =...; void renderPage (CharSequence source ) { final List<ImageInfo > imageInfos = scanForImageInfo (source ); Callable <List<ImageData >> task = new Callable <List<ImageData >>() { public List <ImageData > call() { List <ImageData > result = new ArrayList <ImageData >(); for (ImageInfo imageInfo : imageInfos )"
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "baseline",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 11.658621332999246,
+      "status_pass": true,
+      "tokens_per_second": 20.875740079778726,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 36,
+        "peak_ollama_rss_bytes": 8650227712,
+        "peak_model_allocation_bytes": 7336833841,
+        "peak_model_vram_bytes": 7336833841,
+        "sampled_context_lengths": [
+          32768
+        ],
+        "ollama_cpu_seconds": 11.2,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 11.657491875001142,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 11641955833,
+            "load_duration": 1922000,
+            "prompt_eval_count": 1319,
+            "prompt_eval_duration": 4413617000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 150,
+            "eval_duration": 7185374000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, когда все результаты для данного пакета получены, нужно помнить количество поданных задач и подсчитывать количество полученных завершённых результатов. [DOC:structure-0055]\nCompletionService работает как обработчик для пакета вычислений, аналогично тому, как Future работает для одиночного вычисления. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        },
+        {
+          "chunk_id": "structure-0055",
+          "quote": "When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "baseline",
+      "question_id": 11,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 15.580883874999927,
+      "status_pass": true,
+      "tokens_per_second": 19.307827804732717,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 43,
+        "peak_ollama_rss_bytes": 8909324288,
+        "peak_model_allocation_bytes": 7336833841,
+        "peak_model_vram_bytes": 7336833841,
+        "sampled_context_lengths": [
+          32768
+        ],
+        "ollama_cpu_seconds": 16.82,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 15.579535458000464,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 15559479625,
+            "load_duration": 1998833,
+            "prompt_eval_count": 1103,
+            "prompt_eval_duration": 3565713000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 230,
+            "eval_duration": 11912267000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Метод shutdown инициирует плавное завершение, при котором новые задачи не принимаются, но ранее поданные задачи разрешается выполнить до завершения. [DOC:structure-0028]\nМетод shutdownNow инициирует резкое завершение, пытаясь отменить текущие задачи и не запуская задачи, которые находятся в очереди, но еще не начались. [DOC:structure-0028]\nЧтобы дождаться перехода ExecutorService в состояние terminated, можно использовать метод awaitTermination с таймаутом или проверить состояние через isTerminated. [DOC:structure-0029]",
+      "sources": [
+        {
+          "chunk_id": "structure-0028",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9
+        },
+        {
+          "chunk_id": "structure-0029",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "baseline",
+      "question_id": 13,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 24.42596504100038,
+      "status_pass": true,
+      "tokens_per_second": 17.529649102901264,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 71,
+        "peak_ollama_rss_bytes": 9058516992,
+        "peak_model_allocation_bytes": 7336833841,
+        "peak_model_vram_bytes": 7336833841,
+        "sampled_context_lengths": [
+          32768
+        ],
+        "ollama_cpu_seconds": 25.62,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 24.42464099999961,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 24407930416,
+            "load_duration": 1511250,
+            "prompt_eval_count": 1105,
+            "prompt_eval_duration": 4581962000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 347,
+            "eval_duration": 19795034000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Если задача таймера выполняется слишком долго, точность времени выполнения других задач таймера может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на выполнение каждые 10 мс, а другая задача занимает 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли задача таймера выбрасывает unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из задачи таймера, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера уже запланированные, но еще не выполненные задачи таймера никогда не выполняются, а новые задачи нельзя планировать. [DOC:structure-0033]",
+      "sources": [
+        {
+          "chunk_id": "structure-0032",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        },
+        {
+          "chunk_id": "structure-0033",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "The Timer thread doesn’t catch the exception,"
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "baseline",
+      "question_id": 16,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 16.958902250000392,
+      "status_pass": true,
+      "tokens_per_second": 15.694024495885207,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 40,
+        "peak_ollama_rss_bytes": 9317023744,
+        "peak_model_allocation_bytes": 7336833841,
+        "peak_model_vram_bytes": 7336833841,
+        "sampled_context_lengths": [
+          32768
+        ],
+        "ollama_cpu_seconds": 13.96,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 16.95777716700104,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 16942064125,
+            "load_duration": 1686459,
+            "prompt_eval_count": 1307,
+            "prompt_eval_duration": 5246085000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 183,
+            "eval_duration": 11660489000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "В ThreadPerTaskExecutor задача запускается в новом потоке, создаваемом для каждого задания. [DOC:structure-0017]\nВ WithinThreadExecutor задача выполняется синхронно в вызывающем потоке. [DOC:structure-0020]\nМетод execute класса WithinThreadExecutor возвращает только после завершения выполнения задания. [DOC:structure-0018]",
+      "sources": [
+        {
+          "chunk_id": "structure-0017",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        },
+        {
+          "chunk_id": "structure-0020",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.2 Execution policies",
+          "page_start": 7,
+          "page_end": 7
+        },
+        {
+          "chunk_id": "structure-0018",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0017",
+          "quote": "public class ThreadPerTaskExecutor implements Executor { public void execute (Runnable r) { new Thread(r).start(); }; } Listing 6.5."
+        },
+        {
+          "chunk_id": "structure-0020",
+          "quote": "Executor that executes tasks synchronously in the calling thread."
+        },
+        {
+          "chunk_id": "structure-0018",
+          "quote": "kExecut- ionWebServer behave like the single-threaded version, executing each task syn- chronously before retur ning from execute,asshowninWithinThreadExecutor in Listing 6.6."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 2,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.05536895899968,
+      "status_pass": true,
+      "tokens_per_second": 17.453819563706226,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 30,
+        "peak_ollama_rss_bytes": 7401144320,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 5.29,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.054615749999357,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 9045665000,
+            "load_duration": 1581625,
+            "prompt_eval_count": 931,
+            "prompt_eval_duration": 4387867000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 81,
+            "eval_duration": 4640818000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Обработчик задач должен быть потокобезопасным, потому что он может вызываться одновременно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 11.174879459000294,
+      "status_pass": true,
+      "tokens_per_second": 17.656587188821753,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 37,
+        "peak_ollama_rss_bytes": 7597047808,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.52,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 11.174126750000141,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 11164719041,
+            "load_duration": 1478416,
+            "prompt_eval_count": 1220,
+            "prompt_eval_duration": 5253860000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 104,
+            "eval_duration": 5890153000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0044] [DOC:structure-0048]\nКласс FutureRenderer использует ExecutorService для асинхронной загрузки изображений и последующей их отрисовки. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Task Execution public class FutureRenderer { private final ExecutorService executor =...; void renderPage (CharSequence source ) { final List<ImageInfo > imageInfos = scanForImageInfo (source ); Callable <List<ImageData >> task = new Callable <List<ImageData >>() { public List <ImageData > call() { List <ImageData > result = new ArrayList <ImageData >(); for (ImageInfo imageInfo : imageInfos )"
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 12.969482874999812,
+      "status_pass": true,
+      "tokens_per_second": 18.45634115586897,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 43,
+        "peak_ollama_rss_bytes": 7852457984,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 9.58,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 12.968746332999217,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 12959271334,
+            "load_duration": 1256792,
+            "prompt_eval_count": 1319,
+            "prompt_eval_duration": 4807035000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 150,
+            "eval_duration": 8127288000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, когда все результаты для данного пакета получены, нужно помнить количество поданных задач и подсчитывать количество полученных завершённых результатов. [DOC:structure-0055]\nCompletionService работает как обработчик для пакета вычислений, аналогично тому, как Future работает для одиночного вычисления. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        },
+        {
+          "chunk_id": "structure-0055",
+          "quote": "When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 11,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 16.950278416999936,
+      "status_pass": true,
+      "tokens_per_second": 17.73522830906396,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 56,
+        "peak_ollama_rss_bytes": 8111538176,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 14.38,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 16.949537750000673,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 16940356792,
+            "load_duration": 1274250,
+            "prompt_eval_count": 1103,
+            "prompt_eval_duration": 3944640000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 230,
+            "eval_duration": 12968539000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Метод shutdown инициирует плавное завершение, при котором новые задачи не принимаются, но ранее поданные задачи разрешается выполнить до завершения. [DOC:structure-0028]\nМетод shutdownNow инициирует резкое завершение, пытаясь отменить текущие задачи и не запуская задачи, которые находятся в очереди, но еще не начались. [DOC:structure-0028]\nЧтобы дождаться перехода ExecutorService в состояние terminated, можно использовать метод awaitTermination с таймаутом или проверить состояние через isTerminated. [DOC:structure-0029]",
+      "sources": [
+        {
+          "chunk_id": "structure-0028",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9
+        },
+        {
+          "chunk_id": "structure-0029",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 13,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 23.74098133299958,
+      "status_pass": true,
+      "tokens_per_second": 17.89891220521665,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 79,
+        "peak_ollama_rss_bytes": 8260698112,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 21.91,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 23.739369375000024,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 23693073833,
+            "load_duration": 1927458,
+            "prompt_eval_count": 1105,
+            "prompt_eval_duration": 4264015999,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 347,
+            "eval_duration": 19386653000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Если задача таймера выполняется слишком долго, точность времени выполнения других задач таймера может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на выполнение каждые 10 мс, а другая задача занимает 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли задача таймера выбрасывает unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из задачи таймера, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера уже запланированные, но еще не выполненные задачи таймера никогда не выполняются, а новые задачи нельзя планировать. [DOC:structure-0033]",
+      "sources": [
+        {
+          "chunk_id": "structure-0032",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        },
+        {
+          "chunk_id": "structure-0033",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "The Timer thread doesn’t catch the exception,"
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 16,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 15.381339042000036,
+      "status_pass": true,
+      "tokens_per_second": 17.47515186193446,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 51,
+        "peak_ollama_rss_bytes": 8519221248,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 11.53,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 15.380594791999101,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 15370981292,
+            "load_duration": 1269708,
+            "prompt_eval_count": 1307,
+            "prompt_eval_duration": 4874794000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 183,
+            "eval_duration": 10472012000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "В ThreadPerTaskExecutor задача запускается в новом потоке, создаваемом для каждого задания. [DOC:structure-0017]\nВ WithinThreadExecutor задача выполняется синхронно в вызывающем потоке. [DOC:structure-0020]\nМетод execute класса WithinThreadExecutor возвращает только после завершения выполнения задания. [DOC:structure-0018]",
+      "sources": [
+        {
+          "chunk_id": "structure-0017",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        },
+        {
+          "chunk_id": "structure-0020",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.2 Execution policies",
+          "page_start": 7,
+          "page_end": 7
+        },
+        {
+          "chunk_id": "structure-0018",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0017",
+          "quote": "public class ThreadPerTaskExecutor implements Executor { public void execute (Runnable r) { new Thread(r).start(); }; } Listing 6.5."
+        },
+        {
+          "chunk_id": "structure-0020",
+          "quote": "Executor that executes tasks synchronously in the calling thread."
+        },
+        {
+          "chunk_id": "structure-0018",
+          "quote": "kExecut- ionWebServer behave like the single-threaded version, executing each task syn- chronously before retur ning from execute,asshowninWithinThreadExecutor in Listing 6.6."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 2,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 8.711148124999454,
+      "status_pass": true,
+      "tokens_per_second": 18.506209948269568,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 29,
+        "peak_ollama_rss_bytes": 7454343168,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 5.21,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 8.710365082999488,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 8701735584,
+            "load_duration": 1382834,
+            "prompt_eval_count": 1050,
+            "prompt_eval_duration": 4201203999,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 83,
+            "eval_duration": 4484981000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Код обработки задач должен быть потокобезопасным, потому что он может вызываться конкурентно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 18.87795124999866,
+      "status_pass": true,
+      "tokens_per_second": 17.445407768281484,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 62,
+        "peak_ollama_rss_bytes": 7703494656,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 15.9,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 18.877073499999824,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 18864323625,
+            "load_duration": 1337416,
+            "prompt_eval_count": 1339,
+            "prompt_eval_duration": 5598292000,
+            "prompt_eval_cached_count": 26,
+            "eval_count": 231,
+            "eval_duration": 13241307000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0045] [DOC:structure-0048]\nМетод renderPage сначала создает задачу для загрузки изображений, а затем сразу же отрисовывает текст. [DOC:structure-0044]\nПосле отрисовки текста программа ожидает завершения загрузки изображений, вызывая future.get(), чтобы получить результат. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0045",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        },
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0045",
+          "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Waiting for image download with Future."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 10.916307999999844,
+      "status_pass": true,
+      "tokens_per_second": 18.25427844792389,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 37,
+        "peak_ollama_rss_bytes": 8018690048,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 5.84,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 10.915142750000086,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 10904148791,
+            "load_duration": 1288541,
+            "prompt_eval_count": 1438,
+            "prompt_eval_duration": 5944163000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 90,
+            "eval_duration": 4930351000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, что все результаты пакета получены, нужно запомнить количество поданных задач и подсчитать количество извлеченных завершившихся результатов. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 11,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 15.32297970900072,
+      "status_pass": true,
+      "tokens_per_second": 19.95099613478014,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 46,
+        "peak_ollama_rss_bytes": 8332492800,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 17.13,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 15.322111040999516,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 15312217208,
+            "load_duration": 1898500,
+            "prompt_eval_count": 1222,
+            "prompt_eval_duration": 3901094000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 227,
+            "eval_duration": 11377878000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Метод shutdown инициирует плавное завершение, при котором новые задачи не принимаются, но ранее поданные задачи разрешается выполнить до завершения. [DOC:structure-0028]\nМетод shutdownNow инициирует резкое завершение, пытаясь отменить текущие задачи и не запуская ни одну из задач, находящихся в очереди. [DOC:structure-0028]\nЧтобы дождаться перехода ExecutorService в состояние terminated, следует вызвать метод awaitTermination с таймаутом или использовать isTerminated для проверки статуса. [DOC:structure-0029]",
+      "sources": [
+        {
+          "chunk_id": "structure-0028",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9
+        },
+        {
+          "chunk_id": "structure-0029",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 13,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 20.33564658299838,
+      "status_pass": true,
+      "tokens_per_second": 20.463136142957826,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 59,
+        "peak_ollama_rss_bytes": 8538226688,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 27.01,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 20.33417020900015,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 20320602792,
+            "load_duration": 1687542,
+            "prompt_eval_count": 1224,
+            "prompt_eval_duration": 3672185000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 340,
+            "eval_duration": 16615243999,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Если задача таймера выполняется слишком долго, точность выполнения других задач TimerTask может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача выполняется 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли из TimerTask выбрасывается unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из TimerTask, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера он не восстанавливается, и таймер ошибочно считает, что весь Timer был отменен. [DOC:structure-0033]",
+      "sources": [
+        {
+          "chunk_id": "structure-0032",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        },
+        {
+          "chunk_id": "structure-0033",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "The Timer thread doesn’t catch the exception,"
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "Timer also doesn’t resurrect the thread in this situation; instead, it erroneously assumes the entire Timer was cancelled."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 16,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.22270799999933,
+      "status_pass": true,
+      "tokens_per_second": 20.92342470388599,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 29,
+        "peak_ollama_rss_bytes": 8853110784,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 7.86,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.221493708000708,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 9206870333,
+            "load_duration": 1545042,
+            "prompt_eval_count": 1426,
+            "prompt_eval_duration": 4434007000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 99,
+            "eval_duration": 4731539000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "В ThreadPerTaskExecutor задача запускается в новом потоке, а метод execute возвращает сразу после вызова start() нового потока. [DOC:structure-0017]\nВ WithinThreadExecutor задача выполняется синхронно в вызывающем потоке, и execute возвращается только после завершения выполнения задачи r.run(). [DOC:structure-0020]",
+      "sources": [
+        {
+          "chunk_id": "structure-0017",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        },
+        {
+          "chunk_id": "structure-0020",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.2 Execution policies",
+          "page_start": 7,
+          "page_end": 7
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0017",
+          "quote": "public class ThreadPerTaskExecutor implements Executor { public void execute (Runnable r) { new Thread(r).start(); }; } Listing 6.5."
+        },
+        {
+          "chunk_id": "structure-0020",
+          "quote": "6.2.TheExecutor framework 119 public class WithinThreadExecutor implements Executor { public void execute (Runnable r) { r.run(); }; } Listing 6.6."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 2,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 9.48496054199859,
+      "status_pass": true,
+      "tokens_per_second": 15.325664838419483,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 31,
+        "peak_ollama_rss_bytes": 11281776640,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 5.43,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.484183958000358,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 9474651959,
+            "load_duration": 1253792,
+            "prompt_eval_count": 1050,
+            "prompt_eval_duration": 4041335000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 83,
+            "eval_duration": 5415752000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Код обработки задач должен быть потокобезопасным, так как он может вызываться конкурентно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 10.740812333000576,
+      "status_pass": true,
+      "tokens_per_second": 15.634207859991406,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 34,
+        "peak_ollama_rss_bytes": 11531255808,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.73,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 10.739788541000962,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 10728881000,
+            "load_duration": 1619125,
+            "prompt_eval_count": 1339,
+            "prompt_eval_duration": 5070185000,
+            "prompt_eval_cached_count": 26,
+            "eval_count": 88,
+            "eval_duration": 5628683000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Пока изображения скачиваются, FutureRenderer выполняет рендеринг текста страницы. [DOC:structure-0045] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0045",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0045",
+          "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 9.9600400420004,
+      "status_pass": true,
+      "tokens_per_second": 16.099450239550876,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 31,
+        "peak_ollama_rss_bytes": 11841814528,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.88,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.95861770800002,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 9945862834,
+            "load_duration": 1699709,
+            "prompt_eval_count": 1438,
+            "prompt_eval_duration": 4306040000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 90,
+            "eval_duration": 5590253000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, когда все результаты пакета получены, нужно запомнить количество поданных задач и подсчитать количество извлеченных завершившихся результатов. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 11,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 21.143231916999866,
+      "status_pass": true,
+      "tokens_per_second": 15.795483264515026,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 62,
+        "peak_ollama_rss_bytes": 12155699200,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 21.07,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 21.14198879200012,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 21126064458,
+            "load_duration": 2415208,
+            "prompt_eval_count": 1222,
+            "prompt_eval_duration": 3468054000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 278,
+            "eval_duration": 17599968000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Метод shutdown инициирует плавное завершение, не принимая новые задачи, но позволяя ранее отправленным задачам завершиться, включая те, которые еще не начали выполнение. [DOC:structure-0028]\nМетод shutdownNow инициирует резкое завершение, пытаясь отменить текущие задачи и не запуская ни одну задачу, которая находится в очереди, но еще не началась. [DOC:structure-0028]\nЧтобы дождаться перехода ExecutorService в состояние terminated, можно использовать метод awaitTermination с таймаутом или проверить статус через isTerminated. [DOC:structure-0029]",
+      "sources": [
+        {
+          "chunk_id": "structure-0028",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9
+        },
+        {
+          "chunk_id": "structure-0029",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0028",
+          "quote": "public interface ExecutorService extends Executor { void shutdown (); List<Runnable > shutdownNow (); boolean isShutdown (); boolean isTerminated (); boolean awaitTermination (long timeout, TimeUnit unit) throws InterruptedException ; //..."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "Once all tasks have completed, the ExecutorService transitions to the terminated state."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 13,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 26.66700345800018,
+      "status_pass": true,
+      "tokens_per_second": 15.783263698244284,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 77,
+        "peak_ollama_rss_bytes": 12363137024,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 28.02,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 26.665514791999158,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 26650132000,
+            "load_duration": 1960750,
+            "prompt_eval_count": 1224,
+            "prompt_eval_duration": 3732720000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 361,
+            "eval_duration": 22872329000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Timer использует только один поток для выполнения задач, поэтому если одна задача выполняется слишком долго, это снижает точность тайминга остальных задач. [DOC:structure-0032]\nЕсли повторяющаяся задача должна выполняться каждые 10 мс, а другая задача занимает 40 мс, то после завершения долгой задачи повторяющаяся задача либо выполнится четыре раза подряд, либо пропустит четыре вызова. [DOC:structure-0032]\nЕсли из TimerTask выбрасывается unchecked exception, поток таймера не перехватывает это исключение, что приводит к завершению потока таймера. [DOC:structure-0032] [DOC:structure-0033]\nПосле завершения потока таймера он не восстанавливается, а ошибочно считается отмененным, из-за чего запланированные, но еще не выполненные задачи никогда не выполняются. [DOC:structure-0033]",
+      "sources": [
+        {
+          "chunk_id": "structure-0032",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        },
+        {
+          "chunk_id": "structure-0033",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0032",
+          "quote": "A Timer creates only a single thread for executing timer tasks."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "Another problem with Timer is that it behaves poorly if a TimerTask throws an unchecked exception."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "The Timer thread doesn’t catch the exception,"
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "Timer also doesn’t resurrect the thread in this situation; instead, it erroneously assumes the entire Timer was cancelled."
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 16,
+      "split": "validation",
+      "repeat": 1,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 19.103254166000625,
+      "status_pass": true,
+      "tokens_per_second": 15.693968692832435,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 57,
+        "peak_ollama_rss_bytes": 12678725632,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 18.0,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 19.101663916999314,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1001
+            },
+            "total_duration": 19083053958,
+            "load_duration": 2316708,
+            "prompt_eval_count": 1426,
+            "prompt_eval_duration": 4248814999,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 232,
+            "eval_duration": 14782749000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "В ThreadPerTaskExecutor задача запускается в новом потоке, создаваемом при вызове метода execute. [DOC:structure-0017]\nВ WithinThreadExecutor задача выполняется синхронно в том же потоке, что и вызывающий поток. [DOC:structure-0020]\nМетод execute в ThreadPerTaskExecutor возвращает сразу после запуска нового потока, тогда как в WithinThreadExecutor он возвращается только после завершения выполнения задачи. [DOC:structure-0017] [DOC:structure-0020]",
+      "sources": [
+        {
+          "chunk_id": "structure-0017",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        },
+        {
+          "chunk_id": "structure-0020",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.2 Execution policies",
+          "page_start": 7,
+          "page_end": 7
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0017",
+          "quote": "public class ThreadPerTaskExecutor implements Executor { public void execute (Runnable r) { new Thread(r).start(); }; } Listing 6.5."
+        },
+        {
+          "chunk_id": "structure-0020",
+          "quote": "6.2.TheExecutor framework 119 public class WithinThreadExecutor implements Executor { public void execute (Runnable r) { r.run(); }; } Listing 6.6."
+        },
+        {
+          "chunk_id": "structure-0020",
+          "quote": "Executor that executes tasks synchronously in the calling thread."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.908016041001247,
+      "status_pass": true,
+      "tokens_per_second": 20.85445097148655,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 31,
+        "peak_ollama_rss_bytes": 7438925824,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 7.92,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.906963583000106,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 9892012917,
+            "load_duration": 1699584,
+            "prompt_eval_count": 1220,
+            "prompt_eval_duration": 4883150000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 104,
+            "eval_duration": 4986945000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0044] [DOC:structure-0048]\nКласс FutureRenderer использует ExecutorService для асинхронной загрузки изображений и последующей их отрисовки. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Task Execution public class FutureRenderer { private final ExecutorService executor =...; void renderPage (CharSequence source ) { final List<ImageInfo > imageInfos = scanForImageInfo (source ); Callable <List<ImageData >> task = new Callable <List<ImageData >>() { public List <ImageData > call() { List <ImageData > result = new ArrayList <ImageData >(); for (ImageInfo imageInfo : imageInfos )"
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 11.732391540999743,
+      "status_pass": true,
+      "tokens_per_second": 20.744563887033404,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 36,
+        "peak_ollama_rss_bytes": 7694221312,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 11.31,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 11.731130750000375,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 11718135708,
+            "load_duration": 1554208,
+            "prompt_eval_count": 1319,
+            "prompt_eval_duration": 4455006000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 150,
+            "eval_duration": 7230810000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, когда все результаты для данного пакета получены, нужно помнить количество поданных задач и подсчитывать количество полученных завершённых результатов. [DOC:structure-0055]\nCompletionService работает как обработчик для пакета вычислений, аналогично тому, как Future работает для одиночного вычисления. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        },
+        {
+          "chunk_id": "structure-0055",
+          "quote": "When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 11,
+      "split": "validation",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 14.953650417000972,
+      "status_pass": true,
+      "tokens_per_second": 20.377995875493635,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 44,
+        "peak_ollama_rss_bytes": 7953399808,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 17.39,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 14.952504291999503,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 14938601167,
+            "load_duration": 1702125,
+            "prompt_eval_count": 1103,
+            "prompt_eval_duration": 3614006000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 230,
+            "eval_duration": 11286684000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Метод shutdown инициирует плавное завершение, при котором новые задачи не принимаются, но ранее поданные задачи разрешается выполнить до завершения. [DOC:structure-0028]\nМетод shutdownNow инициирует резкое завершение, пытаясь отменить текущие задачи и не запуская задачи, которые находятся в очереди, но еще не начались. [DOC:structure-0028]\nЧтобы дождаться перехода ExecutorService в состояние terminated, можно использовать метод awaitTermination с таймаутом или проверить состояние через isTerminated. [DOC:structure-0029]",
+      "sources": [
+        {
+          "chunk_id": "structure-0028",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9
+        },
+        {
+          "chunk_id": "structure-0029",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 13,
+      "split": "validation",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 22.0239789999996,
+      "status_pass": true,
+      "tokens_per_second": 18.99457395635901,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 54,
+        "peak_ollama_rss_bytes": 8102608896,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 26.53,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 22.022846416999528,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 22008990791,
+            "load_duration": 1538083,
+            "prompt_eval_count": 1105,
+            "prompt_eval_duration": 3714097000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 347,
+            "eval_duration": 18268375000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Если задача таймера выполняется слишком долго, точность времени выполнения других задач таймера может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на выполнение каждые 10 мс, а другая задача занимает 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли задача таймера выбрасывает unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из задачи таймера, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера уже запланированные, но еще не выполненные задачи таймера никогда не выполняются, а новые задачи нельзя планировать. [DOC:structure-0033]",
+      "sources": [
+        {
+          "chunk_id": "structure-0032",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        },
+        {
+          "chunk_id": "structure-0033",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "The Timer thread doesn’t catch the exception,"
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "In this case, TimerTasks that are already sched- uled but not yet executed are never run, and new tasks cannot be scheduled."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 16,
+      "split": "validation",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 13.689874749999944,
+      "status_pass": true,
+      "tokens_per_second": 19.953370173287933,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 40,
+        "peak_ollama_rss_bytes": 8361099264,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 13.81,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 13.688456249999945,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 13671125000,
+            "load_duration": 3134334,
+            "prompt_eval_count": 1307,
+            "prompt_eval_duration": 4455227000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 183,
+            "eval_duration": 9171383000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "В ThreadPerTaskExecutor задача запускается в новом потоке, создаваемом для каждого задания. [DOC:structure-0017]\nВ WithinThreadExecutor задача выполняется синхронно в вызывающем потоке. [DOC:structure-0020]\nМетод execute класса WithinThreadExecutor возвращает только после завершения выполнения задания. [DOC:structure-0018]",
+      "sources": [
+        {
+          "chunk_id": "structure-0017",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        },
+        {
+          "chunk_id": "structure-0020",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.2 Execution policies",
+          "page_start": 7,
+          "page_end": 7
+        },
+        {
+          "chunk_id": "structure-0018",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0017",
+          "quote": "public class ThreadPerTaskExecutor implements Executor { public void execute (Runnable r) { new Thread(r).start(); }; } Listing 6.5."
+        },
+        {
+          "chunk_id": "structure-0020",
+          "quote": "Executor that executes tasks synchronously in the calling thread."
+        },
+        {
+          "chunk_id": "structure-0018",
+          "quote": "kExecut- ionWebServer behave like the single-threaded version, executing each task syn- chronously before retur ning from execute,asshowninWithinThreadExecutor in Listing 6.6."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "compact",
+      "question_id": 2,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 6.957818708000559,
+      "status_pass": true,
+      "tokens_per_second": 20.41708320037023,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 21,
+        "peak_ollama_rss_bytes": 8620965888,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.12,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 6.956307459000527,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 6943010459,
+            "load_duration": 1520792,
+            "prompt_eval_count": 931,
+            "prompt_eval_duration": 2938522000,
+            "prompt_eval_cached_count": 196,
+            "eval_count": 81,
+            "eval_duration": 3967266000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Обработчик задач должен быть потокобезопасным, потому что он может вызываться одновременно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 16.457001917000525,
+      "status_pass": true,
+      "tokens_per_second": 19.93026134094422,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 47,
+        "peak_ollama_rss_bytes": 7451705344,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 17.52,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 16.456123915999342,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 16445626417,
+            "load_duration": 1306875,
+            "prompt_eval_count": 1339,
+            "prompt_eval_duration": 4838275000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 231,
+            "eval_duration": 11590415000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "FutureRenderer отрисовывает текст страницы, пока загружаются все изображения. [DOC:structure-0045] [DOC:structure-0048]\nМетод renderPage сначала создает задачу для загрузки изображений, а затем сразу же отрисовывает текст. [DOC:structure-0044]\nПосле отрисовки текста программа ожидает завершения загрузки изображений, вызывая future.get(), чтобы получить результат. [DOC:structure-0044] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0045",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        },
+        {
+          "chunk_id": "structure-0044",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0045",
+          "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "Waiting for image download with Future."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "As a first step towards making the page renderer more concurrent, let’s divide it into two tasks, one that renders the text and one that downloads all the images."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "In FutureRenderer in Listing 6.13,wecreatea Callable to down- load all the images, and submit it to an ExecutorService."
+        },
+        {
+          "chunk_id": "structure-0044",
+          "quote": "This retur ns a Future describing the task’s execution; when the main task gets to the point where it needs the images, it waits for the result by calling Future.get.Ifwe’relucky,the results will already be ready by the time we ask; other wise, at least we got a head start on downloading the images."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.278770165999958,
+      "status_pass": true,
+      "tokens_per_second": 19.974654382994025,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 28,
+        "peak_ollama_rss_bytes": 7714062336,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.75,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.277300375000777,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 9263751750,
+            "load_duration": 1598750,
+            "prompt_eval_count": 1438,
+            "prompt_eval_duration": 4724094000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 90,
+            "eval_duration": 4505710000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, что все результаты пакета получены, нужно запомнить количество поданных задач и подсчитать количество извлеченных завершившихся результатов. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 11,
+      "split": "validation",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 14.941838083999755,
+      "status_pass": true,
+      "tokens_per_second": 20.22973492987233,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 44,
+        "peak_ollama_rss_bytes": 7975190528,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 17.26,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 14.940694082999471,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 14926804208,
+            "load_duration": 1543167,
+            "prompt_eval_count": 1222,
+            "prompt_eval_duration": 3667408000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 227,
+            "eval_duration": 11221106000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Метод shutdown инициирует плавное завершение, при котором новые задачи не принимаются, но ранее поданные задачи разрешается выполнить до завершения. [DOC:structure-0028]\nМетод shutdownNow инициирует резкое завершение, пытаясь отменить текущие задачи и не запуская ни одну из задач, находящихся в очереди. [DOC:structure-0028]\nЧтобы дождаться перехода ExecutorService в состояние terminated, следует вызвать метод awaitTermination с таймаутом или использовать isTerminated для проверки статуса. [DOC:structure-0029]",
+      "sources": [
+        {
+          "chunk_id": "structure-0028",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9
+        },
+        {
+          "chunk_id": "structure-0029",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 13,
+      "split": "validation",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 20.531227834000674,
+      "status_pass": true,
+      "tokens_per_second": 20.225406203489,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 59,
+        "peak_ollama_rss_bytes": 8128184320,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 26.92,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 20.53005445799863,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 20515801292,
+            "load_duration": 1621708,
+            "prompt_eval_count": 1224,
+            "prompt_eval_duration": 3676317000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 340,
+            "eval_duration": 16810540000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Если задача таймера выполняется слишком долго, точность выполнения других задач TimerTask может пострадать. [DOC:structure-0032]\nЕсли повторяющаяся задача таймера запланирована на каждые 10 мс, а другая задача выполняется 40 мс, то после завершения долгой задачи повторяющаяся задача либо вызывается четыре раза подряд, либо пропускает четыре вызова. [DOC:structure-0032]\nЕсли из TimerTask выбрасывается unchecked exception, поток таймера не перехватывает это исключение. [DOC:structure-0032]\nНеобработанное исключение, выброшенное из TimerTask, приводит к завершению потока таймера. [DOC:structure-0033]\nПосле завершения потока таймера он не восстанавливается, и таймер ошибочно считает, что весь Timer был отменен. [DOC:structure-0033]",
+      "sources": [
+        {
+          "chunk_id": "structure-0032",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        },
+        {
+          "chunk_id": "structure-0033",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.5 Delayed and periodic tasks",
+          "page_start": 11,
+          "page_end": 11
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a timer task takes too long to run, the timing accuracy of other TimerTaskscansuffer."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "If a recurring TimerTask is scheduled to run ever y 10 ms and another Timer- Task takes 40 ms to run, the recurring task either (depending on whether it was scheduled at fixed rate or fixed delay) gets called four times in rapid succession after the long-running task completes, or “misses” four invocations completely."
+        },
+        {
+          "chunk_id": "structure-0032",
+          "quote": "The Timer thread doesn’t catch the exception,"
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "so an un- checked exception thrown from a TimerTask ter minates the timer thread."
+        },
+        {
+          "chunk_id": "structure-0033",
+          "quote": "Timer also doesn’t resurrect the thread in this situation; instead, it erroneously assumes the entire Timer was cancelled."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 16,
+      "split": "validation",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 9.292595540999173,
+      "status_pass": true,
+      "tokens_per_second": 20.99342142512251,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 28,
+        "peak_ollama_rss_bytes": 8390328320,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 7.39,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 9.291391249998924,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 9278696792,
+            "load_duration": 1721667,
+            "prompt_eval_count": 1426,
+            "prompt_eval_duration": 4530224000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 99,
+            "eval_duration": 4715763000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "В ThreadPerTaskExecutor задача запускается в новом потоке, а метод execute возвращает сразу после вызова start() нового потока. [DOC:structure-0017]\nВ WithinThreadExecutor задача выполняется синхронно в вызывающем потоке, и execute возвращается только после завершения выполнения задачи r.run(). [DOC:structure-0020]",
+      "sources": [
+        {
+          "chunk_id": "structure-0017",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.1 Example: web server using Executor",
+          "page_start": 6,
+          "page_end": 6
+        },
+        {
+          "chunk_id": "structure-0020",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.2 Execution policies",
+          "page_start": 7,
+          "page_end": 7
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0017",
+          "quote": "public class ThreadPerTaskExecutor implements Executor { public void execute (Runnable r) { new Thread(r).start(); }; } Listing 6.5."
+        },
+        {
+          "chunk_id": "structure-0020",
+          "quote": "6.2.TheExecutor framework 119 public class WithinThreadExecutor implements Executor { public void execute (Runnable r) { r.run(); }; } Listing 6.6."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "optimized",
+      "question_id": 2,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q4_K_M",
+      "elapsed_seconds": 7.008241042000009,
+      "status_pass": true,
+      "tokens_per_second": 20.532671933915474,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 22,
+        "peak_ollama_rss_bytes": 8651325440,
+        "peak_model_allocation_bytes": 6446372616,
+        "peak_model_vram_bytes": 6446372616,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.43,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 7.006980707999901,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 6991666209,
+            "load_duration": 2284084,
+            "prompt_eval_count": 1050,
+            "prompt_eval_duration": 2910907000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 83,
+            "eval_duration": 4042338000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Код обработки задач должен быть потокобезопасным, потому что он может вызываться конкурентно для нескольких задач. [DOC:structure-0008]",
+      "sources": [
+        {
+          "chunk_id": "structure-0008",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.1.2 Explicitly creating threads for tasks",
+          "page_start": 3,
+          "page_end": 3
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0008",
+          "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 3,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 10.836071916999572,
+      "status_pass": true,
+      "tokens_per_second": 15.617504596071878,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 33,
+        "peak_ollama_rss_bytes": 11338596352,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 7.01,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 10.834779041999354,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 10821289542,
+            "load_duration": 1888417,
+            "prompt_eval_count": 1339,
+            "prompt_eval_duration": 5161152000,
+            "prompt_eval_cached_count": 0,
+            "eval_count": 88,
+            "eval_duration": 5634703000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Пока изображения скачиваются, FutureRenderer выполняет рендеринг текста страницы. [DOC:structure-0045] [DOC:structure-0048]",
+      "sources": [
+        {
+          "chunk_id": "structure-0045",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.3 Example: page renderer with Future",
+          "page_start": 15,
+          "page_end": 15
+        },
+        {
+          "chunk_id": "structure-0048",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.4 Limitations of parallelizing heterogeneous tasks",
+          "page_start": 16,
+          "page_end": 16
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0045",
+          "quote": "ections 5.5.2 and 5.4.) FutureRenderer allows the text to be rendered concurrently with download- ing the image data."
+        },
+        {
+          "chunk_id": "structure-0048",
+          "quote": "result.add(imageInfo.downloadImage ()); return result ; } }; Future <List <ImageData >> future = executor.submit(task); renderText (source ); try { List <ImageData > imageData = future.get(); for (ImageData data : imageData ) renderImage (data); } catch (InterruptedException e) { // Re-assert the thread’s interrupted status Thread.currentThread ().interrupt (); // We don’t need the result, so cancel the task too"
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 6,
+      "split": "calibration",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 11.486468250001053,
+      "status_pass": true,
+      "tokens_per_second": 15.869573267174845,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 35,
+        "peak_ollama_rss_bytes": 11596398592,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 6.73,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 11.484534542001711,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 11465771416,
+            "load_duration": 3798416,
+            "prompt_eval_count": 1438,
+            "prompt_eval_duration": 5737060000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 90,
+            "eval_duration": 5671230000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Чтобы узнать, когда все результаты пакета получены, нужно запомнить количество поданных задач и подсчитать количество извлеченных завершившихся результатов. [DOC:structure-0055]",
+      "sources": [
+        {
+          "chunk_id": "structure-0055",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.3.6 Example: page renderer with CompletionService",
+          "page_start": 19,
+          "page_end": 19
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0055",
+          "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    },
+    {
+      "profile": "q8",
+      "question_id": 11,
+      "split": "validation",
+      "repeat": 2,
+      "expected_status": "answered",
+      "model": "qwen3.5:9b-q8_0",
+      "elapsed_seconds": 21.176462708001054,
+      "status_pass": true,
+      "tokens_per_second": 15.762974756843356,
+      "resources": {
+        "process_scope": "ollama serve and all descendants (including llama-server)",
+        "sample_interval_seconds": 0.25,
+        "samples": 61,
+        "peak_ollama_rss_bytes": 11857494016,
+        "peak_model_allocation_bytes": 10344757983,
+        "peak_model_vram_bytes": 10344757983,
+        "sampled_context_lengths": [
+          8192
+        ],
+        "ollama_cpu_seconds": 21.09,
+        "sampling_errors": []
+      },
+      "metrics": {
+        "generation_attempts": 1,
+        "generation_seconds": 21.17505387500023,
+        "ollama_requests": [
+          {
+            "options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0,
+              "seed": 1002
+            },
+            "total_duration": 21156515667,
+            "load_duration": 2702125,
+            "prompt_eval_count": 1222,
+            "prompt_eval_duration": 3469798000,
+            "prompt_eval_cached_count": 315,
+            "eval_count": 278,
+            "eval_duration": 17636265000,
+            "done_reason": "stop"
+          }
+        ]
+      },
+      "content": "Метод shutdown инициирует плавное завершение, не принимая новые задачи, но позволяя ранее отправленным задачам завершиться, включая те, которые еще не начали выполнение. [DOC:structure-0028]\nМетод shutdownNow инициирует резкое завершение, пытаясь отменить текущие задачи и не запуская ни одну задачу, которая находится в очереди, но еще не началась. [DOC:structure-0028]\nЧтобы дождаться перехода ExecutorService в состояние terminated, можно использовать метод awaitTermination с таймаутом или проверить статус через isTerminated. [DOC:structure-0029]",
+      "sources": [
+        {
+          "chunk_id": "structure-0028",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 9,
+          "page_end": 9
+        },
+        {
+          "chunk_id": "structure-0029",
+          "source": "https://jcip.net/jcip-sample.pdf",
+          "title": "Java Concurrency in Practice — sample chapter",
+          "section": "6.2.4 Executor lifecycle",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "structure-0028",
+          "quote": "public interface ExecutorService extends Executor { void shutdown (); List<Runnable > shutdownNow (); boolean isShutdown (); boolean isTerminated (); boolean awaitTermination (long timeout, TimeUnit unit) throws InterruptedException ; //..."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdown method initiates a graceful shutdown: no new tasks are accepted but previously submitted tasks are allowed to complete—including those that have not yet begun execution."
+        },
+        {
+          "chunk_id": "structure-0028",
+          "quote": "The shutdownNow method initiates an abrupt shut- down: it attempts to cancel outstanding tasks and does not start any tasks that are queued but not begun."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "Once all tasks have completed, the ExecutorService transitions to the terminated state."
+        },
+        {
+          "chunk_id": "structure-0029",
+          "quote": "You can wait for an ExecutorService to reach the ter mi- nated state with awaitTermination, or poll for whether it has yet ter minated with isTerminated."
+        }
+      ],
+      "status": "answered",
+      "power_state": {
+        "source": "Battery Power",
+        "power_mode": 1
+      }
+    }
+  ],
+  "warmups": [
+    {
+      "profile": "baseline",
+      "repeat": 1,
+      "elapsed_seconds": 2.143123083998944,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 32768,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1001
+          },
+          "total_duration": 2137353375,
+          "load_duration": 1893678500,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 213647000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 28434000,
+          "done_reason": "stop"
+        }
+      ]
+    },
+    {
+      "profile": "compact",
+      "repeat": 1,
+      "elapsed_seconds": 2.4302095000002737,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1001
+          },
+          "total_duration": 2419332250,
+          "load_duration": 2174948500,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 212926000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 28744000,
+          "done_reason": "stop"
+        }
+      ]
+    },
+    {
+      "profile": "optimized",
+      "repeat": 1,
+      "elapsed_seconds": 2.1565402079995692,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1001
+          },
+          "total_duration": 2150496917,
+          "load_duration": 1850766583,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 263708000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 33792000,
+          "done_reason": "stop"
+        }
+      ]
+    },
+    {
+      "profile": "q8",
+      "repeat": 1,
+      "elapsed_seconds": 3.6524012079989916,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1001
+          },
+          "total_duration": 3642862750,
+          "load_duration": 3422310459,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 176562000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 42134000,
+          "done_reason": "stop"
+        }
+      ]
+    },
+    {
+      "profile": "compact",
+      "repeat": 2,
+      "elapsed_seconds": 2.4992289159999928,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1002
+          },
+          "total_duration": 2490270209,
+          "load_duration": 2213343917,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 237260000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 37133000,
+          "done_reason": "stop"
+        }
+      ]
+    },
+    {
+      "profile": "optimized",
+      "repeat": 2,
+      "elapsed_seconds": 2.164182458000141,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1002
+          },
+          "total_duration": 2155364208,
+          "load_duration": 1902914958,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 218813000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 31255000,
+          "done_reason": "stop"
+        }
+      ]
+    },
+    {
+      "profile": "q8",
+      "repeat": 2,
+      "elapsed_seconds": 2.6535355420000997,
+      "requests": [
+        {
+          "options": {
+            "num_ctx": 8192,
+            "num_predict": 8,
+            "temperature": 0,
+            "seed": 1002
+          },
+          "total_duration": 2645400667,
+          "load_duration": 2387224709,
+          "prompt_eval_count": 18,
+          "prompt_eval_duration": 209499000,
+          "prompt_eval_cached_count": 0,
+          "eval_count": 2,
+          "eval_duration": 45855000,
+          "done_reason": "stop"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "No retrieval or interpretation is included in generator timing.",
+    "0.25s sampling can miss transient peaks. RSS and Metal unified-memory allocation overlap and must not be added.",
+    "Warm blocks include prompt-prefix caching; unrelated warmup is excluded from timing. Profile block order rotates across repeats.",
+    "Status correctness and exact citations do not establish semantic completeness; review stored answers against expected facts."
+  ],
+  "summary": {
+    "baseline": {
+      "runs": 6,
+      "status_passes": 6,
+      "first_attempt_valid": 6,
+      "provider_errors": 0,
+      "median_seconds": 13.62,
+      "p95_seconds": 24.426,
+      "median_tokens_per_second": 19.6,
+      "median_answer_seconds": 13.62,
+      "median_refusal_seconds": null,
+      "peak_model_vram_bytes": 7336833841,
+      "peak_ollama_rss_bytes": 9317023744,
+      "quality_review": "pending; status/format validation is not semantic grading"
+    },
+    "compact": {
+      "runs": 12,
+      "status_passes": 12,
+      "first_attempt_valid": 12,
+      "provider_errors": 0,
+      "median_seconds": 13.33,
+      "p95_seconds": 23.741,
+      "median_tokens_per_second": 18.73,
+      "median_answer_seconds": 13.33,
+      "median_refusal_seconds": null,
+      "peak_model_vram_bytes": 6446372616,
+      "peak_ollama_rss_bytes": 8620965888,
+      "quality_review": "pending; status/format validation is not semantic grading"
+    },
+    "optimized": {
+      "runs": 12,
+      "status_passes": 12,
+      "first_attempt_valid": 12,
+      "provider_errors": 0,
+      "median_seconds": 12.929,
+      "p95_seconds": 20.531,
+      "median_tokens_per_second": 20.1,
+      "median_answer_seconds": 12.929,
+      "median_refusal_seconds": null,
+      "peak_model_vram_bytes": 6446372616,
+      "peak_ollama_rss_bytes": 8853110784,
+      "quality_review": "pending; status/format validation is not semantic grading"
+    },
+    "q8": {
+      "runs": 9,
+      "status_passes": 9,
+      "first_attempt_valid": 9,
+      "provider_errors": 0,
+      "median_seconds": 11.486,
+      "p95_seconds": 26.667,
+      "median_tokens_per_second": 15.76,
+      "median_answer_seconds": 11.486,
+      "median_refusal_seconds": null,
+      "peak_model_vram_bytes": 10344757983,
+      "peak_ollama_rss_bytes": 12678725632,
+      "quality_review": "pending; status/format validation is not semantic grading"
+    }
+  },
+  "incomplete_reason": "Power guard detected a changed power source/mode during generation; the affected row was not saved. This partial run is excluded from the primary timing comparison."
+}

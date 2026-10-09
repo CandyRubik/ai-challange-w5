@@ -1,0 +1,654 @@
+{
+  "created_at": "2026-10-09T11:55:34.942820+00:00",
+  "method": "Actual browser typing, profile selection and comparison-button clicks against real Ollama Q4/Q8, local retrieval and SQLite. Reload/server restart verified. No simulated answers.",
+  "backend_tests": 239,
+  "comparisons": [
+    {
+      "session_id": "ec83ec40-9ff3-4df8-aaf3-b1743448f1b9",
+      "turn_id": "2a4a13e3-66fa-4fa2-a995-e36c16143a93",
+      "question": "Как узнать, что все результаты пакета получены из CompletionService при общем Executor?",
+      "status": "done",
+      "context_sha256": "0305ba5009e975b224384838e9c94d4aad59ee6b773cc201bb31abd75219a2b9",
+      "results": {
+        "reference": {
+          "configuration_id": "baseline",
+          "label": "Исходный",
+          "model": "qwen3.5:9b-q4_K_M",
+          "profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Чтобы узнать, когда все результаты для данного пакета получены, нужно помнить количество поданных задач и подсчитывать количество полученных завершённых результатов. [DOC:structure-0055]\nCompletionService работает как обработчик для пакета вычислений, аналогично тому, как Future работает для одиночного вычисления. [DOC:structure-0055]",
+            "sources": [
+              {
+                "chunk_id": "structure-0055",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.3.6 Example: page renderer with CompletionService",
+                "page_start": 19,
+                "page_end": 19
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0055",
+                "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+              },
+              {
+                "chunk_id": "structure-0055",
+                "quote": "When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation."
+              }
+            ],
+            "status": "answered"
+          },
+          "elapsed_seconds": 8.679892583000765,
+          "metrics": {
+            "generation_attempts": 1,
+            "generation_seconds": 8.679353499996068,
+            "ollama_requests": [
+              {
+                "options": {
+                  "num_ctx": 32768,
+                  "num_predict": 3000,
+                  "temperature": 0
+                },
+                "total_duration": 8674342417,
+                "load_duration": 1624021583,
+                "prompt_eval_count": 1317,
+                "prompt_eval_duration": 3201543000,
+                "prompt_eval_cached_count": 0,
+                "eval_count": 150,
+                "eval_duration": 3843134000,
+                "done_reason": "stop"
+              }
+            ],
+            "output_tokens": 150,
+            "tokens_per_second": 39.0306453014649,
+            "load_seconds": 1.624021583,
+            "actual_options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0
+            },
+            "model_allocation": {
+              "size": 7336833841,
+              "size_vram": 7336833841,
+              "context_length": 32768,
+              "details": {
+                "parent_model": "",
+                "format": "gguf",
+                "family": "qwen35",
+                "families": [
+                  "qwen35"
+                ],
+                "parameter_size": "9.0B",
+                "quantization_level": "Q4_K_M"
+              }
+            }
+          },
+          "context_sha256": "0305ba5009e975b224384838e9c94d4aad59ee6b773cc201bb31abd75219a2b9"
+        },
+        "candidate": {
+          "configuration_id": "optimized",
+          "label": "Оптимизированный",
+          "model": "qwen3.5:9b-q4_K_M",
+          "profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Чтобы узнать, что все результаты пакета получены, нужно запомнить количество поданных задач и подсчитать количество извлеченных результатов. [DOC:structure-0055]",
+            "sources": [
+              {
+                "chunk_id": "structure-0055",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.3.6 Example: page renderer with CompletionService",
+                "page_start": 19,
+                "page_end": 19
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0055",
+                "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+              }
+            ],
+            "status": "answered"
+          },
+          "elapsed_seconds": 7.160379667002417,
+          "metrics": {
+            "generation_attempts": 1,
+            "generation_seconds": 7.159980292002729,
+            "ollama_requests": [
+              {
+                "options": {
+                  "num_ctx": 8192,
+                  "num_predict": 1000,
+                  "temperature": 0
+                },
+                "total_duration": 7156060375,
+                "load_duration": 1324390375,
+                "prompt_eval_count": 1436,
+                "prompt_eval_duration": 3415879000,
+                "prompt_eval_cached_count": 0,
+                "eval_count": 86,
+                "eval_duration": 2405429000,
+                "done_reason": "stop"
+              }
+            ],
+            "output_tokens": 86,
+            "tokens_per_second": 35.75245829330236,
+            "load_seconds": 1.324390375,
+            "actual_options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0
+            },
+            "model_allocation": {
+              "size": 6446372616,
+              "size_vram": 6446372616,
+              "context_length": 8192,
+              "details": {
+                "parent_model": "",
+                "format": "gguf",
+                "family": "qwen35",
+                "families": [
+                  "qwen35"
+                ],
+                "parameter_size": "9.0B",
+                "quantization_level": "Q4_K_M"
+              }
+            }
+          },
+          "context_sha256": "0305ba5009e975b224384838e9c94d4aad59ee6b773cc201bb31abd75219a2b9"
+        }
+      }
+    },
+    {
+      "session_id": "b37520d4-fb4a-46ea-ae87-273cd0c28574",
+      "turn_id": "74cb8f40-8381-43b5-a9d5-a204caef9d48",
+      "question": "Как в этой главе работает Java StructuredTaskScope?",
+      "status": "done",
+      "context_sha256": "cf3a6ff98bc3dac39e1c4b4473043362d27e5db90e691806ec3cce87bbe2d8c6",
+      "results": {
+        "reference": {
+          "configuration_id": "baseline",
+          "label": "Исходный",
+          "model": "qwen3.5:9b-q4_K_M",
+          "profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+            "sources": [],
+            "citations": [],
+            "status": "insufficient_context"
+          },
+          "elapsed_seconds": 7.375005225185305e-06,
+          "metrics": {
+            "generation_attempts": 0,
+            "ollama_requests": [],
+            "output_tokens": null,
+            "tokens_per_second": null,
+            "load_seconds": null,
+            "actual_options": null,
+            "model_allocation": null
+          },
+          "context_sha256": "cf3a6ff98bc3dac39e1c4b4473043362d27e5db90e691806ec3cce87bbe2d8c6"
+        },
+        "candidate": {
+          "configuration_id": "optimized",
+          "label": "Оптимизированный",
+          "model": "qwen3.5:9b-q4_K_M",
+          "profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Не знаю по найденным фрагментам; уточните раздел или термин.",
+            "sources": [],
+            "citations": [],
+            "status": "insufficient_context"
+          },
+          "elapsed_seconds": 3.916000423487276e-06,
+          "metrics": {
+            "generation_attempts": 0,
+            "ollama_requests": [],
+            "output_tokens": null,
+            "tokens_per_second": null,
+            "load_seconds": null,
+            "actual_options": null,
+            "model_allocation": null
+          },
+          "context_sha256": "cf3a6ff98bc3dac39e1c4b4473043362d27e5db90e691806ec3cce87bbe2d8c6"
+        }
+      }
+    },
+    {
+      "session_id": "e97f4275-02e0-46f8-986d-7d9272de414d",
+      "turn_id": "807e7484-9b96-457e-bbdb-34732d79b963",
+      "question": "Почему обработчик запроса в ThreadPerTaskWebServer должен быть потокобезопасным?",
+      "status": "done",
+      "context_sha256": "25d944a7de1d690e4e2ad735c0be847ef2c077e84f4aac99efba688a11fbc66a",
+      "results": {
+        "reference": {
+          "configuration_id": "optimized",
+          "label": "Оптимизированный",
+          "model": "qwen3.5:9b-q4_K_M",
+          "profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Код обработки задач должен быть потокобезопасным, потому что он может вызываться конкурентно для нескольких задач. [DOC:structure-0008]",
+            "sources": [
+              {
+                "chunk_id": "structure-0008",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.1.2 Explicitly creating threads for tasks",
+                "page_start": 3,
+                "page_end": 3
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0008",
+                "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+              }
+            ],
+            "status": "answered"
+          },
+          "elapsed_seconds": 4.901789583993377,
+          "metrics": {
+            "generation_attempts": 1,
+            "generation_seconds": 4.90124412500154,
+            "ollama_requests": [
+              {
+                "options": {
+                  "num_ctx": 8192,
+                  "num_predict": 1000,
+                  "temperature": 0
+                },
+                "total_duration": 4896088916,
+                "load_duration": 1968833,
+                "prompt_eval_count": 1050,
+                "prompt_eval_duration": 2705814000,
+                "prompt_eval_cached_count": 0,
+                "eval_count": 83,
+                "eval_duration": 2131408000,
+                "done_reason": "stop"
+              }
+            ],
+            "output_tokens": 83,
+            "tokens_per_second": 38.94139460863429,
+            "load_seconds": 0.001968833,
+            "actual_options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0
+            },
+            "model_allocation": {
+              "size": 6446372616,
+              "size_vram": 6446372616,
+              "context_length": 8192,
+              "details": {
+                "parent_model": "",
+                "format": "gguf",
+                "family": "qwen35",
+                "families": [
+                  "qwen35"
+                ],
+                "parameter_size": "9.0B",
+                "quantization_level": "Q4_K_M"
+              }
+            }
+          },
+          "context_sha256": "25d944a7de1d690e4e2ad735c0be847ef2c077e84f4aac99efba688a11fbc66a"
+        },
+        "candidate": {
+          "configuration_id": "q8",
+          "label": "Оптимизированный · Q8",
+          "model": "qwen3.5:9b-q8_0",
+          "profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Код обработки задач должен быть потокобезопасным, так как он может вызываться конкурентно для нескольких задач. [DOC:structure-0008]",
+            "sources": [
+              {
+                "chunk_id": "structure-0008",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.1.2 Explicitly creating threads for tasks",
+                "page_start": 3,
+                "page_end": 3
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0008",
+                "quote": " Task-handling code must be thread-safe, because it may be invoked concur- rently for multiple tasks."
+              }
+            ],
+            "status": "answered"
+          },
+          "elapsed_seconds": 5.646741209005995,
+          "metrics": {
+            "generation_attempts": 1,
+            "generation_seconds": 5.6464001669955906,
+            "ollama_requests": [
+              {
+                "options": {
+                  "num_ctx": 8192,
+                  "num_predict": 1000,
+                  "temperature": 0
+                },
+                "total_duration": 5642500917,
+                "load_duration": 1345000,
+                "prompt_eval_count": 1050,
+                "prompt_eval_duration": 2455135000,
+                "prompt_eval_cached_count": 0,
+                "eval_count": 83,
+                "eval_duration": 3162322000,
+                "done_reason": "stop"
+              }
+            ],
+            "output_tokens": 83,
+            "tokens_per_second": 26.24653656395522,
+            "load_seconds": 0.001345,
+            "actual_options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0
+            },
+            "model_allocation": {
+              "size": 10344757983,
+              "size_vram": 10344757983,
+              "context_length": 8192,
+              "details": {
+                "parent_model": "",
+                "format": "gguf",
+                "family": "qwen35",
+                "families": [
+                  "qwen35"
+                ],
+                "parameter_size": "9.0B",
+                "quantization_level": "Q8_0"
+              }
+            }
+          },
+          "context_sha256": "25d944a7de1d690e4e2ad735c0be847ef2c077e84f4aac99efba688a11fbc66a"
+        }
+      }
+    },
+    {
+      "session_id": "6fae9816-78fc-4cd4-ad88-7302bb9bab0a",
+      "turn_id": "4cc0b996-0eb7-42ac-9f8d-045906c34c43",
+      "question": "Как узнать, что все результаты пакета получены из CompletionService при общем Executor?",
+      "status": "done",
+      "context_sha256": "0305ba5009e975b224384838e9c94d4aad59ee6b773cc201bb31abd75219a2b9",
+      "results": {
+        "reference": {
+          "configuration_id": "baseline",
+          "label": "Исходный",
+          "model": "qwen3.5:9b-q4_K_M",
+          "profile": {
+            "name": "baseline",
+            "num_ctx": 32768,
+            "max_tokens": 3000,
+            "temperature": 0,
+            "prompt_version": "baseline",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Чтобы узнать, когда все результаты для данного пакета получены, нужно помнить количество поданных задач и подсчитывать количество полученных завершённых результатов. [DOC:structure-0055]\nCompletionService работает как обработчик для пакета вычислений, аналогично тому, как Future работает для одиночного вычисления. [DOC:structure-0055]",
+            "sources": [
+              {
+                "chunk_id": "structure-0055",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.3.6 Example: page renderer with CompletionService",
+                "page_start": 19,
+                "page_end": 19
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0055",
+                "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+              },
+              {
+                "chunk_id": "structure-0055",
+                "quote": "When used in this way, a CompletionService acts as a handle for a batch of computations in much the same way that a Future acts as a handle for a single computation."
+              }
+            ],
+            "status": "answered"
+          },
+          "elapsed_seconds": 8.428742083000543,
+          "metrics": {
+            "generation_attempts": 1,
+            "generation_seconds": 8.42809600000328,
+            "ollama_requests": [
+              {
+                "options": {
+                  "num_ctx": 32768,
+                  "num_predict": 3000,
+                  "temperature": 0
+                },
+                "total_duration": 8423027208,
+                "load_duration": 1346166125,
+                "prompt_eval_count": 1317,
+                "prompt_eval_duration": 3221972000,
+                "prompt_eval_cached_count": 0,
+                "eval_count": 150,
+                "eval_duration": 3848378000,
+                "done_reason": "stop"
+              }
+            ],
+            "output_tokens": 150,
+            "tokens_per_second": 38.977460114365066,
+            "load_seconds": 1.346166125,
+            "actual_options": {
+              "num_ctx": 32768,
+              "num_predict": 3000,
+              "temperature": 0
+            },
+            "model_allocation": {
+              "size": 7336833841,
+              "size_vram": 7336833841,
+              "context_length": 32768,
+              "details": {
+                "parent_model": "",
+                "format": "gguf",
+                "family": "qwen35",
+                "families": [
+                  "qwen35"
+                ],
+                "parameter_size": "9.0B",
+                "quantization_level": "Q4_K_M"
+              }
+            }
+          },
+          "context_sha256": "0305ba5009e975b224384838e9c94d4aad59ee6b773cc201bb31abd75219a2b9"
+        },
+        "candidate": {
+          "configuration_id": "optimized",
+          "label": "Оптимизированный",
+          "model": "qwen3.5:9b-q4_K_M",
+          "profile": {
+            "name": "optimized",
+            "num_ctx": 8192,
+            "max_tokens": 1000,
+            "temperature": 0,
+            "prompt_version": "complete-v3",
+            "max_num_ctx": 32768
+          },
+          "answer": {
+            "content": "Чтобы узнать, что все результаты пакета получены, нужно запомнить количество поданных задач и подсчитать количество извлеченных результатов. [DOC:structure-0055]",
+            "sources": [
+              {
+                "chunk_id": "structure-0055",
+                "source": "https://jcip.net/jcip-sample.pdf",
+                "title": "Java Concurrency in Practice — sample chapter",
+                "section": "6.3.6 Example: page renderer with CompletionService",
+                "page_start": 19,
+                "page_end": 19
+              }
+            ],
+            "citations": [
+              {
+                "chunk_id": "structure-0055",
+                "quote": "By remem- bering how many tasks were submitted to the CompletionService and counting how many completed results are retrieved, you can know when all the results for a given batch have been retrieved, even if you use a shared Executor."
+              }
+            ],
+            "status": "answered"
+          },
+          "elapsed_seconds": 7.1837143340017064,
+          "metrics": {
+            "generation_attempts": 1,
+            "generation_seconds": 7.183326750004198,
+            "ollama_requests": [
+              {
+                "options": {
+                  "num_ctx": 8192,
+                  "num_predict": 1000,
+                  "temperature": 0
+                },
+                "total_duration": 7179288708,
+                "load_duration": 1350502000,
+                "prompt_eval_count": 1436,
+                "prompt_eval_duration": 3547054000,
+                "prompt_eval_cached_count": 0,
+                "eval_count": 86,
+                "eval_duration": 2276684000,
+                "done_reason": "stop"
+              }
+            ],
+            "output_tokens": 86,
+            "tokens_per_second": 37.77423656510961,
+            "load_seconds": 1.350502,
+            "actual_options": {
+              "num_ctx": 8192,
+              "num_predict": 1000,
+              "temperature": 0
+            },
+            "model_allocation": {
+              "size": 6446372616,
+              "size_vram": 6446372616,
+              "context_length": 8192,
+              "details": {
+                "parent_model": "",
+                "format": "gguf",
+                "family": "qwen35",
+                "families": [
+                  "qwen35"
+                ],
+                "parameter_size": "9.0B",
+                "quantization_level": "Q4_K_M"
+              }
+            }
+          },
+          "context_sha256": "0305ba5009e975b224384838e9c94d4aad59ee6b773cc201bb31abd75219a2b9"
+        }
+      }
+    }
+  ],
+  "catalog": {
+    "default": "optimized",
+    "configurations": [
+      {
+        "id": "baseline",
+        "label": "Исходный",
+        "model": "qwen3.5:9b-q4_K_M",
+        "profile": {
+          "name": "baseline",
+          "num_ctx": 32768,
+          "max_tokens": 3000,
+          "temperature": 0,
+          "prompt_version": "baseline",
+          "max_num_ctx": 32768
+        },
+        "available": true,
+        "quantization": "Q4_K_M"
+      },
+      {
+        "id": "compact",
+        "label": "Только параметры",
+        "model": "qwen3.5:9b-q4_K_M",
+        "profile": {
+          "name": "compact",
+          "num_ctx": 8192,
+          "max_tokens": 1000,
+          "temperature": 0,
+          "prompt_version": "baseline",
+          "max_num_ctx": 32768
+        },
+        "available": true,
+        "quantization": "Q4_K_M"
+      },
+      {
+        "id": "optimized",
+        "label": "Оптимизированный",
+        "model": "qwen3.5:9b-q4_K_M",
+        "profile": {
+          "name": "optimized",
+          "num_ctx": 8192,
+          "max_tokens": 1000,
+          "temperature": 0,
+          "prompt_version": "complete-v3",
+          "max_num_ctx": 32768
+        },
+        "available": true,
+        "quantization": "Q4_K_M"
+      },
+      {
+        "id": "q8",
+        "label": "Оптимизированный · Q8",
+        "model": "qwen3.5:9b-q8_0",
+        "profile": {
+          "name": "optimized",
+          "num_ctx": 8192,
+          "max_tokens": 1000,
+          "temperature": 0,
+          "prompt_version": "complete-v3",
+          "max_num_ctx": 32768
+        },
+        "available": true,
+        "quantization": "Q8_0"
+      }
+    ]
+  },
+  "screenshots": [
+    "ui-comparison.jpg",
+    "ui-quantization.jpg"
+  ]
+}

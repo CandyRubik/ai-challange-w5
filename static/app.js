@@ -153,7 +153,7 @@ function renderModelSelection() {
   }));
   if (choice) modelSelect.value = choice;
   const provider = modelProviders.find((item) => item.id === selectedProvider());
-  modelStatus.textContent = provider?.available ? (provider.id === "ollama" ? "На этом компьютере" : "Облачная модель") : provider?.detail || "Проверка моделей…";
+  modelStatus.textContent = provider?.available ? (provider.id === "ollama" ? provider.location_label || "На этом компьютере" : "Облачная модель") : provider?.detail || "Проверка моделей…";
   modelStatus.dataset.available = String(Boolean(provider?.available));
   modelSelect.title = provider ? `${provider.model}. ${provider.detail}. Выбор применяется к следующим сообщениям.` : "Выбор модели";
   modelSelect.disabled = modelSaving || !currentSessionId || !modelProviders.length;

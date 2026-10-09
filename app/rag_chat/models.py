@@ -7,6 +7,8 @@ from pydantic import Field
 
 from ..schemas import StrictModel
 
+ConfigurationId = Literal["baseline", "compact", "optimized", "q8"]
+
 
 class StateFact(StrictModel):
     key: str
@@ -49,6 +51,7 @@ class RagSessionSummary(StrictModel):
     created_at: datetime
     updated_at: datetime
     provider: Literal["ollama", "deepseek"] = "deepseek"
+    configuration: ConfigurationId | None = None
 
 
 class RagSession(RagSessionSummary):
@@ -59,7 +62,14 @@ class RagSession(RagSessionSummary):
 class RagSendRequest(StrictModel):
     content: str = Field(min_length=1, max_length=12_000)
     provider: Literal["ollama", "deepseek"] | None = None
+    configuration: ConfigurationId | None = None
+    compare_with: ConfigurationId | None = None
 
 
 class RagCreateRequest(StrictModel):
     provider: Literal["ollama", "deepseek"] | None = None
+    configuration: ConfigurationId | None = None
+
+
+class RagConfigurationRequest(StrictModel):
+    configuration: ConfigurationId
