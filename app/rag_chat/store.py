@@ -79,6 +79,7 @@ class SQLiteRagChatRepository:
             # Preserve the original cloud provenance when upgrading a W4 database.
             for table, name, declaration in (
                 ("rag_chat_sessions", "provider", "TEXT NOT NULL DEFAULT 'deepseek'"),
+                ("rag_chat_sessions", "configuration", "TEXT"),
                 ("rag_chat_turns", "provider", "TEXT NOT NULL DEFAULT 'deepseek'"),
                 ("rag_chat_turns", "model", "TEXT"),
                 ("rag_chat_turns", "metrics_json", "TEXT NOT NULL DEFAULT '{}'"),
@@ -97,6 +98,7 @@ class SQLiteRagChatRepository:
             created_at=datetime.fromisoformat(row["created_at"]),
             updated_at=datetime.fromisoformat(row["updated_at"]),
             provider=row["provider"],
+            configuration=row["configuration"],
         )
 
     @staticmethod
@@ -119,14 +121,14 @@ class SQLiteRagChatRepository:
             provider=row["provider"], model=row["model"], metrics=json.loads(row["metrics_json"]),
         )
 
-    def create(self, provider: str = "ollama") -> RagSession:
+    def create(self, provider: str = "ollama", configuration: str | None = None) -> RagSession:
         session_id = str(uuid4())
         now = self._now()
         state = RagTaskState()
         with self._connection() as connection:
             connection.execute(
-                "INSERT INTO rag_chat_sessions (id, title, created_at, updated_at, provider) VALUES (?, ?, ?, ?, ?)",
-                (session_id, "Новый RAG-чат", now, now, provider),
+                "INSERT INTO rag_chat_sessions (id, title, created_at, updated_at, provider, configuration) VALUES (?, ?, ?, ?, ?, ?)",
+                (session_id, "Новый RAG-чат", now, now, provider, configuration),
             )
             connection.execute(
                 "INSERT INTO rag_chat_state VALUES (?, ?, ?)",
@@ -177,6 +179,22 @@ class SQLiteRagChatRepository:
                 (provider, self._now(), session_id),
             ).rowcount:
                 raise RagChatNotFound(session_id)
+
+    def set_configuration(self, session_id: str, configuration: str) -> None:
+        with self._connection() as connection:
+            if not connection.execute(
+                "UPDATE rag_chat_sessions SET configuration = ?, updated_at = ? WHERE id = ?",
+                (configuration, self._now(), session_id),
+            ).rowcount:
+                raise RagChatNotFound(session_id)
+
+    def save_metrics(self, turn_id: str, metrics: dict) -> None:
+        with self._connection() as connection:
+            if not connection.execute(
+                "UPDATE rag_chat_turns SET metrics_json = ?, updated_at = ? WHERE id = ? AND status != 'done'",
+                (json.dumps(metrics, ensure_ascii=False), self._now(), turn_id),
+            ).rowcount:
+                raise RagTurnConflict("Сравнение уже завершено или не найдено")
 
     def start_turn(self, session_id: str, content: str, *, provider: str = "ollama", model: str | None = None,
                    metrics: dict | None = None) -> RagTurn:

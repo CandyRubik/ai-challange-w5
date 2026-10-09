@@ -72,3 +72,24 @@ class ModelRegistry:
                  "available": cloud_configured, "detail": "Ключ настроен" if cloud_configured else "DEEPSEEK_API_KEY не задан"},
             ],
         }
+
+    def installed_local_models(self) -> dict:
+        try:
+            with httpx.Client(timeout=2, trust_env=False) as client:
+                response = client.get(f"{self._ollama_url}/api/tags")
+                response.raise_for_status()
+                return {m["name"]: m for m in response.json()["models"]}
+        except (httpx.HTTPError, ValueError, KeyError, TypeError):
+            return {}
+
+    def loaded_local_model(self, model: str) -> dict | None:
+        try:
+            with httpx.Client(timeout=2, trust_env=False) as client:
+                response = client.get(f"{self._ollama_url}/api/ps")
+                response.raise_for_status()
+                row = next((m for m in response.json()["models"] if m["name"] == model), None)
+                if row:
+                    return {key: row.get(key) for key in ("size", "size_vram", "context_length", "details")}
+        except (httpx.HTTPError, ValueError, KeyError, TypeError):
+            pass
+        return None

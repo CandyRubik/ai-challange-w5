@@ -15,7 +15,8 @@ from .indexing.corpus import DEFAULT_PDF
 from .indexing.rag import DocumentRag, RetrievalSettings
 from .indexing.rerank import LocalCrossEncoderReranker
 from .indexing.store import DEFAULT_INDEX_DIR, DocumentIndex, DocumentIndexError
-from .rag_chat.models import RagCreateRequest, RagSendRequest, RagSession, RagSessionSummary, RagTurn
+from .rag_chat.models import (RagCreateRequest, RagSendRequest, RagSession, RagSessionSummary,
+                              RagTurn, RagConfigurationRequest)
 from .rag_chat.service import GROUNDING_SYSTEM_PROMPT, RagChatService
 from .rag_chat.state import TurnInterpreter
 from .rag_chat.profiles import generation_profile
@@ -458,7 +459,7 @@ def document_source() -> FileResponse:
 @app.post("/api/rag-chat/sessions", response_model=RagSession, status_code=201)
 def create_rag_chat(request: RagCreateRequest | None = None,
                     service: RagChatService = Depends(get_rag_chat_service)) -> RagSession:
-    return service.create(request.provider if request else None)
+    return service.create(request.provider if request else None, request.configuration if request else None)
 
 
 @app.get("/api/rag-chat/sessions", response_model=list[RagSessionSummary])
@@ -472,6 +473,22 @@ def get_rag_chat(session_id: str, service: RagChatService = Depends(get_rag_chat
         return service.get(session_id)
     except RagChatNotFound:
         raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+
+
+@app.get("/api/rag-chat/configurations")
+def rag_configurations(service: RagChatService = Depends(get_rag_chat_service)) -> dict:
+    return service.configuration_catalog()
+
+
+@app.put("/api/rag-chat/sessions/{session_id}/configuration", response_model=RagSession)
+def set_rag_configuration(session_id: str, request: RagConfigurationRequest,
+                          service: RagChatService = Depends(get_rag_chat_service)) -> RagSession:
+    try:
+        return service.set_configuration(session_id, request.configuration)
+    except RagChatNotFound:
+        raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
 
 
 @app.put("/api/rag-chat/sessions/{session_id}/model", response_model=RagSession)
@@ -496,7 +513,8 @@ def delete_rag_chat(session_id: str, service: RagChatService = Depends(get_rag_c
 def send_rag_chat_turn(session_id: str, request: RagSendRequest,
                        service: RagChatService = Depends(get_rag_chat_service)) -> RagTurn:
     try:
-        return service.send(session_id, request.content, request.provider)
+        return service.send(session_id, request.content, request.provider,
+                            configuration=request.configuration, compare_with=request.compare_with)
     except RagChatNotFound:
         raise HTTPException(status_code=404, detail="RAG-чат не найден") from None
     except RagTurnConflict as error:

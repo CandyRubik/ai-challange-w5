@@ -80,6 +80,48 @@ button:disabled { opacity: .5; cursor: wait; }
 .header-controls { display: grid; gap: 5px; min-width: 230px; }
 .model-label, #model-status { font-size: 10px; color: #9fbbca; }
 #model-select { width: 100%; padding: 7px 9px; border: 1px solid #3c665b; border-radius: 8px; background: #19332f; color: #e2f5ef; font: inherit; font-size: 11px; }
+#configuration-select { width: 100%; padding: 7px 9px; border: 1px solid #3c665b; border-radius: 8px; background: #19332f; color: #e2f5ef; font: inherit; font-size: 11px; }
+#configuration-status { max-width: 330px; color: #9fbbca; font-size: 10px; line-height: 1.5; }
+.conversation-header { align-items: flex-start; }
+.composer-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: end; }
+#compare-button, #memory-toggle { background: #182b35; color: #b7ebd9; border: 1px solid #4e8977; border-radius: 8px; padding: 9px 12px; font: inherit; font-size: 11px; }
+#comparison-select { max-width: 220px; border: 1px solid #4e8977; border-radius: 8px; padding: 7px; background: #182b35; color: #b7ebd9; font: inherit; font-size: 11px; }
+#memory-toggle { padding: 4px 8px; justify-self: start; }
+.shell.memory-hidden { grid-template-columns: 220px minmax(0, 1fr); }
+.memory-hidden .state-panel { display: none; }
+.memory-hidden .messages { padding: 24px; }
+.comparison-bubble { white-space: normal; padding: 18px; }
+.comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.comparison-card { min-width: 0; padding: 18px; border: 1px solid #36546a; border-radius: 12px; background: #101c2a; }
+.comparison-card.candidate { border-color: #428c72; }
+.comparison-card h2 { margin: 0 0 5px; font-size: 17px; color: #d9efe7; }
+.comparison-model { color: #90aabc; font-size: 10px; overflow-wrap: anywhere; }
+.comparison-card .answer-text { white-space: pre-wrap; margin: 14px 0; }
+.comparison-note { font-size: 11px; color: #99afbf; line-height: 1.5; margin: 8px 0 14px; }
+.comparison-error { color: #ffb8a3; }
+.runtime-metrics { display: grid; gap: 5px; margin-top: 12px; padding: 12px; border: 1px solid #2d4859; border-radius: 9px; white-space: normal; }
+.settings-line { font-size: 10px; color: #a7bdca; }
+.metric-line { font-size: 11px; color: #c1d3e0; }
+.allocation { font-size: 14px; color: #9ce3c6; }
+.comparison-sources { margin-top: 14px; }
+.comparison-sources summary { cursor: pointer; font-size: 11px; color: #9ce3c6; }
+.comparison-sources .source-box { border: 0; margin-top: 0; }
+.comparison-measurement-note { color: #99afbf; font-size: 10px; margin-top: 12px; }
+.comparison-measurement-note summary { cursor: pointer; }
+.memory-hidden .conversation-header { padding: 14px 24px; }
+.memory-hidden .conversation-header h1 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.memory-hidden .header-controls { display: grid; grid-template-columns: 1fr 1fr; min-width: 420px; max-width: 520px; width: 52%; }
+.memory-hidden label[for="model-select"] { grid-column: 1; grid-row: 1; }
+.memory-hidden #model-select { grid-column: 1; grid-row: 2; }
+.memory-hidden #model-status { grid-column: 1; grid-row: 3; }
+.memory-hidden label[for="configuration-select"] { grid-column: 2; grid-row: 1; }
+.memory-hidden #configuration-select { grid-column: 2; grid-row: 2; }
+.memory-hidden #configuration-status { grid-column: 2; grid-row: 3; }
+.memory-hidden #memory-toggle { grid-column: 1; grid-row: 4; }
+.memory-hidden #status { grid-column: 2; grid-row: 4; }
+@media (max-width: 900px) { .memory-hidden .conversation-header { flex-wrap: wrap; } .memory-hidden .header-controls { min-width: 0; max-width: none; width: 100%; } }
+@media (max-width: 850px) { .comparison-grid { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .shell.memory-hidden { display: block; } .composer-footer { align-items: flex-start; flex-direction: column; } .composer-actions { width: 100%; } }
 .turn-timing { margin: 13px 0 0; color: #91b6c3; font-size: 10px; white-space: normal; }
 .offline-badge { color: #82d9bd; font-size: 10px; }
 @media (max-width: 720px) { .header-controls { min-width: 160px; max-width: 190px; } #status { white-space: normal; } }

@@ -13,7 +13,7 @@
     <div class="shell">
       <aside class="sessions-panel">
         <a class="back-link" href="/">← Основной чат</a>
-        <div class="brand"><span class="brand-mark">✦</span><div><strong>RAG-чат</strong><small>День 28 · AI Challenge W5</small></div></div>
+        <div class="brand"><span class="brand-mark">✦</span><div><strong>RAG-чат</strong><small>День 29 · локальная LLM</small></div></div>
         <button id="new-chat" class="new-chat" type="button">＋ Новый RAG-чат</button>
         <p class="panel-label">ДИАЛОГИ</p>
         <nav id="sessions" aria-label="Список RAG-чатов"></nav>
@@ -30,6 +30,10 @@
             <label class="model-label" for="model-select">Модель ответа</label>
             <select id="model-select" aria-label="Модель для следующих сообщений"></select>
             <span id="model-status" role="status">Проверяю модели…</span>
+            <label class="model-label" for="configuration-select">Конфигурация локальной LLM</label>
+            <select id="configuration-select" aria-label="Конфигурация локальной LLM"></select>
+            <span id="configuration-status"></span>
+            <button id="memory-toggle" type="button" aria-expanded="true">Скрыть память задачи</button>
             <span id="status" role="status">Готово</span>
           </div>
         </header>
@@ -37,7 +41,7 @@
         <form id="composer">
           <label for="message-input">Ваш вопрос или уточнение</label>
           <textarea id="message-input" rows="3" maxlength="12000" placeholder="Например: моя цель — разобраться в Executor. Чем он полезен?" required></textarea>
-          <div class="composer-footer"><span>Каждый вопрос ищет контекст в книге. Ответ показывает источники.</span><button id="send-button" type="submit">Отправить →</button></div>
+          <div class="composer-footer"><span>Один вопрос → одинаковые фрагменты → два ответа для сравнения.</span><div class="composer-actions"><select id="comparison-select" aria-label="Конфигурация для сравнения"></select><button id="compare-button" type="button">Сравнить с исходным</button><button id="send-button" type="submit">Отправить →</button></div></div>
         </form>
       </main>
 
